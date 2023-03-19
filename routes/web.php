@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -19,9 +21,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', function () {
-        return view('admin.pages.dashboard');
-    });
+    Route::get('/', [AdminController::class, 'dashboard']);
+    Route::get('/login', [AuthController::class, 'login_admin'])->name('admin.login');
+    Route::post('/login', [AuthController::class, 'submit_login_admin'])->name('admin.login.submit');
 });
 
 // Change languages
