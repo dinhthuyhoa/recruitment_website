@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,14 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.pages.dashboard');
     });
 });
+
+// Change languages
+Route::get('/languages/{language}', function ($language) {
+    if (!in_array($language, ['en', 'vi'])) {
+        abort(404);
+    }
+
+    Session::put('website_language', $language);
+
+    return redirect()->back();
+})->name('settings.change-language');

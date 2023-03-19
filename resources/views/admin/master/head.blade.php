@@ -2,7 +2,7 @@
 <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-<title>Admin - Tuyển dụng </title>
+<title>{{ __('admin.title_page') }}</title>
 
 <meta name="description" content="" />
 
@@ -18,6 +18,11 @@
 
 <!-- Icons. Uncomment required icon fonts -->
 <link rel="stylesheet" href="{{ asset('admin_template/assets/vendor/fonts/boxicons.css') }}" />
+
+{{-- Font Awesome --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- Core CSS -->
 <link rel="stylesheet" href="{{ asset('admin_template/assets/vendor/css/core.css') }}"
@@ -40,3 +45,5 @@
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="{{ asset('admin_template/assets/js/config.js') }}"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css">
