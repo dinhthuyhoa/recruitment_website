@@ -19,10 +19,30 @@
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
-            <li class="nav-item lh-1 me-3">
-                <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star" data-size="large" data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+
+            <li class="nav-item lh-1 me-3 dropdown">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        @if (Lang::locale() == 'en')
+                            <span class="flag-icon flag-icon-us"> </span>
+                            English
+                        @else
+                            <span class="flag-icon flag-icon-vn"> </span>
+                            Tiếng Việt
+                        @endif
+                    </button>
+                    <ul class="dropdown-menu">
+                        <a class="dropdown-item" href="{!! route('settings.change-language', ['en']) !!}">
+                            <span class="flag-icon flag-icon-us"> </span>
+                            English
+                        </a>
+                        <a class="dropdown-item" href="{!! route('settings.change-language', ['vi']) !!}">
+                            <span class="flag-icon flag-icon-vn"> </span>
+                            Tiếng Việt
+                        </a>
+                    </ul>
+                </div>
             </li>
 
             <!-- User -->
