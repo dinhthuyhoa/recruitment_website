@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Nam',
-                'role' => 1
+                'role' => UserRole::Administrator
             ],
             [
                 'name' => 'Customer',
@@ -36,7 +37,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649825',
                 'status' => 'Active',
                 'gender' => 'Nam',
-                'role' => 1
+                'role' => UserRole::Candidate
             ]
         ]);
     }
