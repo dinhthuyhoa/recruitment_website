@@ -34,8 +34,7 @@ Route::get('/languages/{language}', function ($language) {
         // abort(404);
         return redirect('page-not-found');
     }
-    App::setLocale(strtolower(Session::get('recruirement_web_languagues')));
-    // Session::put('website_language', $language);
-
+    App::setLocale($language);
+    session()->put('web_recruitment_locale', $language);
     return redirect()->back();
 })->name('settings.change-language');
