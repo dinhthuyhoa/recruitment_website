@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -21,18 +22,20 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', [AdminController::class, 'dashboard']);
+    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/login', [AuthController::class, 'login_admin'])->name('admin.login');
     Route::post('/login', [AuthController::class, 'submit_login_admin'])->name('admin.login.submit');
 });
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Change languages
 Route::get('/languages/{language}', function ($language) {
     if (!in_array($language, ['en', 'vi'])) {
-        abort(404);
+        // abort(404);
+        return redirect('page-not-found');
     }
-
-    Session::put('website_language', $language);
+    App::setLocale(strtolower(Session::get('recruirement_web_languagues')));
+    // Session::put('website_language', $language);
 
     return redirect()->back();
 })->name('settings.change-language');

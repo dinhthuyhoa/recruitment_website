@@ -16,7 +16,7 @@
             </div>
         </div>
         <!-- /Search -->
-        
+
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
 
@@ -99,7 +99,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
+                        <a class="dropdown-item" href="{{ route('logout') }}">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Log Out</span>
                         </a>
