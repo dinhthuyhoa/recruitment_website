@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 
-class Locale
+class LanguageManager
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,9 @@ class Locale
      */
     public function handle(Request $request, Closure $next)
     {
-        // Lấy dữ liệu lưu trong Session, không có thì trả về default lấy trong config
-        $language = Session::get('recruirement_web_languagues', config('app.locale'));
-
-        // Chuyển ứng dụng sang ngôn ngữ được chọn
-        config(['app.locale' => $language]);
-
+        if (session()->has('web_recruitment_locale')) {
+            App::setLocale(session()->get('web_recruitment_locale'));
+        }
         return $next($request);
     }
 }
