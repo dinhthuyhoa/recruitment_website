@@ -55,6 +55,21 @@
                 <!-- Register -->
                 <div class="card">
                     <div class="card-body">
+                        @if (\Session::has('success'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                {!! \Session::get('success') !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+                        @if (\Session::has('error'))
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                {!! \Session::get('error') !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <!-- Logo -->
                         <div class="app-brand justify-content-center">
                             <a href="index.html" class="app-brand-link gap-2">
@@ -110,13 +125,13 @@
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2">Welcome to Sneat! 👋</h4>
-                        <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-                        <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('admin.login.submit') }}"
+                            method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email or Username</label>
-                                <input type="text" class="form-control" id="email" name="email-username"
+                                <input type="text" class="form-control" id="email" name="username"
                                     placeholder="Enter your email or username" autofocus />
                             </div>
                             <div class="mb-3 form-password-toggle">
@@ -135,7 +150,8 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                                    <input class="form-check-input" type="checkbox" id="remember-me"
+                                        name="remember" />
                                     <label class="form-check-label" for="remember-me"> Remember Me </label>
                                 </div>
                             </div>
@@ -143,13 +159,6 @@
                                 <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                             </div>
                         </form>
-
-                        <p class="text-center">
-                            <span>New on our platform?</span>
-                            <a href="auth-register-basic.html">
-                                <span>Create an account</span>
-                            </a>
-                        </p>
                     </div>
                 </div>
                 <!-- /Register -->
@@ -158,11 +167,6 @@
     </div>
 
     <!-- / Content -->
-
-    <div class="buy-now">
-        <a href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/" target="_blank"
-            class="btn btn-danger btn-buy-now">Upgrade to Pro</a>
-    </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
