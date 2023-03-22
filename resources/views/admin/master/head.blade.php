@@ -7,7 +7,7 @@
 <meta name="description" content="" />
 
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="{{ asset('admin_template/assets/img/favicon/favicon.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('logo-flower.ico') }}" type="image/x-icon">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

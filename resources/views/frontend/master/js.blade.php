@@ -1,18 +1,31 @@
-<script src="{{ asset('frontend/js/vendor/jquery-2.2.4.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-</script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
-<script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-<script src="{{ asset('frontend/js/easing.min.js') }}"></script>
-<script src="{{ asset('frontend/js/hoverIntent.js') }}"></script>
-<script src="{{ asset('frontend/js/superfish.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.ajaxchimp.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('frontend/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+<script src="{{ asset('frontend/js/vendor/jquery-1.12.4.min.js') }}"></script>
+<script src="{{ asset('frontend/js/popper.min.js') }}"></script>
+<script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.sticky.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
-<script src="{{ asset('frontend/js/parallax.min.js') }}"></script>
+<script src="{{ asset('frontend/js/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('frontend/js/ajax-form.js') }}"></script>
+<script src="{{ asset('frontend/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('frontend/js/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset('frontend/js/scrollIt.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.scrollUp.min.js') }}"></script>
+<script src="{{ asset('frontend/js/wow.min.js') }}"></script>
+<script src="{{ asset('frontend/js/nice-select.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.slicknav.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('frontend/js/plugins.js') }}"></script>
+<script src="{{ asset('frontend/js/gijgo.min.js') }}"></script>
+
+
+
+<!--contact js-->
+<script src="{{ asset('frontend/js/contact.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.ajaxchimp.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.form.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('frontend/js/mail-script.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script>
+
+
+<script src="js/main.js"></script>
+

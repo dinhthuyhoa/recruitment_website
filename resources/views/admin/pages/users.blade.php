@@ -7,7 +7,7 @@
     <div class="card">
         <h5 class="card-header">User list</h5>
         <div class="table-responsive text-nowrap m-3">
-            <table id="tableUserList" class="table table-hover">
+            <table id="tableUserList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -21,8 +21,8 @@
                     @foreach ($user_list as $user)
                         <tr>
                             <td>
-                                <img src="{{ asset('admin_template/assets/img/avatars/5.png') }}" alt="Avatar"
-                                    class="rounded-circle me-2" width="50" />
+                                <img src="{{ !is_null($user->avatar) ? asset('storage/' . $user->avatar) : asset('avatar-default.png') }}"
+                                    alt="Avatar" class="rounded-circle me-2" width="50" />
                                 <a href="{{ route('users.edit', $user) }}" class="fw-bold">
                                     {{ $user->name }}
                                 </a>
@@ -69,14 +69,16 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="formDelUser-{{ $user->id }}" action="{{ route('users.destroy', $user) }}" method="post">
+                                        <form id="formDelUser-{{ $user->id }}"
+                                            action="{{ route('users.destroy', $user) }}" method="post">
                                             @method('delete')
                                             @csrf
                                             <p>Muốn xóa người dùng này thiệt hông?</p>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button form="formDelUser-{{ $user->id }}" type="submit" class="btn btn-danger">Yes</button>
+                                        <button form="formDelUser-{{ $user->id }}" type="submit"
+                                            class="btn btn-danger">Yes</button>
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                             No
                                         </button>
@@ -95,7 +97,67 @@
 @section('js')
     <script>
         $(document).ready(function() {
-            $('#tableUserList').DataTable();
+            // Setup - add a text input to each footer cell
+            $('#tableUserList thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#tableUserList thead');
+
+            var table = $('#tableUserList').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function() {
+                    var api = this.api();
+
+                    // For each column
+                    api
+                        .columns()
+                        .eq(0)
+                        .each(function(colIdx) {
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            var title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $(
+                                    'input',
+                                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                                )
+                                .off('keyup change')
+                                .on('change', function(e) {
+                                    // Get the search value
+                                    $(this).attr('title', $(this).val());
+                                    var regexr =
+                                        '({search})'; //$(this).parents('th').find('select').val();
+
+                                    var cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != '' ?
+                                            regexr.replace('{search}', '(((' + this.value +
+                                                ')))') :
+                                            '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+                                })
+                                .on('keyup', function(e) {
+                                    e.stopPropagation();
+
+                                    $(this).trigger('change');
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        });
+                },
+            });
         });
     </script>
 @endsection

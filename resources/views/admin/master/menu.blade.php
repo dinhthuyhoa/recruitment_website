@@ -79,13 +79,8 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
+                    <a href="{{ route('users.create') }}" class="menu-link">
                         <div data-i18n="New User">New User</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Restore">Restore</div>
                     </a>
                 </li>
             </ul>

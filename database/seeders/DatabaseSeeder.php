@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('admin'), // password
                 'phone' => '0941649826',
                 'status' => 'Active',
-                'gender' => 'Nam',
+                'gender' => 'Male',
                 'role' => UserRole::Administrator
             ],
             [
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('123123'), // password
                 'phone' => '0941649825',
                 'status' => 'Active',
-                'gender' => 'Nam',
+                'gender' => 'Male',
                 'role' => UserRole::Candidate
             ]
         ]);
