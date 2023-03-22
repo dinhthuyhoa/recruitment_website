@@ -14,7 +14,7 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-        //
+        return 'xin chao';
     }
 
     /**
