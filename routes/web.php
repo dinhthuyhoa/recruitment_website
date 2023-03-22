@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -25,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/login', [AuthController::class, 'login_admin'])->name('admin.login');
     Route::post('/login', [AuthController::class, 'submit_login_admin'])->name('admin.login.submit');
+    Route::resource('/users', UserController::class);
 });
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 

@@ -18,3 +18,6 @@
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+{{-- Data Table --}}
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
