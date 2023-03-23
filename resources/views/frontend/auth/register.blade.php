@@ -70,10 +70,6 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input">
-                        <input class="ml-2" type="checkbox" id="remember-me" name="remember" />
-                        <label class="ml-2" for="remember-me"> Remember Me </label>
-                    </div>
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
@@ -100,8 +96,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <!--===============================================================================================-->
