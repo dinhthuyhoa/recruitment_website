@@ -18,17 +18,24 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+// General
 Route::get('/', function () {
     return view('frontend.pages.home');
-});
+})->name('home');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Frontend
+Route::get('/login', [AuthController::class, 'login_frontend'])->name('login');
+Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('login.submit');
+Route::get('/register', [AuthController::class, 'register_frontend'])->name('register');
+
+// Admin
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/login', [AuthController::class, 'login_admin'])->name('admin.login');
     Route::post('/login', [AuthController::class, 'submit_login_admin'])->name('admin.login.submit');
     Route::resource('/users', UserController::class);
 });
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Change languages
 Route::get('/languages/{language}', function ($language) {

@@ -39,9 +39,9 @@
                             <div class="Appointment">
                                 <div class="d-none d-lg-block">
                                     <div class="dropdown mx-4">
-                                        <button class="btn btn-light dropdown-toggle" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
+                                        <button class="btn btn-light bg-transparent border-0 text-light dropdown-toggle"
+                                            type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
                                             @if (Lang::locale() == 'en')
                                                 <span class="flag-icon flag-icon-us"> </span>
                                                 English
@@ -63,7 +63,46 @@
                                     </div>
                                 </div>
                                 <div class="phone_num d-none d-xl-block">
-                                    <a href="#">Log in</a>
+                                    @if (Auth::check())
+                                        <!-- User -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link" href="javascript:void(0);" id="navbardrop"
+                                                data-toggle="dropdown">
+                                                <div class="avatar avatar-online">
+                                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt
+                                                        class="w-px-40 h-auto rounded-circle" width="40"
+                                                        height="40" />
+                                                </div>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0 me-3">
+                                                            <div class="avatar avatar-online">
+                                                                <img src="{{ asset('storage/' . Auth::user()->avatar) }}"
+                                                                    alt class="w-px-40 h-auto rounded-circle"
+                                                                    width="40" height="40"
+                                                                    style="margin-right: 10px;" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <span
+                                                                class="text-dark fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                                            <small
+                                                                class="text-dark text-muted">{{ \App\Enums\UserRole::getKey(Auth::user()->role) }}</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-dark" href="#">Change Passowrd</a>
+                                                <a class="dropdown-item text-dark"
+                                                    href="{{ route('logout') }}">Logout</a>
+                                            </div>
+                                        </li>
+                                        <!--/ User -->
+                                    @else
+                                        <a href="{{ route('login') }}">Log in</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
