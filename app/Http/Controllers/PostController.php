@@ -2,84 +2,260 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PostCategory;
 use App\Models\Post;
+use App\Models\PostMeta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // =================================== Function ============================================
+    protected function update_post_meta($post_id, $key, $value)
     {
-        //
+        if (PostMeta::where('post_id', $post_id)->where('key', $key)->first()) {
+            PostMeta::where('post_id', $post_id)->where('key', $key)->update(['value' => $value]);
+            return 1;
+        } else {
+            PostMeta::insert([
+                'post_id' => $post_id,
+                'key' => $key,
+                'value' => $value,
+            ]);
+            return 0;
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    // =================================== Frontend Recuitment ============================================
+    public function recruitment_post_details($id)
     {
-        //
+        $post = Post::find($id);
+        $post->getInforRecruitment();
+        return view('frontend.pages.recruitment-posts-details', compact('post'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    // =================================== Recuitment ============================================
+    public function recruitment_post_list()
     {
-        //
+        $post_list = Post::where('post_type', PostCategory::Recruitment)->get();
+        return view('admin.pages.recruitment-posts', compact('post_list'));
+    }
+    public function recruitment_post_create()
+    {
+        return view('admin.pages.recruitment-posts-create');
+    }
+    public function recruitment_post_store(Request $request)
+    {
+        $post_new = Post::create([
+            'user_id' => Auth::user()->id,
+            'post_title' => $request->title,
+            'post_content' => $request->content,
+            'post_status' => 'pendding',
+            'post_type' => PostCategory::Recruitment,
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
+            $file = $request->file('avatar');
+            // flag xem có thực hiện lưu DB không. Mặc định là có
+            $exe_flg = true;
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedfileExtension);
+
+            if (!$check) {
+                // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                $exe_flg = false;
+            }
+            // nếu không có file nào vi phạm validate thì tiến hành lưu DB
+            if ($exe_flg) {
+
+                $extension = $file->getClientOriginalExtension();
+                // $filename = $file->store('media');
+                $file_name = Storage::put('/post', $file);
+            }
+        }
+
+        PostMeta::insert([
+            [
+                'post_id' => $post_new->id,
+                'key' => 'address',
+                'value' => $request->address
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'email',
+                'value' => $request->email
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'phone',
+                'value' => $request->phone
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'deadline',
+                'value' => $request->deadline
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'vacancy',
+                'value' => $request->vacancy
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'salary',
+                'value' => $request->salary
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'position',
+                'value' => $request->position
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'experience',
+                'value' => $request->experience
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'job-nature',
+                'value' => $file_name
+            ],
+            [
+                'post_id' => $post_new->id,
+                'key' => 'image',
+                'value' => $file_name
+            ],
+        ]);
+
+        if ($request->submit == 'redirect') {
+            return redirect()->route('admin.posts.recruitment.edit', $post_new->id)->with('success', 'Tạo thành công bài viết mới!');
+        } else {
+            return back()->with('success', 'Tạo thành công bài viết mới!');
+        }
+    }
+    public function recruitment_post_edit($id)
+    {
+        if (!Post::whereId($id)->exists()) {
+            return redirect('page-not-found');
+        }
+        $post = Post::find($id);
+        $post->getInforRecruitment();
+        return view('admin.pages.recruitment-posts-edit', compact('post'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
+    public function recruitment_post_update(Request $request, $id)
     {
-        //
+        $post_update = Post::whereId($id)->update(
+            [
+                'post_title' => $request->title,
+                'post_content' => $request->content,
+                'post_status' => 'pendding',
+                'post_type' => PostCategory::Recruitment,
+                'post_date_update' => Carbon::now()
+            ]
+        );
+
+        if ($request->hasFile('avatar')) {
+            $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
+            $file = $request->file('avatar');
+            // flag xem có thực hiện lưu DB không. Mặc định là có
+            $exe_flg = true;
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedfileExtension);
+
+            if (!$check) {
+                // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                $exe_flg = false;
+            }
+            // nếu không có file nào vi phạm validate thì tiến hành lưu DB
+            if ($exe_flg) {
+
+                $file_old = PostMeta::where('post_id', $id)->where('key', 'image')->first() ? PostMeta::where('post_id', $id)->where('key', 'image')->first()->value : null;
+                $del_file = !is_null($file_old) && Storage::delete($file_old);
+
+                $extension = $file->getClientOriginalExtension();
+                // $filename = $file->store('media');
+                $file_name = Storage::put('/post', $file);
+                $this->update_post_meta($id, 'image', $file_name);
+            }
+        }
+        $this->update_post_meta($id, 'address', $request->address);
+        $this->update_post_meta($id, 'email', $request->email);
+        $this->update_post_meta($id, 'phone', $request->phone);
+        $this->update_post_meta($id, 'deadline', $request->deadline);
+        $this->update_post_meta($id, 'vacancy', $request->vacancy);
+        $this->update_post_meta($id, 'salary', $request->salary);
+        $this->update_post_meta($id, 'position', $request->position);
+        $this->update_post_meta($id, 'experience', $request->experience);
+        $this->update_post_meta($id, 'job-nature', $request->job_nature);
+
+        return back()->with('success', 'cập nhật thành công!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
+    // =================================== News ============================================
+    public function news_post_list()
     {
-        //
+        $post_list = Post::where('post_type', PostCategory::News)->get();
+        return view('admin.pages.news-posts', compact('post_list'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
+    public function news_post_create()
     {
-        //
+        return view('admin.pages.news-posts-create');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Post $post)
+    public function news_post_store(Request $request)
     {
-        //
+        $post_new = Post::create([
+            'user_id' => Auth::user()->id,
+            'post_title' => $request->title,
+            'post_content' => $request->content,
+            'post_status' => 'publish',
+            'post_type' => PostCategory::News,
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
+            $file = $request->file('avatar');
+            // flag xem có thực hiện lưu DB không. Mặc định là có
+            $exe_flg = true;
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedfileExtension);
+
+            if (!$check) {
+                // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                $exe_flg = false;
+            }
+            // nếu không có file nào vi phạm validate thì tiến hành lưu DB
+            if ($exe_flg) {
+
+                $extension = $file->getClientOriginalExtension();
+                // $filename = $file->store('media');
+                $file_name = Storage::put('/post', $file);
+            }
+        }
+
+        PostMeta::insert([
+            [
+                'post_id' => $post_new->id,
+                'key' => 'image',
+                'value' => $file_name
+            ],
+        ]);
+
+        if ($request->submit == 'redirect') {
+            return redirect()->route('admin.posts.news.edit', $post_new->id)->with('success', 'Tạo thành công bài viết mới!');
+        } else {
+            return back()->with('success', 'Tạo thành công bài viết mới!');
+        }
+    }
+    public function news_post_edit($id)
+    {
+        $post = Post::find($id);
+        $post->news_image = PostMeta::where('post_id', $post->id)->where('key', 'image')
+            ? PostMeta::where('post_id', $post->id)->where('key', 'image')->first()->value
+            : '';
+        return view('admin.pages.news-posts-edit', compact('post'));
     }
 }

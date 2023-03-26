@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Enums;
 
@@ -12,5 +14,5 @@ use BenSampo\Enum\Enum;
 final class PostCategory extends Enum
 {
     const Recruitment = 'post-recruitment';
-    const Admin = 'post-admin';
+    const News = 'post-news';
 }

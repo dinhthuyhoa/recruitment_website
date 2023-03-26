@@ -5,38 +5,40 @@
 @section('content')
     <!-- Hoverable Table rows -->
     <div class="card">
-        <h5 class="card-header">User list</h5>
+        <h5 class="card-header">Recruitment post list</h5>
         <div class="table-responsive text-nowrap m-3">
-            <table id="tableUserList" class="table table-hover" style="width: 100%">
+            <table id="tableRecruitmentPostList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th>Title</th>
+                        <th>View</th>
                         <th>Status</th>
+                        <th>Post Type</th>
+                        <th>Date</th>
+                        <th>Last Update</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($user_list as $user)
+                    @foreach ($post_list as $post)
                         <tr>
                             <td>
-                                <img src="{{ !is_null($user->avatar) ? asset('storage/' . $user->avatar) : asset('avatar-default.png') }}"
-                                    alt="Avatar" class="rounded-circle me-2" width="50" />
-                                <a href="{{ route('users.edit', $user) }}" class="fw-bold">
-                                    {{ $user->name }}
+                                <a href="{{ route('admin.posts.recruitment.edit', $post) }}" class="fw-bold">
+                                    {{ $post->post_title }}
                                 </a>
                             </td>
-                            <td>{{ $user->email }}</td>
+                            <td><i class="fa-regular fa-eye"></i> {{ $post->post_view }} </td>
                             <td>
-                                {{ \App\Enums\UserRole::getKey($user->role) }}
+                                <span class="badge bg-label-secondary me-1">{{ $post->post_status }}</span>
                             </td>
                             <td>
-                                @if ($user->status == 'Active')
-                                    <span class="badge bg-label-success me-1">Active</span>
-                                @else
-                                    <span class="badge bg-label-danger me-1">Deactive</span>
-                                @endif
+                                {{ \App\Enums\PostCategory::getKey($post->post_type) }}
+                            </td>
+                            <td>
+                                {{ date('d/m/Y', strtotime($post->post_date)) }}
+                            </td>
+                            <td>
+                                {{ date('d/m/Y', strtotime($post->post_date_update)) }}
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -45,39 +47,41 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('users.edit', $user) }}"><i
-                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                        <a class="dropdown-item" href="{{ route('admin.posts.recruitment.edit', $post) }}">
+                                            <i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                        <a class="dropdown-item" href="{{ route('posts.recruitment.details', $post) }}" target="_blank">
+                                            <i class="fa-solid fa-eye"></i> Preview</a>
                                         <button class="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#modalConfirmDeleteUser-{{ $user->id }}"
-                                            data-id="{{ $user->id }}">
+                                            data-bs-target="#modalConfirmDeletePost-{{ $post->id }}"
+                                            data-id="{{ $post->id }}">
                                             <i class="bx bx-trash me-1"></i>
                                             Delete</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
-                        <!-- Modal confirm delete user -->
-                        <div class="modal fade" id="modalConfirmDeleteUser-{{ $user->id }}" tabindex="-1"
+                        <!-- Modal confirm delete post -->
+                        <div class="modal fade" id="modalConfirmDeletePost-{{ $post->id }}" tabindex="-1"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenterTitle">Delete user
-                                            <b>{{ $user->name }}</b>
+                                        <h5 class="modal-title" id="modalCenterTitle">Delete post
+                                            <b>{{ $post->name }}</b>
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="formDelUser-{{ $user->id }}"
-                                            action="{{ route('users.destroy', $user) }}" method="post">
+                                        <form id="formDelPost-{{ $post->id }}"
+                                            action="{{ route('users.destroy', $post) }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <p>Muốn xóa người dùng này thiệt hông?</p>
+                                            <p>Muốn xóa bài viết này thiệt hông?</p>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button form="formDelUser-{{ $user->id }}" type="submit"
+                                        <button form="formDelPost-{{ $post->id }}" type="submit"
                                             class="btn btn-danger">Yes</button>
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                             No
@@ -98,12 +102,12 @@
     <script>
         $(document).ready(function() {
             // Setup - add a text input to each footer cell
-            $('#tableUserList thead tr')
+            $('#tableRecruitmentPostList thead tr')
                 .clone(true)
                 .addClass('filters')
-                .appendTo('#tableUserList thead');
+                .appendTo('#tableRecruitmentPostList thead');
 
-            var table = $('#tableUserList').DataTable({
+            var table = $('#tableRecruitmentPostList').DataTable({
                 orderCellsTop: true,
                 fixedHeader: true,
                 initComplete: function() {
@@ -114,14 +118,12 @@
                         .columns()
                         .eq(0)
                         .each(function(colIdx) {
-                            if(colIdx != 4){
                             // Set the header cell to contain the input element
                             var cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
                             );
                             var title = $(cell).text();
-                                $(cell).html('<input type="text" placeholder="' + title + '" />');
-                            }
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
 
                             // On every keypress in this input
                             $(

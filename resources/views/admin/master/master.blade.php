@@ -4,6 +4,9 @@
     data-assets-path="{{ asset('admin_template/assets/') }}" data-template="vertical-menu-template-free">
 
 <head>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.ico') }}">
+
     @include('admin.master.head')
     @yield('css')
 </head>

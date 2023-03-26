@@ -22,3 +22,6 @@
 
 {{-- Data Table --}}
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+{{-- CKEditor 5 --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
