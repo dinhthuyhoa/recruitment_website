@@ -1,3 +1,5 @@
+<!-- link that opens popup -->
+<!-- JS here -->
 <script src="{{ asset('frontend/js/vendor/modernizr-3.5.0.min.js') }}"></script>
 <script src="{{ asset('frontend/js/vendor/jquery-1.12.4.min.js') }}"></script>
 <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
@@ -17,8 +19,6 @@
 <script src="{{ asset('frontend/js/plugins.js') }}"></script>
 <script src="{{ asset('frontend/js/gijgo.min.js') }}"></script>
 
-
-
 <!--contact js-->
 <script src="{{ asset('frontend/js/contact.js') }}"></script>
 <script src="{{ asset('frontend/js/jquery.ajaxchimp.min.js') }}"></script>
@@ -26,6 +26,4 @@
 <script src="{{ asset('frontend/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('frontend/js/mail-script.js') }}"></script>
 
-
-<script src="js/main.js"></script>
-
+<script src="{{ asset('frontend/js/main.js') }}"></script>

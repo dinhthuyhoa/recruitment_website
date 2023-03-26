@@ -6,8 +6,6 @@
 
 <meta name="description" content="" />
 
-<!-- Favicon -->
-<link rel="shortcut icon" href="{{ asset('logo-flower.ico') }}" type="image/x-icon">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
