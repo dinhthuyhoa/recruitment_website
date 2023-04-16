@@ -27,7 +27,7 @@
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-                    <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.update') }}"
+                    <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.update', $post->id) }}"
                         enctype="multipart/form-data" onsubmit="return checkSubmit()">
                         @csrf
                         <input type="file" id="upload" class="account-file-input" hidden
@@ -46,8 +46,7 @@
                             </style>
                             <div class="mb-3 col-12">
                                 <label for="content" class="form-label">Content *</label>
-                                <textarea class="form-control" id="content" rows="8" value={!! $post->post_content !!} placeholder="Post content"
-                                    name="content"></textarea>
+                                <textarea class="form-control" id="content" rows="8" placeholder="Post content" name="content">{!! $post->post_content !!}</textarea>
                             </div>
                         </div>
                         <div class="mt-2">
