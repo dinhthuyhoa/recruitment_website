@@ -215,6 +215,8 @@ class PostController extends Controller
             'post_type' => PostCategory::News,
         ]);
 
+        $file_name = '';
+
         if ($request->hasFile('avatar')) {
             $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
             $file = $request->file('avatar');
@@ -253,9 +255,46 @@ class PostController extends Controller
     public function news_post_edit($id)
     {
         $post = Post::find($id);
-        $post->news_image = PostMeta::where('post_id', $post->id)->where('key', 'image')
+        $post->news_image = PostMeta::where('post_id', $post->id)->where('key', 'image')->exists()
             ? PostMeta::where('post_id', $post->id)->where('key', 'image')->first()->value
             : '';
-        return view('admin.pages.news-posts-edit', compact('post'));
+        return view('admin.pages.news-posts-edit', ['post' => $post]);
+    }
+    public function news_post_update(Request $request, $id)
+    {
+        $post_update = Post::whereId($id)->update(
+            [
+                'post_title' => $request->title,
+                'post_content' => $request->content,
+                'post_date_update' => Carbon::now()
+            ]
+        );
+
+        if ($request->hasFile('avatar')) {
+            $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
+            $file = $request->file('avatar');
+            // flag xem có thực hiện lưu DB không. Mặc định là có
+            $exe_flg = true;
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedfileExtension);
+
+            if (!$check) {
+                // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                $exe_flg = false;
+            }
+            // nếu không có file nào vi phạm validate thì tiến hành lưu DB
+            if ($exe_flg) {
+
+                $file_old = PostMeta::where('post_id', $id)->where('key', 'image')->first() ? PostMeta::where('post_id', $id)->where('key', 'image')->first()->value : null;
+                $del_file = !is_null($file_old) && Storage::delete($file_old);
+
+                $extension = $file->getClientOriginalExtension();
+                // $filename = $file->store('media');
+                $file_name = Storage::put('/post', $file);
+                $this->update_post_meta($id, 'image', $file_name);
+            }
+        }
+
+        return back()->with('success', 'cập nhật thành công!');
     }
 }
