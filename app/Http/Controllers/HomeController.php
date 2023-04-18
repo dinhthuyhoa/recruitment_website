@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PostCategory;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        $recruitment_post_list = Post::where('post_type', PostCategory::Recruitment)->get();
+        return view('frontend.pages.home', ['recruitment_post_list' => $recruitment_post_list]);
+    }
+
     public function storeImage(Request $request)
     {
         if ($request->hasFile('upload')) {
