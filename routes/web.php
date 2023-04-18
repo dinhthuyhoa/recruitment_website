@@ -21,9 +21,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 // General
-Route::get('/', function () {
-    return view('frontend.pages.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Ckeditor
