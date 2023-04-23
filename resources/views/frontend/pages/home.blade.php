@@ -22,7 +22,7 @@
         </div>
         <div class="ilstration_img wow fadeInRight d-none d-lg-block text-right" data-wow-duration="1s"
             data-wow-delay=".2s">
-            <img src="img/banner/illustration.png" alt=""> 
+            <img src="{{ asset('frontend/img/banner/illustration.png') }}" alt="">
         </div>
     </div>
     <!-- slider_area_end -->
@@ -177,195 +177,65 @@
                     </div>
                 </div>
             </div>
-            <div class="job_lists">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/1.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html">
-                                        <h4>Software Engineer</h4>
-                                    </a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
+            <div class="job_lists" id="home_job_lists">
+                <ul class="row">
+                    @if (count($recruitment_post_list) > 0)
+                        @foreach ($recruitment_post_list as $post)
+                            <li class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="thumb p-0">
+                                            <img src="{{ asset('storage/' . $post->recruitment_image) }}" alt="">
                                         </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
+                                        <div class="jobs_conetent">
+                                            <a href="{{ route('posts.recruitment.details', $post->id) }}">
+                                                <h4>{{ $post->post_title }}</h4>
+                                            </a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i> {{ $post->recruitment_address }}
+                                                    </p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i> {{ $post->recruitment_job_nature }}
+                                                    </p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-eye"></i> {{ $post->post_view }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="apply_now">
+                                            @if (Auth::check())
+                                                <a class="heart_mark" href="javascript:void(0);"
+                                                    onclick="change_favotire({{ $post->id }},{{ Auth::user()->id }}, this)">
+                                                    @if (Auth::user()->is_post_favorite($post->id))
+                                                        <i class="fa fa-heart"></i>
+                                                    @else
+                                                        <i class="ti-heart"></i>
+                                                    @endif
+                                                </a>
+                                            @endif
+
+                                            <a href="{{ route('posts.recruitment.details', $post->id) }}/#apply_job"
+                                                class="boxed-btn3">Apply Now</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>Deadline: {{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/2.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html">
-                                        <h4>Digital Marketer</h4>
-                                    </a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/3.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html">
-                                        <h4>Wordpress Developer</h4>
-                                    </a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/4.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html">
-                                        <h4>Visual Designer</h4>
-                                    </a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/5.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html">
-                                        <h4>Software Engineer</h4>
-                                    </a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single_jobs white-bg d-flex justify-content-between">
-                            <div class="jobs_left d-flex align-items-center">
-                                <div class="thumb">
-                                    <img src="img/svg_icon/1.svg" alt="">
-                                </div>
-                                <div class="jobs_conetent">
-                                    <a href="job_details.html">
-                                        <h4>Creative Designer</h4>
-                                    </a>
-                                    <div class="links_locat d-flex align-items-center">
-                                        <div class="location">
-                                            <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                        </div>
-                                        <div class="location">
-                                            <p> <i class="fa fa-clock-o"></i> Part-time</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jobs_right">
-                                <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
-                                    <a href="job_details.html" class="boxed-btn3">Apply Now</a>
-                                </div>
-                                <div class="date">
-                                    <p>Date line: 31 Jan 2020</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </li>
+                        @endforeach
+                    @else
+                        <h3>Not found post</h3>
+                    @endif
+
+
+                </ul>
             </div>
         </div>
     </div>
@@ -386,7 +256,7 @@
                     <div class="candidate_active owl-carousel">
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/1.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/1.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -395,7 +265,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/2.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/2.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -404,7 +274,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/3.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/3.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -413,7 +283,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/4.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/4.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -422,7 +292,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/5.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/5.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -431,7 +301,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/6.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/6.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -440,7 +310,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/7.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/7.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -449,7 +319,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/8.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/8.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -458,7 +328,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/9.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/9.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -467,7 +337,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/9.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/9.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -476,7 +346,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/10.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/10.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -485,7 +355,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/3.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/3.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -494,7 +364,7 @@
                         </div>
                         <div class="single_candidates text-center">
                             <div class="thumb">
-                                <img src="img/candiateds/4.png" alt="">
+                                <img src="{{ asset('frontend/img/candiateds/4.png') }}" alt="">
                             </div>
                             <a href="#">
                                 <h4>Markary Jondon</h4>
@@ -526,7 +396,7 @@
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_company">
                         <div class="thumb">
-                            <img src="img/svg_icon/5.svg" alt="">
+                            <img src="{{ asset('frontend/img/svg_icon/5.svg') }}" alt="">
                         </div>
                         <a href="jobs.html">
                             <h3>Snack Studio</h3>
@@ -537,7 +407,7 @@
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_company">
                         <div class="thumb">
-                            <img src="img/svg_icon/4.svg" alt="">
+                            <img src="{{ asset('frontend/img/svg_icon/4.svg') }}" alt="">
                         </div>
                         <a href="jobs.html">
                             <h3>Snack Studio</h3>
@@ -548,7 +418,7 @@
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_company">
                         <div class="thumb">
-                            <img src="img/svg_icon/3.svg" alt="">
+                            <img src="{{ asset('frontend/img/svg_icon/3.svg') }}" alt="">
                         </div>
                         <a href="jobs.html">
                             <h3>Snack Studio</h3>
@@ -559,7 +429,7 @@
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_company">
                         <div class="thumb">
-                            <img src="img/svg_icon/1.svg" alt="">
+                            <img src="{{ asset('frontend/img/svg_icon/1.svg') }}" alt="">
                         </div>
                         <a href="jobs.html">
                             <h3>Snack Studio</h3>
@@ -610,7 +480,7 @@
                                 <div class="col-lg-11">
                                     <div class="single_testmonial d-flex align-items-center">
                                         <div class="thumb">
-                                            <img src="img/testmonial/author.png" alt="">
+                                            <img src="{{ asset('frontend/img/testmonial/author.png') }}" alt="">
                                             <div class="quote_icon">
                                                 <i class="Flaticon flaticon-quote"></i>
                                             </div>
@@ -630,7 +500,7 @@
                                 <div class="col-lg-11">
                                     <div class="single_testmonial d-flex align-items-center">
                                         <div class="thumb">
-                                            <img src="img/testmonial/author.png" alt="">
+                                            <img src="{{ asset('frontend/img/testmonial/author.png') }}" alt="">
                                             <div class="quote_icon">
                                                 <i class=" Flaticon flaticon-quote"></i>
                                             </div>
@@ -650,7 +520,7 @@
                                 <div class="col-lg-11">
                                     <div class="single_testmonial d-flex align-items-center">
                                         <div class="thumb">
-                                            <img src="img/testmonial/author.png" alt="">
+                                            <img src="{{ asset('frontend/img/testmonial/author.png') }}" alt="">
                                             <div class="quote_icon">
                                                 <i class="Flaticon flaticon-quote"></i>
                                             </div>
@@ -671,4 +541,6 @@
         </div>
     </div>
     <!-- /testimonial_area  -->
+@endsection
+@section('js')
 @endsection

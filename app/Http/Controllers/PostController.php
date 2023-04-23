@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PostCategory;
+use App\Enums\UserRole;
 use App\Models\Post;
 use App\Models\PostMeta;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -29,17 +33,47 @@ class PostController extends Controller
     }
 
     // =================================== Frontend Recuitment ============================================
-    public function recruitment_post_details($id)
+    public function recruitment_post_details($id, Request $request)
     {
         $post = Post::find($id);
+
+        if (!Auth::check()) { //guest user identified by ip
+            $cookie_name = (Str::replace('.', '', ($request->ip())) . '-' . $post->id);
+        } else {
+            $cookie_name = (Auth::user()->id . '-' . $post->id); //logged in user
+        }
+
         $post->getInforRecruitment();
-        return view('frontend.pages.recruitment-posts-details', compact('post'));
+
+        if (Cookie::get($cookie_name) == '') { //check if cookie is set
+            $cookie = cookie($cookie_name, '1', 60); //set the cookie
+            $post->increment('post_view'); //count the view
+            return response()
+                ->view('frontend.pages.recruitment-posts-details', [
+                    'post' => $post
+                ])
+                ->withCookie($cookie); //store the cookie
+        } else {
+            return view('frontend.pages.recruitment-posts-details', [
+                'post' => $post
+            ]); //this view is not counted
+        }
+
     }
 
     // =================================== Recuitment ============================================
     public function recruitment_post_list()
     {
-        $post_list = Post::where('post_type', PostCategory::Recruitment)->get();
+        if (Auth::user()->role == UserRole::Administrator) {
+            $post_list = Post::where('post_type', PostCategory::Recruitment)->get();
+        } else {
+            $post_list = Post::where('post_type', PostCategory::Recruitment)->where('user_id', Auth::user()->id)->get();
+        }
+
+        foreach ($post_list as $v) {
+            $v->user = User::find($v->user_id);
+        }
+
         return view('admin.pages.recruitment-posts', compact('post_list'));
     }
     public function recruitment_post_create()
@@ -148,11 +182,15 @@ class PostController extends Controller
 
     public function recruitment_post_update(Request $request, $id)
     {
+        $post_status = 'pendding';
+        if ($request->post_status)
+            $post_status = $request->post_status;
+
         $post_update = Post::whereId($id)->update(
             [
                 'post_title' => $request->title,
                 'post_content' => $request->content,
-                'post_status' => 'pendding',
+                'post_status' => $post_status,
                 'post_type' => PostCategory::Recruitment,
                 'post_date_update' => Carbon::now()
             ]
@@ -182,6 +220,7 @@ class PostController extends Controller
                 $this->update_post_meta($id, 'image', $file_name);
             }
         }
+
         $this->update_post_meta($id, 'address', $request->address);
         $this->update_post_meta($id, 'email', $request->email);
         $this->update_post_meta($id, 'phone', $request->phone);
@@ -199,6 +238,11 @@ class PostController extends Controller
     public function news_post_list()
     {
         $post_list = Post::where('post_type', PostCategory::News)->get();
+
+        foreach ($post_list as $v) {
+            $v->user = User::find($v->user_id);
+        }
+
         return view('admin.pages.news-posts', compact('post_list'));
     }
     public function news_post_create()
@@ -207,11 +251,17 @@ class PostController extends Controller
     }
     public function news_post_store(Request $request)
     {
+        if (Auth::user()->role == UserRole::Administrator) {
+            $post_status = 'publish';
+        } else {
+            $post_status = 'pendding';
+        }
+
         $post_new = Post::create([
             'user_id' => Auth::user()->id,
             'post_title' => $request->title,
             'post_content' => $request->content,
-            'post_status' => 'publish',
+            'post_status' => $post_status,
             'post_type' => PostCategory::News,
         ]);
 
@@ -262,13 +312,27 @@ class PostController extends Controller
     }
     public function news_post_update(Request $request, $id)
     {
-        $post_update = Post::whereId($id)->update(
-            [
-                'post_title' => $request->title,
-                'post_content' => $request->content,
-                'post_date_update' => Carbon::now()
-            ]
-        );
+        if (isset($request->post_status) && (Auth::user()->role == UserRole::Administrator || $request->post_status != 'publish')) {
+
+            $post_status = $request->post_status;
+
+            $post_update = Post::whereId($id)->update(
+                [
+                    'post_title' => $request->title,
+                    'post_content' => $request->content,
+                    'post_date_update' => Carbon::now(),
+                    'post_status' => $post_status,
+                ]
+            );
+        } else {
+            $post_update = Post::whereId($id)->update(
+                [
+                    'post_title' => $request->title,
+                    'post_content' => $request->content,
+                    'post_date_update' => Carbon::now()
+                ]
+            );
+        }
 
         if ($request->hasFile('avatar')) {
             $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];

@@ -7,79 +7,43 @@ use Illuminate\Http\Request;
 
 class PostFavoriteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function change_post_favorite(Request $request)
     {
-        //
-    }
+        if (PostFavorite::where('post_id', $request->post_id)->where('user_id', $request->user_id)->exists()) {
+            $status = PostFavorite::where('post_id', $request->post_id)->where('user_id', $request->user_id)->first()->status;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            if ($status == 1) {
+                PostFavorite::where('post_id', $request->post_id)->where('user_id', $request->user_id)->update([
+                    'status' => 0,
+                ]);
+                return response()->json([
+                    'title' => 'Success',
+                    'text' => 'Post removed from favorites.',
+                    'status' => 'remove'
+                ]);
+            } else {
+                PostFavorite::where('post_id', $request->post_id)->where('user_id', $request->user_id)->update([
+                    'status' => 1,
+                ]);
+                return response()->json([
+                    'title' => 'Success',
+                    'text' => 'Post added to favorites.',
+                    'status' => 'add'
+                ]);
+            }
+        } else {
+            PostFavorite::create([
+                'post_id' => $request->post_id,
+                'user_id' => $request->user_id,
+                'status' => 1,
+            ]);
+            return response()->json([
+                'title' => 'Success',
+                'text' => 'Post added to favorites.',
+                'status' => 'add'
+            ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PostFavorite  $postFavorite
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PostFavorite $postFavorite)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PostFavorite  $postFavorite
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PostFavorite $postFavorite)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PostFavorite  $postFavorite
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PostFavorite $postFavorite)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PostFavorite  $postFavorite
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PostFavorite $postFavorite)
-    {
-        //
+        }
     }
 }

@@ -11,9 +11,9 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+                        <th>Author</th>
                         <th>View</th>
                         <th>Status</th>
-                        <th>Post Type</th>
                         <th>Date</th>
                         <th>Last Update</th>
                         <th>Actions</th>
@@ -27,12 +27,18 @@
                                     {{ $post->post_title }}
                                 </a>
                             </td>
+                            <td>
+                                {{ $post->user->name }}
+                            </td>
                             <td><i class="fa-regular fa-eye"></i> {{ $post->post_view }} </td>
                             <td>
-                                <span class="badge bg-label-secondary me-1">{{ $post->post_status }}</span>
-                            </td>
-                            <td>
-                                {{ \App\Enums\PostCategory::getKey($post->post_type) }}
+                                @if ($post->post_status == 'pendding')
+                                    <span class="badge bg-label-warning me-1">Pendding</span>
+                                @elseif($post->post_status == 'publish')
+                                    <span class="badge bg-label-success me-1">Puclished</span>
+                                @else
+                                    <span class="badge bg-label-danger me-1">Faild</span>
+                                @endif
                             </td>
                             <td>
                                 {{ date('d/m/Y', strtotime($post->post_date)) }}
@@ -49,7 +55,8 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('admin.posts.recruitment.edit', $post) }}">
                                             <i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                        <a class="dropdown-item" href="{{ route('posts.recruitment.details', $post) }}" target="_blank">
+                                        <a class="dropdown-item" href="{{ route('posts.recruitment.details', $post) }}"
+                                            target="_blank">
                                             <i class="fa-solid fa-eye"></i> Preview</a>
                                         <button class="dropdown-item" data-bs-toggle="modal"
                                             data-bs-target="#modalConfirmDeletePost-{{ $post->id }}"
@@ -118,12 +125,14 @@
                         .columns()
                         .eq(0)
                         .each(function(colIdx) {
-                            // Set the header cell to contain the input element
-                            var cell = $('.filters th').eq(
-                                $(api.column(colIdx).header()).index()
-                            );
-                            var title = $(cell).text();
-                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+                            if (colIdx != 6) {
+                                // Set the header cell to contain the input element
+                                var cell = $('.filters th').eq(
+                                    $(api.column(colIdx).header()).index()
+                                );
+                                var title = $(cell).text();
+                                $(cell).html('<input type="text" placeholder="' + title + '" />');
+                            }
 
                             // On every keypress in this input
                             $(
