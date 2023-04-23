@@ -163,6 +163,18 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="share_wrap d-flex flex-column tags_list">
+                        <span>Tag:</span>
+                        <ul class="py-3">
+                            @if (count($post->tags) > 0)
+                                @foreach ($post->tags as $tag)
+                                    <li><a href="#"> {{ $tag->tag_name }}</a> </li>
+                                @endforeach
+                            @else
+                                <li>No tags.</li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

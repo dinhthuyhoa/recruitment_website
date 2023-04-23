@@ -5,39 +5,15 @@
                 <div class="col-xl-3 col-md-6 col-lg-3">
                     <div class="footer_widget wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s">
                         <div class="footer_logo">
-                            <a href="#">
-                                <img src="{{ asset('frontend/img/logo.png') }}" alt="">
+                            <a href="{{ route('home') }}">
+                                <img src="{{ asset('logo-flower.png') }}" alt="">
                             </a>
                         </div>
                         <p>
-                            finloan@support.com <br>
-                            +10 873 672 6782 <br>
-                            600/D, Green road, NewYork
+                            thuyhoadinh@gmail.com <br>
+                            +84 ??? ??? ??? <br>
+                            CIT/CTU
                         </p>
-                        <div class="socail_links">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="ti-facebook"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
 
                     </div>
                 </div>
@@ -94,7 +70,7 @@
                         Copyright &copy;
                         <script>
                             document.write(new Date().getFullYear());
-                        </script> Đinh Thùy Hoa 
+                        </script> Đinh Thùy Hoa
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>

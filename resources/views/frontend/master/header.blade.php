@@ -7,7 +7,7 @@
                         <div class="col-xl-3 col-lg-2">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ asset('frontend/img/logo.png') }}" alt="">
+                                    <img src="{{ asset('logo-flower.png') }}" alt="">
                                 </a>
                             </div>
                         </div>

@@ -44,6 +44,8 @@ class PostController extends Controller
         }
 
         $post->getInforRecruitment();
+        $post->tags = $post->tags();
+
 
         if (Cookie::get($cookie_name) == '') { //check if cookie is set
             $cookie = cookie($cookie_name, '1', 60); //set the cookie
