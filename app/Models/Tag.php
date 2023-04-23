@@ -12,4 +12,5 @@ class Tag extends Model
         'tag_key',
         'tag_name',
     ];
+
 }

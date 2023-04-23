@@ -13,6 +13,7 @@ class HomeController extends Controller
         $recruitment_post_list = Post::where('post_type', PostCategory::Recruitment)->where('post_status', 'publish')->get();
         foreach($recruitment_post_list as $post){
             $post->getInforRecruitment();
+            $post->tags();
         }
         return view('frontend.pages.home', ['recruitment_post_list' => $recruitment_post_list]);
     }

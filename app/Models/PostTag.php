@@ -12,4 +12,5 @@ class PostTag extends Model
         'post_id',
         'tag_id',
     ];
+
 }

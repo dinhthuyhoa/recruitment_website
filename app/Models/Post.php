@@ -41,4 +41,13 @@ class Post extends Model
         $this->post_date = date('d/m/Y', strtotime($this->post_date));
         $this->post_date_update = date('d/m/Y', strtotime($this->post_date_update));
     }
+
+    public function tags()
+    {
+        $arr_tags = [];
+        foreach (PostTag::where('post_id', $this->id)->get() as $v) {
+            $arr_tags[] = Tag::find($v->tag_id);
+        }
+        return $arr_tags;
+    }
 }
