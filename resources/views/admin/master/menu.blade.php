@@ -64,21 +64,35 @@
                 </li>
             </ul>
         </li>
-
-        <li class="menu-item {{ request()->is('admin/posts/news*') ? 'open active' : '' }}">
+        @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
+            <li class="menu-item {{ request()->is('admin/posts/news*') ? 'open active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-news"></i>
+                    <div data-i18n="News Posts">News Posts</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('admin/posts/news') ? 'active' : '' }}">
+                        <a href="{{ route('admin.posts.news.list') }}" class="menu-link">
+                            <div data-i18n="Post list">Post list</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('admin/posts/news/create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.posts.news.create') }}" class="menu-link">
+                            <div data-i18n="Create post">Create post</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
+        <li class="menu-item {{ request()->is('admin/job-apply*') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-news"></i>
-                <div data-i18n="News Posts">News Posts</div>
+                <i class='menu-icon bx bxs-calendar-event'></i>
+                <div data-i18n="Job Apply">Job Apply</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('admin/posts/news') ? 'active' : '' }}">
-                    <a href="{{ route('admin.posts.news.list') }}" class="menu-link">
+                <li class="menu-item {{ request()->is('admin/job-apply/list') ? 'active' : '' }}">
+                    <a href="{{ route('admin.job_apply.list') }}" class="menu-link">
                         <div data-i18n="Post list">Post list</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->is('admin/posts/news/create') ? 'active' : '' }}">
-                    <a href="{{ route('admin.posts.news.create') }}" class="menu-link">
-                        <div data-i18n="Create post">Create post</div>
                     </a>
                 </li>
             </ul>

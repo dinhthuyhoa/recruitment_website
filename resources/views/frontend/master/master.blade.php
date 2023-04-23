@@ -15,6 +15,25 @@
     @include('frontend.master.header')
     <!-- header-end -->
 
+    @if (\Session::has('success'))
+        <script>
+            Swal.fire(
+                '',
+                "{!! \Session::get('success') !!}",
+                'success'
+            )
+        </script>
+    @endif
+    @if (\Session::has('error'))
+        <script>
+            Swal.fire(
+                '',
+                "{!! \Session::get('error') !!}",
+                'error'
+            )
+        </script>
+    @endif
+
     <!-- Start Content -->
     @yield('content')
     <!-- End Content -->

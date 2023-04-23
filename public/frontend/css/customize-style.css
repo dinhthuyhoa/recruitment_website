@@ -1,0 +1,93 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.thumb {
+    padding: 0 !important;
+    border: none !important;
+}
+
+.thumb img {
+    width: inherit;
+    height: inherit;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+#sticky-header {
+    max-height: 82px;
+    display: flex;
+    align-items: center;
+}
+
+#apply_job {
+    padding-top: 80px !important;
+}
+
+.boxed-btn3 {
+    background: var(--orange);
+    border: 1px solid #c14c00;
+}
+
+.boxed-btn3:hover {
+    background: #fff;
+    border: 1px solid #c14c00;
+    color: var(--orange) !important;
+}
+
+.boxed-btn4 {
+    color: var(--orange) !important;
+    border: 1px solid #c14c00;
+}
+
+.boxed-btn4:hover {
+    color: #fff !important;
+    background: #c14c00;
+}
+
+.footer .footer_top .footer_widget .newsletter_form button {
+    background: var(--orange);
+}
+
+.single_jobs .jobs_right .apply_now a.heart_mark {
+    color: var(--orange) !important;
+    background: #EFFDF5;
+}
+
+.single_jobs .jobs_right .apply_now a.heart_mark:hover {
+    background: var(--orange) !important;
+    color: #EFFDF5 !important;
+}
+
+.header-area .main-header-area.sticky {
+    background: rgb(255 129 0 / 80%);
+}
+
+.footer {
+    background: orange;
+
+}
+
+.footer a,
+.footer p,
+.footer input,
+.footer input::placeholder {
+    color: white !important;
+
+}
+
+.footer_logo a img,
+.logo a img {
+    width: 65px;
+    height: 65px;
+    background-color: antiquewhite;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}

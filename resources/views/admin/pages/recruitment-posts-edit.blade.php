@@ -4,32 +4,53 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">Edit Post</h5>
-                <!-- Account -->
-                <div class="card-body">
-                    <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="{{ asset('storage/' . $post->recruitment_image) }}" alt="user-avatar" class="d-block rounded"
-                            height="100" width="100" id="uploadedAvatar" />
-                        <div class="button-wrapper">
-                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
-                                <i class="bx bx-upload d-block d-sm-none"></i>
+                <form id="frmUpdateCruitmentPost" method="POST"
+                    action="{{ route('admin.posts.recruitment.update', $post->id) }}" enctype="multipart/form-data"
+                    onsubmit="return checkSubmit()">
+                    @csrf
+                    <h5 class="card-header">Edit Post</h5>
+                    <!-- Account -->
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-sm-center gap-4">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <img src="{{ asset('storage/' . $post->recruitment_image) }}" alt="user-avatar"
+                                    class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                <div class="button-wrapper">
+                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                        <i class="bx bx-upload d-block d-sm-none"></i>
 
-                            </label>
-                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                                <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
-                            </button>
+                                    </label>
+                                    <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                        <i class="bx bx-reset d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Reset</span>
+                                    </button>
 
-                            <p class="text-muted mb-0">Upload image for post</p>
+                                    <p class="text-muted mb-0">Upload image for post</p>
+                                </div>
+                            </div>
+                            @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator
+                                                    || Auth::user()->role == \App\Enums\UserRole::SubAdmin))
+                                <div class="mb-3 col-md-6">
+                                    <label for="title" class="form-label">Status</label>
+                                    <select name="post_status" id="post_status" class="form-control">
+                                        <option value="publish" {{ $post->post_status == 'publish' ? 'selected' : '' }}>
+                                            Published
+                                        </option>
+                                        <option value="pendding" {{ $post->post_status == 'pendding' ? 'selected' : '' }}>
+                                            Pendding
+                                        </option>
+                                        <option value="draft" {{ $post->post_status == 'draft' ? 'selected' : '' }}>
+                                            Draft
+                                        </option>
+                                    </select>
+                                </div>
+                            @endif
                         </div>
                     </div>
-                </div>
-                <hr class="my-0" />
-                <div class="card-body">
-                    <form id="frmUpdateCruitmentPost" method="POST" action="{{ route('admin.posts.recruitment.update', $post->id) }}"
-                        enctype="multipart/form-data" onsubmit="return checkSubmit()">
-                        @csrf
+                    <hr class="my-0" />
+                    <div class="card-body">
+
                         <input type="file" id="upload" class="account-file-input" hidden
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
@@ -55,10 +76,8 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="deadline" class="form-label">Deadline *</label>
-                                <input class="form-control" type="text" id="deadline" name="deadline"
-                                    placeholder="dd/mm/yyyy"
-                                    data-inputmask="'alias': 'datetime', 'inputFormat': 'dd/mm/yyyy'"
-                                    value="{{ date('d/m/Y', strtotime($post->recruitment_deadline)) }}" required />
+                                <input class="form-control" type="datetime-local" id="deadline" name="deadline"
+                                    value="{{ date('Y-m-d\TH:i', strtotime($post->recruitment_deadline)) }}" required />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="vacancy" class="form-label">Vacancy *</label>
@@ -72,9 +91,8 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="salary" class="form-label">Salary *</label>
-                                <input class="form-control" type="number" id="salary" name="salary"
-                                    placeholder="10000000" min="1" value="{{ $post->recruitment_salary }}"
-                                    required />
+                                <input class="form-control" type="text" id="salary" name="salary"
+                                    value="{{ $post->recruitment_salary }}" required />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="experience" class="form-label">Experience *</label>
@@ -94,8 +112,7 @@
                             </style>
                             <div class="mb-3 col-12">
                                 <label for="content" class="form-label">Content *</label>
-                                <textarea class="form-control" id="content" value={!! $post->post_content !!} rows="8"
-                                    placeholder="Post content" name="content"></textarea>
+                                <textarea class="form-control" id="content" rows="8" placeholder="Post content" name="content">{!! $post->post_content !!}</textarea>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -103,9 +120,10 @@
                                 class="btn btn-primary me-2">Save Changes</button>
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
-                    </form>
-                </div>
-                <!-- /Account -->
+
+                    </div>
+                    <!-- /Account -->
+                </form>
             </div>
         </div>
     </div>

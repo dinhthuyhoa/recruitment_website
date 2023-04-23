@@ -3,83 +3,82 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apply;
+use App\Models\Post;
+use App\Models\Recruiter;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApplyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function list()
     {
-        //
+
+        $apply_list = Apply::all();
+        foreach ($apply_list as $v) {
+            $v->post_title = Post::find($v->post_id)->post_title;
+            $v->user = User::find($v->user_id);
+            $v->recruiter = Recruiter::where('user_id', Post::find($v->post_id)->user_id)->first();
+        }
+        
+        return view('admin.pages.job-apply-list', ['apply_list' => $apply_list]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function candidate_apply(Request $request)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Apply  $apply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Apply $apply)
-    {
-        //
-    }
+        if ($request->hasFile('attachment')) {
+            $allowedfileExtension = ['jpg', 'png', 'pdf', 'png', 'jpeg', 'jpd', 'doc', 'docx'];
+            $file = $request->file('attachment');
+            // flag xem có thực hiện lưu DB không. Mặc định là có
+            $exe_flg = true;
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedfileExtension);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Apply  $apply
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Apply $apply)
-    {
-        //
-    }
+            if (!$check) {
+                // nếu có file nào không đúng đuôi mở rộng thì đổi flag thành false
+                $exe_flg = false;
+            }
+            // nếu không có file nào vi phạm validate thì tiến hành lưu DB
+            if ($exe_flg) {
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Apply  $apply
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Apply $apply)
-    {
-        //
-    }
+                $extension = $file->getClientOriginalExtension();
+                // $filename = $file->store('media');
+                $file_name = Storage::put('/apply_attachment', $file);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Apply  $apply
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Apply $apply)
-    {
-        //
+                $new_apply = Apply::insert([
+                    'fullname' => $request->fullname,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'birthday' => $request->birthday,
+                    'address' => $request->address,
+                    'gender' => $request->gender,
+                    'status' => 'pendding',
+                    'attachment' => $file_name,
+                    'post_id' => $request->post_id,
+                    'user_id' => Auth::user()->id,
+                ]);
+                return back()->with('success', 'Đã nộp yêu cầu');
+            } else {
+                return back()->with('error', 'File không hợp lệ');
+            }
+        } else {
+            $new_apply = Apply::insert([
+                'fullname' => $request->fullname,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'birthday' => $request->birthday,
+                'address' => $request->address,
+                'gender' => $request->gender,
+                'status' => 'pendding',
+                'post_id' => $request->post_id,
+                'user_id' => Auth::user()->id,
+            ]);
+            return back()->with('success', 'Đã nộp yêu cầu không kèm CV');
+
+        }
+
     }
 }

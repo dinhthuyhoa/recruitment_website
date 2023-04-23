@@ -50,4 +50,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function is_post_favorite($post_id)
+    {
+        if (
+            PostFavorite::where('post_id', $post_id)->where('user_id', $this->id)->exists()
+            && PostFavorite::where('post_id', $post_id)->where('user_id', $this->id)->first()->status == 1
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

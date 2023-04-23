@@ -23,7 +23,7 @@
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
                                 <div class="thumb">
-                                    <img src="{{ asset('/storage' . $post->recruitment_image) }}" alt="">
+                                    <img src="{{ asset('storage/' . $post->recruitment_image) }}" alt="">
                                 </div>
                                 <div class="jobs_conetent">
                                     <a href="#">
@@ -36,12 +36,24 @@
                                         <div class="location">
                                             <p> <i class="fa fa-clock-o"></i> {{ $post->recruitment_job_nature }}</p>
                                         </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-eye"></i> {{ $post->post_view }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="jobs_right">
                                 <div class="apply_now">
-                                    <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
+                                    @if (Auth::check())
+                                        <a class="heart_mark" href="javascript:void(0);"
+                                            onclick="change_favotire({{ $post->id }},{{ Auth::user()->id }}, this)">
+                                            @if (Auth::user()->is_post_favorite($post->id))
+                                                <i class="fa fa-heart"></i>
+                                            @else
+                                                <i class="ti-heart"></i>
+                                            @endif
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -49,52 +61,88 @@
                     <div class="descript_wrap white-bg">
                         {!! $post->post_content !!}
                     </div>
-                    <div class="apply_job_form white-bg">
-                        <h4>Apply for the job</h4>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input_field">
-                                        <input type="text" placeholder="Your name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input_field">
-                                        <input type="text" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input_field">
-                                        <input type="text" placeholder="Website/Portfolio link">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <button type="button" id="inputGroupFileAddon03"><i class="fa fa-cloud-upload"
-                                                    aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile03"
-                                                aria-describedby="inputGroupFileAddon03">
-                                            <label class="custom-file-label" for="inputGroupFile03">Upload CV</label>
+                    <div id="apply_job">
+                        <div class="apply_job_form white-bg">
+                            <h4>Apply for the job</h4>
+                            <form action="{{ route('job_apply.apply') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input_field">
+                                            <input type="text" placeholder="Your name" name="fullname"
+                                                value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="input_field">
-                                        <textarea name="#" id="" cols="30" rows="10" placeholder="Coverletter"></textarea>
+                                    <div class="col-md-6">
+                                        <div class="input_field">
+                                            <select name="gender" id="gender" class="w-100" style="height: 60px;"
+                                                required>
+                                                <option value="Male"
+                                                    {{ Auth::check() && Auth::user()->gender == 'Male' ? 'selected' : '' }}>
+                                                    Male
+                                                </option>
+                                                <option value="Female"
+                                                    {{ Auth::check() && Auth::user()->gender == 'Female' ? 'selected' : '' }}>
+                                                    Female
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input_field">
+                                            <input type="text" placeholder="Email" name="email"
+                                                value="{{ Auth::check() ? Auth::user()->email : '' }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input_field">
+                                            <input type="text" placeholder="Phone" name="phone"
+                                                value="{{ Auth::check() ? Auth::user()->phone : '' }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input_field">
+                                            <input type="text" placeholder="Your address" name="address"
+                                                value="{{ Auth::check() ? Auth::user()->address : '' }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input_field">
+                                            <input type="date" placeholder="Your address" name="birthday"
+                                                value="{{ Auth::check() ? date('Y-m-d', strtotime(Auth::user()->birthday)) : '' }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <button type="button" id="inputGroupFileAddon03"><i
+                                                        class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile03"
+                                                    aria-describedby="inputGroupFileAddon03" name="attachment"
+                                                    accept=".pdf,.doc,.docx,image/*">
+                                                <label class="custom-file-label" for="inputGroupFile03">Upload CV</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input_field">
+                                            <textarea name="candidate_note" id="candidate_note" cols="30" rows="10" placeholder="Note"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="submit_btn">
+                                            <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="submit_btn">
-                                        <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
                 <div class="col-lg-4">
                     <div class="job_sumary">
@@ -109,58 +157,10 @@
                                 <li>Salary: <span>{{ $post->recruitment_salary }}</span></li>
                                 <li>Location: <span>{{ $post->recruitment_address }}</span></li>
                                 <li>Job Nature: <span>{{ $post->recruitment_job_nature }}</span></li>
+                                <li>Exprience: <span>{{ $post->recruitment_experience }}</span></li>
+                                <li>Deadline: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
+                                </li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="share_wrap d-flex">
-                        <span>Share at:</span>
-                        <ul>
-                            <li><a href="#"> <i class="fa fa-facebook"></i></a> </li>
-                            <li><a href="#"> <i class="fa fa-google-plus"></i></a> </li>
-                            <li><a href="#"> <i class="fa fa-twitter"></i></a> </li>
-                            <li><a href="#"> <i class="fa fa-envelope"></i></a> </li>
-                        </ul>
-                    </div>
-                    <div class="job_location_wrap">
-                        <div class="job_lok_inner">
-                            <div id="map" style="height: 200px;"></div>
-                            <script>
-                                function initMap() {
-                                    var uluru = {
-                                        lat: -25.363,
-                                        lng: 131.044
-                                    };
-                                    var grayStyles = [{
-                                            featureType: "all",
-                                            stylers: [{
-                                                    saturation: -90
-                                                },
-                                                {
-                                                    lightness: 50
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            elementType: 'labels.text.fill',
-                                            stylers: [{
-                                                color: '#ccdee9'
-                                            }]
-                                        }
-                                    ];
-                                    var map = new google.maps.Map(document.getElementById('map'), {
-                                        center: {
-                                            lat: -31.197,
-                                            lng: 150.744
-                                        },
-                                        zoom: 9,
-                                        styles: grayStyles,
-                                        scrollwheel: false
-                                    });
-                                }
-                            </script>
-                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap">
-                            </script>
-
                         </div>
                     </div>
                 </div>

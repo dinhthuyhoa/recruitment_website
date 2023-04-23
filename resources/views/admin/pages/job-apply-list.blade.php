@@ -5,46 +5,44 @@
 @section('content')
     <!-- Hoverable Table rows -->
     <div class="card">
-        <h5 class="card-header">News post list</h5>
+        <h5 class="card-header">User list</h5>
         <div class="table-responsive text-nowrap m-3">
-            <table id="tableNewsPostList" class="table table-hover" style="width: 100%">
+            <table id="tableApplyList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>View</th>
+                        <th>Post</th>
+                        <th>Recruiter</th>
+                        <th>Candidate</th>
                         <th>Status</th>
-                        <th>Date</th>
-                        <th>Last Update</th>
+                        <th>Date time</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($post_list as $post)
+                    @foreach ($apply_list as $apply)
                         <tr>
                             <td>
-                                <a href="{{ route('admin.posts.news.edit', $post->id) }}" class="fw-bold">
-                                    {{ $post->post_title }}
+                                <img src="{{ isset($apply->recruiter->image) ? asset('storage/' . $apply->recruiter->image) : '' }}"
+                                    alt="Avatar" class="rounded-circle me-2" width="50" />
+                                <a href="javascript:void(0);" class="fw-bold">
+                                    {{ $apply->post_title }}
                                 </a>
                             </td>
+                            <td>{{ $apply->recruiter->name }}</td>
                             <td>
-                                {{ $post->user->name }}
+                                {{ $apply->fullname }}
                             </td>
-                            <td>{{ $post->post_view }}</td>
                             <td>
-                                @if ($post->post_status == 'pendding')
+                                @if ($apply->status == 'pendding')
                                     <span class="badge bg-label-warning me-1">Pendding</span>
-                                @elseif($post->post_status == 'publish')
-                                    <span class="badge bg-label-success me-1">Puclished</span>
+                                @elseif($apply->status == 'approved')
+                                    <span class="badge bg-label-success me-1">Approved</span>
                                 @else
                                     <span class="badge bg-label-danger me-1">Faild</span>
                                 @endif
                             </td>
                             <td>
-                                {{ date('d/m/Y', strtotime($post->post_date)) }}
-                            </td>
-                            <td>
-                                {{ date('d/m/Y', strtotime($post->post_date_update)) }}
+                                {{ date('H:i d/m/Y', strtotime($apply->created_at)) }}
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -53,47 +51,12 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('admin.posts.news.edit', $post->id) }}"><i
+                                        <a class="dropdown-item" href="{{ route('users.edit', $apply) }}"><i
                                                 class="bx bx-edit-alt me-1"></i> Edit</a>
-                                        <button class="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#modalConfirmDeletePost-{{ $post->id }}"
-                                            data-id="{{ $post->id }}">
-                                            <i class="bx bx-trash me-1"></i>
-                                            Delete</button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
-                        <!-- Modal confirm delete post -->
-                        <div class="modal fade" id="modalConfirmDeletePost-{{ $post->id }}" tabindex="-1"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenterTitle">Delete post
-                                            <b>{{ $post->name }}</b>
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="formDelPost-{{ $post->id }}"
-                                            action="{{ route('users.destroy', $post) }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <p>Muốn xóa bài viết này thiệt hông?</p>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button form="formDelPost-{{ $post->id }}" type="submit"
-                                            class="btn btn-danger">Yes</button>
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                            No
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                 </tbody>
             </table>
@@ -106,12 +69,12 @@
     <script>
         $(document).ready(function() {
             // Setup - add a text input to each footer cell
-            $('#tableNewsPostList thead tr')
+            $('#tableApplyList thead tr')
                 .clone(true)
                 .addClass('filters')
-                .appendTo('#tableNewsPostList thead');
+                .appendTo('#tableApplyList thead');
 
-            var table = $('#tableNewsPostList').DataTable({
+            var table = $('#tableApplyList').DataTable({
                 orderCellsTop: true,
                 fixedHeader: true,
                 initComplete: function() {
@@ -122,7 +85,7 @@
                         .columns()
                         .eq(0)
                         .each(function(colIdx) {
-                            if (colIdx != 6) {
+                            if (colIdx != 5) {
                                 // Set the header cell to contain the input element
                                 var cell = $('.filters th').eq(
                                     $(api.column(colIdx).header()).index()
