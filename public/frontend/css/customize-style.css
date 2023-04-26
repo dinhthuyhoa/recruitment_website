@@ -108,3 +108,14 @@ html {
     color: white !important;
     background-color: var(--orange) !important;
 }
+
+#navigation .active > a{
+    color: #AE0C12;
+}
+
+.job_details_area .job_sumary .summery_header h3{
+    margin: 0;
+}
+.job_details_area .job_sumary .summery_header{
+    padding: 20px 40px ;
+}

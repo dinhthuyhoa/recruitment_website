@@ -15,22 +15,11 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="{{ route('home') }}">home</a></li>
-                                        <li><a href="jobs.html">Browse Job</a></li>
-                                        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="candidate.html">Candidates </a></li>
-                                                <li><a href="job_details.html">job details </a></li>
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="{{ route('contact') }}">Contact</a></li>
+                                        <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('home') }}">home</a></li>
+                                        <li class="{{ request()->is('all-jobs') ? 'active' : '' }} {{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a href="jobs.html">Browse Job</a></li>
+                                        <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a href="{{ route('chat') }}">News</a></li>
+                                        <li class="{{ request()->is('chat') ? 'active' : '' }}"><a href="{{ route('chat') }}">Chat</a></li>
+                                        <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
