@@ -1,8 +1,10 @@
 <?php
 
+use App\Events\ChatEvent;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostFavoriteController;
@@ -86,3 +88,14 @@ Route::get('/languages/{language}', function ($language) {
     session()->put('web_recruitment_locale', $language);
     return redirect()->back();
 })->name('settings.change-language');
+
+// Chat
+Route::get('/chat', function(){
+    return view('frontend.pages.chat');
+})->name('chat');
+Route::get('messages', [ChatsController::class,'fetchMessages'])->name('fetch-messages');
+Route::post('messages', [ChatsController::class,'sendMessage'])->name('send-messages');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

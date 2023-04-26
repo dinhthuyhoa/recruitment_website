@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Administrator',
                 'email' => 'phamle21@gmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('admin'), // password
+                'password' => Hash::make('admin'),
+                // password
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
@@ -38,7 +39,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Đinh Thùy Hoa',
                 'email' => 'thuyhoa@gmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('123132'), // password
+                'password' => Hash::make('123132'),
+                // password
                 'phone' => '09416498225',
                 'status' => 'Active',
                 'gender' => 'Female',
@@ -48,7 +50,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Customer',
                 'email' => 'customer@gmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('123123'), // password
+                'password' => Hash::make('123123'),
+                // password
                 'phone' => '0941649825',
                 'status' => 'Active',
                 'gender' => 'Male',
@@ -59,22 +62,27 @@ class DatabaseSeeder extends Seeder
         Post::factory(10)->create();
         Tag::insert([
             [
+                'tag_category' => 'post-recruiment',
                 'tag_key' => 'php',
                 'tag_name' => 'PHP'
             ],
             [
+                'tag_category' => 'post-recruiment',
                 'tag_key' => 'frontend-reactjs',
                 'tag_name' => 'Frontend ReactJs'
             ],
             [
+                'tag_category' => 'post-recruiment',
                 'tag_key' => 'backend-dot-net',
                 'tag_name' => 'Backend .Net'
             ],
             [
+                'tag_category' => 'post-recruiment',
                 'tag_key' => 'nodejs',
                 'tag_name' => 'NodeJs'
             ],
             [
+                'tag_category' => 'post-recruiment',
                 'tag_key' => 'tester',
                 'tag_name' => 'Teser'
             ],
