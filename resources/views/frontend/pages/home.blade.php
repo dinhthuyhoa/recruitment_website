@@ -223,7 +223,8 @@
                                                 class="boxed-btn3">Apply Now</a>
                                         </div>
                                         <div class="date">
-                                            <p>Deadline: {{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}
+                                            <p>Deadline:
+                                                {{ $post->recruitment_deadline ? date('H:i d/m/Y', strtotime($post->recruitment_deadline)) : 'None' }}
                                             </p>
                                         </div>
                                     </div>
@@ -233,7 +234,6 @@
                     @else
                         <h3>Not found post</h3>
                     @endif
-
 
                 </ul>
             </div>

@@ -50,4 +50,5 @@ class Post extends Model
         }
         return $arr_tags;
     }
+
 }
