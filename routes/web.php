@@ -34,16 +34,24 @@ Route::post('/change-post-favorite', [PostFavoriteController::class, 'change_pos
 // Ckeditor
 Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.upload');
 
-// Frontend
+// Frontend Auth
 Route::get('/login', [AuthController::class, 'login_frontend'])->name('login');
 Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'register_frontend'])->name('register');
+
+// Frontend Apply
 Route::post('/job-apply/apply', [ApplyController::class, 'candidate_apply'])->name('job_apply.apply');
 
-
-// Frontend post details
+// Frontend Recruitment Post
 Route::group(['prefix' => 'posts/recruitment'], function () {
-    Route::get('/{id}', [PostController::class, 'recruitment_post_details'])->name('posts.recruitment.details');
+    Route::get('/list', [PostController::class, 'recruitment_post_list'])->name('posts.recruitment.list');
+    Route::get('/details/{id}', [PostController::class, 'recruitment_post_details'])->name('posts.recruitment.details');
+});
+
+// Frontend News Post
+Route::group(['prefix' => 'posts/news'], function () {
+    Route::get('/list', [PostController::class, 'news_post_list'])->name('posts.news.list');
+    Route::get('/details/{id}', [PostController::class, 'news_post_details'])->name('posts.news.details');
 });
 
 // Admin
@@ -59,21 +67,21 @@ Route::group(['prefix' => 'admin'], function () {
 
         // Recruitment Post
         Route::group(['prefix' => 'posts/recruitment'], function () {
-            Route::get('/', [PostController::class, 'recruitment_post_list'])->name('admin.posts.recruitment.list');
-            Route::get('/create', [PostController::class, 'recruitment_post_create'])->name('admin.posts.recruitment.create');
-            Route::post('/create', [PostController::class, 'recruitment_post_store'])->name('admin.posts.recruitment.store');
-            Route::get('/{id}/edit', [PostController::class, 'recruitment_post_edit'])->name('admin.posts.recruitment.edit');
-            Route::post('/{id}/edit', [PostController::class, 'recruitment_post_update'])->name('admin.posts.recruitment.update');
-            Route::delete('/{id}/delete', [PostController::class, 'recruitment_post_delete'])->name('admin.posts.recruitment.delete');
+            Route::get('/', [PostController::class, 'admin_recruitment_post_list'])->name('admin.posts.recruitment.list');
+            Route::get('/create', [PostController::class, 'admin_recruitment_post_create'])->name('admin.posts.recruitment.create');
+            Route::post('/create', [PostController::class, 'admin_recruitment_post_store'])->name('admin.posts.recruitment.store');
+            Route::get('/{id}/edit', [PostController::class, 'admin_recruitment_post_edit'])->name('admin.posts.recruitment.edit');
+            Route::post('/{id}/edit', [PostController::class, 'admin_recruitment_post_update'])->name('admin.posts.recruitment.update');
+            Route::delete('/{id}/delete', [PostController::class, 'admin_recruitment_post_delete'])->name('admin.posts.recruitment.delete');
         });
         // News Post
         Route::group(['prefix' => 'posts/news'], function () {
-            Route::get('/', [PostController::class, 'news_post_list'])->name('admin.posts.news.list');
-            Route::get('/create', [PostController::class, 'news_post_create'])->name('admin.posts.news.create');
-            Route::post('/create', [PostController::class, 'news_post_store'])->name('admin.posts.news.store');
-            Route::get('/{id}/edit', [PostController::class, 'news_post_edit'])->name('admin.posts.news.edit');
-            Route::post('/{id}/edit', [PostController::class, 'news_post_update'])->name('admin.posts.news.update');
-            Route::delete('/{id}/delete', [PostController::class, 'news_post_delete'])->name('admin.posts.news.delete');
+            Route::get('/', [PostController::class, 'admin_news_post_list'])->name('admin.posts.news.list');
+            Route::get('/create', [PostController::class, 'admin_news_post_create'])->name('admin.posts.news.create');
+            Route::post('/create', [PostController::class, 'admin_news_post_store'])->name('admin.posts.news.store');
+            Route::get('/{id}/edit', [PostController::class, 'admin_news_post_edit'])->name('admin.posts.news.edit');
+            Route::post('/{id}/edit', [PostController::class, 'admin_news_post_update'])->name('admin.posts.news.update');
+            Route::delete('/{id}/delete', [PostController::class, 'admin_news_post_delete'])->name('admin.posts.news.delete');
         });
     });
 });
@@ -88,14 +96,3 @@ Route::get('/languages/{language}', function ($language) {
     session()->put('web_recruitment_locale', $language);
     return redirect()->back();
 })->name('settings.change-language');
-
-// Chat
-Route::get('/chat', function(){
-    return view('frontend.pages.chat');
-})->name('chat');
-Route::get('messages', [ChatsController::class,'fetchMessages'])->name('fetch-messages');
-Route::post('messages', [ChatsController::class,'sendMessage'])->name('send-messages');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

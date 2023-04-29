@@ -16,9 +16,8 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('home') }}">home</a></li>
-                                        <li class="{{ request()->is('all-jobs') ? 'active' : '' }} {{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a href="jobs.html">Browse Job</a></li>
-                                        <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a href="{{ route('chat') }}">News</a></li>
-                                        <li class="{{ request()->is('chat') ? 'active' : '' }}"><a href="{{ route('chat') }}">Chat</a></li>
+                                        <li class="{{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a href="{{ route('posts.recruitment.list') }}">All Job</a></li>
+                                        <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a href="{{ route('posts.news.list') }}">News</a></li>
                                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </nav>

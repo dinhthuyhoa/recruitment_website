@@ -26,26 +26,26 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Manager</span>
         </li>
-
-        <li class="menu-item {{ request()->is('admin/users*') ? 'open active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Users">Users</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
-                    <a href="{{ route('users.index') }}" class="menu-link">
-                        <div data-i18n="User List">User List</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->is('admin/users/create') ? 'active' : '' }}">
-                    <a href="{{ route('users.create') }}" class="menu-link">
-                        <div data-i18n="New User">New User</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
+        @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
+            <li class="menu-item {{ request()->is('admin/users*') ? 'open active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                    <div data-i18n="Users">Users</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}" class="menu-link">
+                            <div data-i18n="User List">User List</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('admin/users/create') ? 'active' : '' }}">
+                        <a href="{{ route('users.create') }}" class="menu-link">
+                            <div data-i18n="New User">New User</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
         <li class="menu-item {{ request()->is('admin/posts/recruitment*') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-library"></i>
@@ -64,7 +64,7 @@
                 </li>
             </ul>
         </li>
-        @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
+        @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator || Auth::user()->role == \App\Enums\UserRole::SubAdmin))
             <li class="menu-item {{ request()->is('admin/posts/news*') ? 'open active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-news"></i>

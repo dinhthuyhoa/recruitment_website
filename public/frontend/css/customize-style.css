@@ -109,13 +109,31 @@ html {
     background-color: var(--orange) !important;
 }
 
-#navigation .active > a{
+#navigation .active>a {
     color: #AE0C12;
 }
 
-.job_details_area .job_sumary .summery_header h3{
+.job_details_area .job_sumary .summery_header h3 {
     margin: 0;
 }
-.job_details_area .job_sumary .summery_header{
-    padding: 20px 40px ;
+
+.job_details_area .job_sumary .summery_header {
+    padding: 20px 40px;
+}
+
+.header-area .main-header-area .main-menu ul li a:hover {
+    color: #AE0C12 !important;
+}
+
+.job_listing_area .job_lists .single_jobs .jobs_left .jobs_conetent .links_locat .location {
+    margin: 0 !important;
+}
+
+.job_listing_area .job_lists .single_jobs .jobs_left .jobs_conetent .links_locat .location p.address {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

@@ -32,7 +32,49 @@ class PostController extends Controller
         }
     }
 
+    protected function filter($list, $filters = [])
+    {
+        return $list->filter(function ($post, $key) use ($filters) {
+            $check_temp = false;
+
+            foreach ($filters as $k => $v) {
+                if ($post->$k == $v) {
+                    $check_temp = true;
+                } else {
+                    return false;
+                }
+            }
+
+            return $check_temp;
+        });
+    }
+
     // =================================== Frontend Recuitment ============================================
+    public function recruitment_post_list(Request $request)
+    {
+        $all_posts = Post::all();
+
+        $filters = [
+            'post_type' => PostCategory::Recruitment,
+            'post_status' => 'publish',
+        ];
+
+        $posts = $this->filter($all_posts, $filters);
+
+        foreach ($posts as $post) {
+            $post->getInforRecruitment();
+            $post->tags();
+        }
+
+        if (isset($request->keyword)) {
+
+        }
+
+        return view('frontend.pages.all-jobs', [
+            'posts' => $posts
+        ]);
+    }
+
     public function recruitment_post_details($id, Request $request)
     {
         $post = Post::find($id);
@@ -41,11 +83,11 @@ class PostController extends Controller
             $cookie_name = (Str::replace('.', '', ($request->ip())) . '-' . $post->id);
         } else {
             $cookie_name = (Auth::user()->id . '-' . $post->id); //logged in user
+            cookie($cookie_name, '1', 60);
         }
 
         $post->getInforRecruitment();
         $post->tags = $post->tags();
-
 
         if (Cookie::get($cookie_name) == '') { //check if cookie is set
             $cookie = cookie($cookie_name, '1', 60); //set the cookie
@@ -64,7 +106,7 @@ class PostController extends Controller
     }
 
     // =================================== Recuitment ============================================
-    public function recruitment_post_list()
+    public function admin_recruitment_post_list()
     {
         if (Auth::user()->role == UserRole::Administrator) {
             $post_list = Post::where('post_type', PostCategory::Recruitment)->get();
@@ -78,11 +120,11 @@ class PostController extends Controller
 
         return view('admin.pages.recruitment-posts', compact('post_list'));
     }
-    public function recruitment_post_create()
+    public function admin_recruitment_post_create()
     {
         return view('admin.pages.recruitment-posts-create');
     }
-    public function recruitment_post_store(Request $request)
+    public function admin_recruitment_post_store(Request $request)
     {
         $post_new = Post::create([
             'user_id' => Auth::user()->id,
@@ -172,7 +214,7 @@ class PostController extends Controller
             return back()->with('success', 'Tạo thành công bài viết mới!');
         }
     }
-    public function recruitment_post_edit($id)
+    public function admin_recruitment_post_edit($id)
     {
         if (!Post::whereId($id)->exists()) {
             return redirect('page-not-found');
@@ -182,7 +224,7 @@ class PostController extends Controller
         return view('admin.pages.recruitment-posts-edit', compact('post'));
     }
 
-    public function recruitment_post_update(Request $request, $id)
+    public function admin_recruitment_post_update(Request $request, $id)
     {
         $post_status = 'pendding';
         if ($request->post_status)
@@ -237,7 +279,7 @@ class PostController extends Controller
     }
 
     // =================================== News ============================================
-    public function news_post_list()
+    public function admin_news_post_list()
     {
         $post_list = Post::where('post_type', PostCategory::News)->get();
 
@@ -247,11 +289,11 @@ class PostController extends Controller
 
         return view('admin.pages.news-posts', compact('post_list'));
     }
-    public function news_post_create()
+    public function admin_news_post_create()
     {
         return view('admin.pages.news-posts-create');
     }
-    public function news_post_store(Request $request)
+    public function admin_news_post_store(Request $request)
     {
         if (Auth::user()->role == UserRole::Administrator) {
             $post_status = 'publish';
@@ -304,7 +346,7 @@ class PostController extends Controller
             return back()->with('success', 'Tạo thành công bài viết mới!');
         }
     }
-    public function news_post_edit($id)
+    public function admin_news_post_edit($id)
     {
         $post = Post::find($id);
         $post->news_image = PostMeta::where('post_id', $post->id)->where('key', 'image')->exists()
@@ -312,7 +354,7 @@ class PostController extends Controller
             : '';
         return view('admin.pages.news-posts-edit', ['post' => $post]);
     }
-    public function news_post_update(Request $request, $id)
+    public function admin_news_post_update(Request $request, $id)
     {
         if (isset($request->post_status) && (Auth::user()->role == UserRole::Administrator || $request->post_status != 'publish')) {
 
