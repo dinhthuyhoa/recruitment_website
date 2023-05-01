@@ -146,8 +146,7 @@
                                 <li>Location: <span>{{ $post->recruitment_address }}</span></li>
                                 <li>Job Nature: <span>{{ $post->recruitment_job_nature }}</span></li>
                                 <li>Exprience: <span>{{ $post->recruitment_experience }}</span></li>
-                                <li>Deadline: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
-                                </li>
+                                <li>Deadline: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -173,7 +172,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="input_field">
-                                            <label for="fullname">Birthday</label>
+                                            <label for="fullname">Full name</label>
                                             <input type="text" placeholder="Your name" name="fullname" id="fullname"
                                                 value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                                         </div>

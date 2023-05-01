@@ -59,21 +59,39 @@ class ReactController extends Controller
                 ]);
 
             } else {
-                $check->update([
-                    'emoji' => $request->emoji,
-                    'status' => 'deactivate'
-                ]);
+                if ($check->first()->status == 'activate') {
+                    $check->update([
+                        'emoji' => $request->emoji,
+                        'status' => 'deactivate'
+                    ]);
 
-                return response()->json([
-                    'title' => 'Success',
-                    'status' => 'deactivate',
-                    'countReact' => count(React::where([
-                        ['type', $request->react_type],
-                        ['type_id', $request->type_id],
-                        ['type', $request->react_type],
-                        ['status', 'activate'],
-                    ])->get())
-                ]);
+                    return response()->json([
+                        'title' => 'Success',
+                        'status' => 'deactivate',
+                        'countReact' => count(React::where([
+                            ['type', $request->react_type],
+                            ['type_id', $request->type_id],
+                            ['type', $request->react_type],
+                            ['status', 'activate'],
+                        ])->get())
+                    ]);
+                } else {
+                    $check->update([
+                        'emoji' => $request->emoji,
+                        'status' => 'activate'
+                    ]);
+
+                    return response()->json([
+                        'title' => 'Success',
+                        'status' => 'activate',
+                        'countReact' => count(React::where([
+                            ['type', $request->react_type],
+                            ['type_id', $request->type_id],
+                            ['type', $request->react_type],
+                            ['status', 'activate'],
+                        ])->get())
+                    ]);
+                }
 
             }
         }

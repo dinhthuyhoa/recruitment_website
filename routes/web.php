@@ -67,6 +67,8 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::resource('/users', UserController::class);
         Route::get('/job-apply/list', [ApplyController::class, 'list'])->name('admin.job_apply.list');
+        Route::get('/job-apply/edit/{id}', [ApplyController::class, 'edit'])->name('admin.job_apply.edit');
+        Route::post('/job-apply/edit/{id}/update_status', [ApplyController::class, 'update_status'])->name('admin.job_apply.update_status');
 
         // Recruitment Post
         Route::group(['prefix' => 'posts/recruitment'], function () {
