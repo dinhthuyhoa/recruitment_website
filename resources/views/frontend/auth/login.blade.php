@@ -40,6 +40,7 @@
                     <span class="login100-form-title">
                         Login
                     </span>
+                    <input type="hidden" name="redirect_to" value="{{ $redirect_to }}">
                     @if (\Session::has('success'))
                         <div class="alert alert-success alert-dismissible" role="alert">
                             {!! \Session::get('success') !!}

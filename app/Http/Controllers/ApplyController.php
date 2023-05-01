@@ -17,17 +17,16 @@ class ApplyController extends Controller
 
         $apply_list = Apply::all();
         foreach ($apply_list as $v) {
-            $v->post_title = Post::find($v->post_id)->post_title;
+            $v->post = Post::find($v->post_id);
             $v->user = User::find($v->user_id);
-            $v->recruiter = Recruiter::where('user_id', Post::find($v->post_id)->user_id)->first();
         }
-        
+
         return view('admin.pages.job-apply-list', ['apply_list' => $apply_list]);
     }
 
     public function candidate_apply(Request $request)
     {
-
+        $user =  Auth::check() ? Auth::user()->id : null;
 
         if ($request->hasFile('attachment')) {
             $allowedfileExtension = ['jpg', 'png', 'pdf', 'png', 'jpeg', 'jpd', 'doc', 'docx'];
@@ -58,7 +57,7 @@ class ApplyController extends Controller
                     'status' => 'pendding',
                     'attachment' => $file_name,
                     'post_id' => $request->post_id,
-                    'user_id' => Auth::user()->id,
+                    'user_id' => $user,
                 ]);
                 return back()->with('success', 'Đã nộp yêu cầu');
             } else {
@@ -74,7 +73,7 @@ class ApplyController extends Controller
                 'gender' => $request->gender,
                 'status' => 'pendding',
                 'post_id' => $request->post_id,
-                'user_id' => Auth::user()->id,
+                'user_id' => $user,
             ]);
             return back()->with('success', 'Đã nộp yêu cầu không kèm CV');
 

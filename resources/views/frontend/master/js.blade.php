@@ -18,6 +18,7 @@
 <script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('frontend/js/plugins.js') }}"></script>
 <script src="{{ asset('frontend/js/gijgo.min.js') }}"></script>
+<script src="{{ asset('frontend/js/range.js') }}"></script>
 
 <!--contact js-->
 <script src="{{ asset('frontend/js/contact.js') }}"></script>
@@ -36,6 +37,10 @@
     });
 </script>
 
-
+{{-- CKEditor 5 --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 
 <script src="{{ asset('frontend/js/customize_js.js') }}"></script>
+
+
+

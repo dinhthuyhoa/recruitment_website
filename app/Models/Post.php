@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PostCategory;
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,11 @@ class Post extends Model
         'post_status',
         'post_type',
     ];
+
+    public function image()
+    {
+        return $this->getMeta('image');
+    }
 
     public function getMeta($key)
     {
@@ -49,6 +55,26 @@ class Post extends Model
             $arr_tags[] = Tag::find($v->tag_id);
         }
         return $arr_tags;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
+
+    public function reacts()
+    {
+        return React::where('type', 'post')->where('type_id', $this->id)->where('status', 'activate')->get();
+    }
+
+    public function myReact()
+    {
+        return React::where('type', 'post')->where('type_id', $this->id)->where('user_id', Auth::user()->id)->first();
     }
 
 }

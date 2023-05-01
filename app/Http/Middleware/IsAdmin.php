@@ -26,6 +26,10 @@ class IsAdmin
         ) {
             return $next($request);
         } else {
+            if (Auth::check()) {
+                Auth::logout();
+                return redirect()->route('admin.login')->with('error', 'Bạn không có quyền vào trang này');
+            }
             return redirect()->route('admin.login');
         }
     }
