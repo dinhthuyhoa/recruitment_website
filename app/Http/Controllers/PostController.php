@@ -53,25 +53,37 @@ class PostController extends Controller
     public function recruitment_post_list(Request $request)
     {
         $all_posts = Post::all();
+        $count_post = count($all_posts);
+
+        if (isset($request->keyword)) {
+            $all_posts = Post::where('post_title', 'LIKE', '%' . $request->keyword . '%')
+                ->orWhere('post_title', 'LIKE', '%' . $request->keyword . '%')->get();
+        }
+
+        foreach ($all_posts as $post) {
+            $post->getInforRecruitment();
+            $post->tags();
+            $post->author = User::find($post->user_id)->name;
+        }
 
         $filters = [
             'post_type' => PostCategory::Recruitment,
             'post_status' => 'publish',
         ];
 
+        if (isset($request->filter_address) && $request->filter_address != '') {
+            $filters['recruitment_address'] = $request->filter_address;
+        }
+
+        if (isset($request->filter_job_nature) && $request->filter_job_nature != '') {
+            $filters['recruitment_job_nature'] = $request->filter_job_nature;
+        }
+
         $posts = $this->filter($all_posts, $filters);
 
-        foreach ($posts as $post) {
-            $post->getInforRecruitment();
-            $post->tags();
-        }
-
-        if (isset($request->keyword)) {
-
-        }
-
         return view('frontend.pages.all-jobs', [
-            'posts' => $posts
+            'posts' => $posts,
+            'count_post' => $count_post
         ]);
     }
 
@@ -88,6 +100,7 @@ class PostController extends Controller
 
         $post->getInforRecruitment();
         $post->tags = $post->tags();
+        $post->author = User::find($post->user_id)->name;
 
         if (Cookie::get($cookie_name) == '') { //check if cookie is set
             $cookie = cookie($cookie_name, '1', 60); //set the cookie

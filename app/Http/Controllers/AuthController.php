@@ -26,7 +26,7 @@ class AuthController extends Controller
         $remember = ($request->remember) ? true : false;
 
         $login_email = [
-            'email' =>  $request->username,
+            'email' => $request->username,
             'password' => $request->password
         ];
 
@@ -37,9 +37,11 @@ class AuthController extends Controller
 
 
         if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
-            if (!(Auth::check() &&
-                (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter || Auth::user()->role == UserRole::SubAdmin)
-            )) {
+            if (
+                !(Auth::check() &&
+                    (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter || Auth::user()->role == UserRole::SubAdmin)
+                )
+            ) {
                 Auth::logout();
                 return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
             }
@@ -56,20 +58,22 @@ class AuthController extends Controller
     }
 
     // ======================================== FRONTEND ===========================================
-    public function login_frontend()
+    public function login_frontend(Request $request)
     {
         if (Auth::check()) {
             return redirect()->route('home');
         }
 
-        return view('frontend.auth.login');
+        $redirect_to = $request->url;
+
+        return view('frontend.auth.login', compact('redirect_to'));
     }
     public function submit_login_frontend(Request $request)
     {
         $remember = ($request->remember) ? true : false;
 
         $login_email = [
-            'email' =>  $request->username,
+            'email' => $request->username,
             'password' => $request->password
         ];
 
@@ -80,7 +84,11 @@ class AuthController extends Controller
 
 
         if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
-            return redirect()->route('home');
+            if ($request->redirect_to) {
+                return redirect($request->redirect_to);
+            } else {
+                return redirect()->route('home');
+            }
         } else {
             return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
         }

@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Enums\PostCategory;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $recruitment_post_list = Post::where('post_type', PostCategory::Recruitment)->where('post_status', 'publish')->get();
-        foreach($recruitment_post_list as $post){
+        $recruitment_post_list = Post::where('post_type', PostCategory::Recruitment)->where('post_status', 'publish')->limit(5)->get();
+        foreach ($recruitment_post_list as $post) {
             $post->getInforRecruitment();
             $post->tags();
+            $post->author = User::find($post->user_id)->name;
+
         }
         return view('frontend.pages.home', ['recruitment_post_list' => $recruitment_post_list]);
     }
@@ -33,7 +36,8 @@ class HomeController extends Controller
         }
     }
 
-    public function contact(){
+    public function contact()
+    {
         return view('frontend.pages.contact');
     }
 }

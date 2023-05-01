@@ -15,10 +15,14 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('home') }}">home</a></li>
-                                        <li class="{{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a href="{{ route('posts.recruitment.list') }}">All Job</a></li>
-                                        <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a href="{{ route('posts.news.list') }}">News</a></li>
-                                        <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact</a></li>
+                                        <li class="{{ request()->is('/') ? 'active' : '' }}"><a
+                                                href="{{ route('home') }}">home</a></li>
+                                        <li class="{{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a
+                                                href="{{ route('posts.recruitment.list') }}">All Job</a></li>
+                                        <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a
+                                                href="{{ route('posts.news.list') }}">News</a></li>
+                                        <li class="{{ request()->is('contact') ? 'active' : '' }}"><a
+                                                href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -89,7 +93,7 @@
                                         </li>
                                         <!--/ User -->
                                     @else
-                                        <a href="{{ route('login') }}">Log in</a>
+                                        <a href="{{ route('login', ['url' => url()->full()]) }}">Log in</a>
                                     @endif
                                 </div>
                             </div>

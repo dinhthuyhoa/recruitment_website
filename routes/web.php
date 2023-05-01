@@ -4,15 +4,14 @@ use App\Events\ChatEvent;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostFavoriteController;
+use App\Http\Controllers\ReactController;
 use App\Http\Controllers\UserController;
-use App\Models\PostFavorite;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +29,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/change-post-favorite', [PostFavoriteController::class, 'change_post_favorite'])->name('change_post_favorite');
+Route::post('/reactions', [ReactController::class, 'reactions'])->name('reactions');
 
 // Ckeditor
 Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.upload');
@@ -47,6 +47,9 @@ Route::group(['prefix' => 'posts/recruitment'], function () {
     Route::get('/list', [PostController::class, 'recruitment_post_list'])->name('posts.recruitment.list');
     Route::get('/details/{id}', [PostController::class, 'recruitment_post_details'])->name('posts.recruitment.details');
 });
+
+Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.add');
+Route::post('/reply/store', [CommentController::class, 'replyStore'])->name('reply.add');
 
 // Frontend News Post
 Route::group(['prefix' => 'posts/news'], function () {

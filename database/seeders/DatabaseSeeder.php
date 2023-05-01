@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $faker = app(Generator::class);
 
         /** ========================= SETTING ============================ */
-        $number_post = 30;
+        $number_post = 100;
         /** =============================================================== */
 
         User::insert([
@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
+                'birthday' => '2000-04-21',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Administrator
             ],
@@ -52,6 +53,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '09416498225',
                 'status' => 'Active',
                 'gender' => 'Female',
+                'birthday' => '2000-04-21',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::SubAdmin
             ],
@@ -64,6 +66,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649825',
                 'status' => 'Active',
                 'gender' => 'Male',
+                'birthday' => '2000-04-21',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Recruiter
             ],
@@ -76,6 +79,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '0941649823',
                 'status' => 'Active',
                 'gender' => 'Male',
+                'birthday' => '2000-04-21',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Candidate
             ]
@@ -149,7 +153,7 @@ class DatabaseSeeder extends Seeder
                     [
                         'post_id' => $v->id,
                         'key' => 'job-nature',
-                        'value' => Arr::random(['Part-time', 'Fulltime', 'Freelancer'])
+                        'value' => Arr::random(['Part-time', 'Full-time', 'Freelancer'])
                     ],
                     [
                         'post_id' => $v->id,

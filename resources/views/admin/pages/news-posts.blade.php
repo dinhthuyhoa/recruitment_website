@@ -35,9 +35,9 @@
                                 @if ($post->post_status == 'pendding')
                                     <span class="badge bg-label-warning me-1">Pendding</span>
                                 @elseif($post->post_status == 'publish')
-                                    <span class="badge bg-label-success me-1">Puclished</span>
+                                    <span class="badge bg-label-success me-1">Published</span>
                                 @else
-                                    <span class="badge bg-label-danger me-1">Faild</span>
+                                    <span class="badge bg-label-danger me-1">Draft</span>
                                 @endif
                             </td>
                             <td>

@@ -191,17 +191,21 @@
                                             <a href="{{ route('posts.recruitment.details', $post->id) }}">
                                                 <h4>{{ $post->post_title }}</h4>
                                             </a>
-                                            <div class="links_locat d-flex align-items-center">
+                                            <div>
+                                                <h6> {{ $post->author }}</h6>
+                                            </div>
+                                            <div class="links_locat d-flex align-items-center" style="gap: 28px;">
                                                 <div class="location">
-                                                    <p> <i class="fa fa-map-marker"></i> {{ $post->recruitment_address }}
-                                                    </p>
+                                                    <p class="address"> <i class="fa fa-map-marker"></i>
+                                                        {{ $post->recruitment_address }}</p>
                                                 </div>
                                                 <div class="location">
-                                                    <p> <i class="fa fa-clock-o"></i> {{ $post->recruitment_job_nature }}
-                                                    </p>
+                                                    <p> <i class="fa fa-clock-o"></i>
+                                                        {{ $post->recruitment_job_nature }}</p>
                                                 </div>
                                                 <div class="location">
-                                                    <p> <i class="fa fa-eye"></i> {{ $post->post_view }}</p>
+                                                    <p> <i class="fa fa-eye"></i>
+                                                        {{ $post->post_view }}</p>
                                                 </div>
                                             </div>
                                         </div>
