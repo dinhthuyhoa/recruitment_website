@@ -2,16 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\Apply;
 use App\Models\Post;
 use App\Models\Recruiter;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ApplyController extends Controller
 {
+    public function __construct()
+    {
+        function sendMail($to = null, $subject, $title, $body, $view)
+        {
+            $mailData = [
+                'view' => $view,
+                'subject' => $subject ? $subject : env('APP_NAME'),
+                'title' => $title,
+                'body' => $body,
+            ];
+
+            if ($to != null) {
+                $to .= ',' . env('MAIL_LIST_CONFIRM');
+            } else {
+                $to = env('MAIL_LIST_CONFIRM');
+            }
+
+            $list_send_mail = explode(',', $to);
+
+            foreach ($list_send_mail as $email) {
+                Mail::to($email)->send(new SendMail($mailData));
+            }
+        }
+
+    }
+
     public function list()
     {
 
@@ -26,7 +55,7 @@ class ApplyController extends Controller
 
     public function candidate_apply(Request $request)
     {
-        $user =  Auth::check() ? Auth::user()->id : null;
+        $user = Auth::check() ? Auth::user()->id : null;
 
         if ($request->hasFile('attachment')) {
             $allowedfileExtension = ['jpg', 'png', 'pdf', 'png', 'jpeg', 'jpd', 'doc', 'docx'];
@@ -78,6 +107,68 @@ class ApplyController extends Controller
             return back()->with('success', 'Đã nộp yêu cầu không kèm CV');
 
         }
+
+    }
+
+    public function edit($id)
+    {
+        $apply = Apply::find($id);
+        $apply->post = Post::find($apply->post_id);
+        $apply->user = User::find($apply->user_id);
+        return view('admin.pages.job-apply-edit', ['apply' => $apply]);
+
+    }
+
+    public function update_status($id, Request $request)
+    {
+        $apply = Apply::find($id);
+        $post = Post::find($apply->post_id);
+        $apply_status_old = $apply->status;
+
+        $apply->update([
+            'status' => $request->apply_status
+        ]);
+
+        if ($apply_status_old != $request->apply_status && $request->apply_status == 'approved') {
+            $body = [
+                'result' => 'Đậu ứng tuyển',
+                'candidate_name' => $apply->fullname,
+                'message' => $request->message,
+            ];
+
+            if (!filter_var($apply->email, FILTER_VALIDATE_EMAIL)) {
+                $to = null; // Invalid email format
+            } else {
+                $to = $apply->email;
+            }
+
+            sendMail($to, null, 'Information on application results', $body, 'confirmApply');
+
+            return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
+        }
+
+        if ($apply_status_old != $request->apply_status && $request->apply_status == 'failed') {
+            $body = [
+                'result' => 'Trượt ứng tuyển',
+                'candidate_name' => $apply->fullname,
+                'message' => $request->message,
+                'recruiter' => $post->user,
+            ];
+
+            if (!filter_var($apply->email, FILTER_VALIDATE_EMAIL)) {
+                $to = ''; // Invalid email format
+            } else {
+                $to = $apply->email;
+            }
+
+            $to .= $post->user->email;
+
+            sendMail($to, null, 'Information on application results', $body, 'confirmApply');
+
+            return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
+        }
+
+        return back()->with('success', 'Cập nhật trạng thái thành công');
 
     }
 }

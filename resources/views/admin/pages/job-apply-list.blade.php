@@ -24,7 +24,7 @@
                             <td>
                                 <img src="{{ !is_null($apply->post->image()) ? asset('storage/' . $apply->post->image()) : '' }}"
                                     alt="Avatar" class="rounded-circle me-2" width="50" />
-                                <a href="javascript:void(0);" class="fw-bold">
+                                <a href="{{ route('admin.job_apply.edit', $apply->id) }}" class="fw-bold">
                                     {{ $apply->post->post_title }}
                                 </a>
                             </td>
@@ -51,7 +51,7 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('users.edit', $apply) }}"><i
+                                        <a class="dropdown-item" href="{{ route('admin.job_apply.edit', $apply->id) }}"><i
                                                 class="bx bx-edit-alt me-1"></i> Edit</a>
                                     </div>
                                 </div>
