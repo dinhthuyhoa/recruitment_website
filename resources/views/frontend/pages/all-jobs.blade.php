@@ -133,7 +133,7 @@
                                                     <input type="search" id="keyword" name="keyword" class="form-control"
                                                         value="{{ request()->keyword }}" />
                                                 </div>
-                                                <button type="submit" form="form_search_job" class="btn btn-primary">
+                                                <button type="submit" form="form_search_job" class="btn btn-orange">
                                                     <i class="fas fa-search"></i>
                                                 </button>
                                             </div>
@@ -148,12 +148,12 @@
                         <form action="" class="d-flex flex-wrap" style="gap: 15px">
                             @foreach ($tags as $tag)
                                 @if (isset(request()->tag) && request()->tag == $tag->tag_key)
-                                    <button class="btn btn-primary" type="submit" name="tag"
+                                    <button class="btn btn-orange-checked" type="submit" name="tag"
                                         value="{{ $tag->tag_key }}">
                                         {{ $tag->tag_name }}
                                     </button>
                                 @else
-                                    <button class="btn btn-info" type="submit" name="tag" value="{{ $tag->tag_key }}">
+                                    <button class="btn btn-orange" type="submit" name="tag" value="{{ $tag->tag_key }}">
                                         {{ $tag->tag_name }}
                                     </button>
                                 @endif

@@ -355,3 +355,22 @@ html {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
+
+.btn-orange-checked {
+    background-color: orangered;
+    color: white;
+}
+
+.btn-orange {
+    background-color: var(--orange);
+    color: white;
+}
+
+.post-description {
+    /* max-width: 220px; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
