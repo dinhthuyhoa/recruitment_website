@@ -101,8 +101,8 @@
                                         </label>
                                     @endforeach
                                 @endif
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                     <hr />
@@ -156,7 +156,8 @@
                         <ul class="py-3">
                             @if (!is_null($post->tags))
                                 @foreach ($post->tags as $tag)
-                                    <li><a href="{{ route('posts.recruitment.list', ['tag'=> $tag->tag_key]) }}"> {{ $tag->tag_name }}</a> </li>
+                                    <li><a href="{{ route('posts.recruitment.list', ['tag' => $tag->tag_key]) }}">
+                                            {{ $tag->tag_name }}</a> </li>
                                 @endforeach
                             @else
                                 <li>No tags</li>

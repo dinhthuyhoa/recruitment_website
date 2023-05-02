@@ -59,6 +59,11 @@
                                     value="{{ $post->post_title }}" autofocus required />
                             </div>
 
+                            <div class="mb-3 col-12">
+                                <label for="title" class="form-label">Description *</label>
+                                <textarea class="form-control" id="description" name="description" required>{{ $post->post_description }}</textarea>
+                            </div>
+
                             <style>
                                 .ck.ck-content {
                                     min-height: 10em !important;

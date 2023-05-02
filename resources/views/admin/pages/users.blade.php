@@ -114,13 +114,19 @@
                         .columns()
                         .eq(0)
                         .each(function(colIdx) {
-                            if(colIdx != 4){
-                            // Set the header cell to contain the input element
-                            var cell = $('.filters th').eq(
-                                $(api.column(colIdx).header()).index()
-                            );
-                            var title = $(cell).text();
+                            if (colIdx != 4) {
+                                // Set the header cell to contain the input element
+                                var cell = $('.filters th').eq(
+                                    $(api.column(colIdx).header()).index()
+                                );
+                                var title = $(cell).text();
                                 $(cell).html('<input type="text" placeholder="' + title + '" />');
+                            } else {
+                                var cell = $('.filters th').eq(
+                                    $(api.column(colIdx).header()).index()
+                                );
+                                var title = $(cell).text();
+                                $(cell).html('');
                             }
 
                             // On every keypress in this input

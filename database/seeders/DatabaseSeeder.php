@@ -117,6 +117,26 @@ class DatabaseSeeder extends Seeder
                 'tag_key' => 'tester',
                 'tag_name' => 'Teser'
             ],
+            [
+                'tag_category' => 'post-news',
+                'tag_key' => 'english',
+                'tag_name' => 'English'
+            ],
+            [
+                'tag_category' => 'post-news',
+                'tag_key' => 'job-fair',
+                'tag_name' => 'Job Fair'
+            ],
+            [
+                'tag_category' => 'post-news',
+                'tag_key' => 'ctu',
+                'tag_name' => 'CTU'
+            ],
+            [
+                'tag_category' => 'post-news',
+                'tag_key' => 'bussiness',
+                'tag_name' => 'Bussiness'
+            ],
         ]);
 
         PostTag::factory($number_post)->create();

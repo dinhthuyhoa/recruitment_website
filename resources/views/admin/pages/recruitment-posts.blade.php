@@ -134,6 +134,12 @@
                                 );
                                 var title = $(cell).text();
                                 $(cell).html('<input type="text" placeholder="' + title + '" />');
+                            } else {
+                                var cell = $('.filters th').eq(
+                                    $(api.column(colIdx).header()).index()
+                                );
+                                var title = $(cell).text();
+                                $(cell).html('');
                             }
 
                             // On every keypress in this input

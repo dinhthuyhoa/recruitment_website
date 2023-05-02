@@ -99,9 +99,10 @@ class PostController extends Controller
 
         $count_post = count($all_posts);
 
-        $tags = Tag::where('tag_category', 'post-recruiment')->orderBy('tag_name')->get();
+        $tags = Tag::where('tag_category', 'post-news')->orderBy('tag_name')->get();
 
         foreach ($all_posts as $post) {
+            $post->getInforRecruitment();
             $post->tags;
             $post->author = User::find($post->user_id)->name;
         }
@@ -117,31 +118,6 @@ class PostController extends Controller
                     return true;
                 }
 
-                if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
-                    return true;
-                }
-
-                return false;
-            });
-
-        }
-
-        if ($request->has('filter_address') && $request->get('filter_address') != null) {
-            $query = $this->stripVN(strtolower($request->get('filter_address')));
-            $all_posts = $all_posts->filter(function ($post) use ($query) {
-                if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
-                    return true;
-                }
-                return false;
-            });
-
-        }
-        if ($request->has('filter_job_nature') && $request->get('filter_job_nature') != null) {
-            $query = $this->stripVN(strtolower($request->get('filter_job_nature')));
-            $all_posts = $all_posts->filter(function ($post) use ($query) {
-                if (Str::contains($this->stripVN(strtolower($post->recruitment_job_nature)), $query)) {
-                    return true;
-                }
                 return false;
             });
 
@@ -160,6 +136,36 @@ class PostController extends Controller
             'tags' => $tags,
             'count_post' => $count_post
         ]);
+    }
+
+    public function news_post_details($id, Request $request)
+    {
+        $post = Post::find($id);
+
+        if (!Auth::check()) { //guest user identified by ip
+            $cookie_name = (Str::replace('.', '', ($request->ip())) . '-' . $post->id);
+        } else {
+            $cookie_name = (Auth::user()->id . '-' . $post->id); //logged in user
+            cookie($cookie_name, '1', 60);
+        }
+
+        $post->tags;
+        $post->author = User::find($post->user_id)->name;
+        $post->user = User::find($post->user_id);
+
+        if (Cookie::get($cookie_name) == '') { //check if cookie is set
+            $cookie = cookie($cookie_name, '1', 60); //set the cookie
+            $post->increment('post_view'); //count the view
+            return response()
+                ->view('frontend.pages.news-details', [
+                    'post' => $post
+                ])
+                ->withCookie($cookie); //store the cookie
+        } else {
+            return view('frontend.pages.news-details', [
+                'post' => $post
+            ]); //this view is not counted
+        }
     }
 
 
@@ -203,10 +209,46 @@ class PostController extends Controller
 
         if ($request->has('filter_address') && $request->get('filter_address') != null) {
             $query = $this->stripVN(strtolower($request->get('filter_address')));
+
             $all_posts = $all_posts->filter(function ($post) use ($query) {
                 if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
                     return true;
                 }
+
+                if ($query == $this->stripVN(strtolower('HCM'))) {
+                    if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $this->stripVN(strtolower('Ho Chi Minh')))) {
+
+                        return true;
+                    }
+
+                    if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $this->stripVN(strtolower('HoChiMinh')))) {
+
+                        return true;
+                    }
+
+                    if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $this->stripVN(strtolower('TP.HCM')))) {
+
+                        return true;
+                    }
+
+                    if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $this->stripVN(strtolower('Sai Gon')))) {
+                        return true;
+                    }
+                }
+
+                if ($query == $this->stripVN(strtolower('Can Tho'))) {
+
+                    if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $this->stripVN(strtolower('CanTho')))) {
+
+                        return true;
+                    }
+
+                    if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $this->stripVN(strtolower('TPCT')))) {
+
+                        return true;
+                    }
+                }
+
                 return false;
             });
 
@@ -493,6 +535,7 @@ class PostController extends Controller
         $post_new = Post::create([
             'user_id' => Auth::user()->id,
             'post_title' => $request->title,
+            'post_description' => $request->description,
             'post_content' => $request->content,
             'post_status' => $post_status,
             'post_type' => PostCategory::News,
@@ -523,6 +566,7 @@ class PostController extends Controller
             $post_update->update(
                 [
                     'post_title' => $request->title,
+                    'post_description' => $request->description,
                     'post_content' => $request->content,
                     'post_date_update' => Carbon::now(),
                     'post_status' => $post_status,
@@ -532,6 +576,7 @@ class PostController extends Controller
             $post_update->update(
                 [
                     'post_title' => $request->title,
+                    'post_description' => $request->description,
                     'post_content' => $request->content,
                     'post_date_update' => Carbon::now()
                 ]
