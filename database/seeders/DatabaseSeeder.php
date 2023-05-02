@@ -14,6 +14,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Faker\Generator;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,6 +30,9 @@ class DatabaseSeeder extends Seeder
         /** ========================= SETTING ============================ */
         $number_post = 100;
         /** =============================================================== */
+
+        Storage::makeDirectory('avatar');
+        Storage::makeDirectory('post');
 
         User::insert([
             [
