@@ -69,19 +69,8 @@
                                         <span class="blog_item_date">
                                             <h3>{{ date('d', strtotime($post->created_at)) }}</h3>
                                             <p>{{ date('F', strtotime($post->created_at)) }}</p>
+                                            <p>{{ date('Y', strtotime($post->created_at)) }}</p>
                                         </span>
-                                        <div>
-                                            @if (Auth::check())
-                                                <a class="heart_mark" href="javascript:void(0);"
-                                                    onclick="change_favotire({{ $post->id }},{{ Auth::user()->id }}, this)">
-                                                    @if (Auth::user()->is_post_favorite($post->id))
-                                                        <i class="fa fa-heart"></i>
-                                                    @else
-                                                        <i class="ti-heart"></i>
-                                                    @endif
-                                                </a>
-                                            @endif
-                                        </div>
                                     </div>
 
                                     <div class="blog_details">

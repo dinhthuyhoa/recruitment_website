@@ -6,6 +6,7 @@ use App\Enums\PostCategory;
 use App\Enums\UserRole;
 use App\Models\Post;
 use App\Models\PostMeta;
+use App\Models\Tag;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+
     // =================================== Function ============================================
     protected function update_post_meta($post_id, $key, $value)
     {
@@ -49,6 +51,44 @@ class PostController extends Controller
         });
     }
 
+    protected function stripVN($text)
+    {
+        $text = html_entity_decode($text);
+        $text = preg_replace("/(ä|à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $text);
+        $text = str_replace("ç", "c", $text);
+        $text = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $text);
+        $text = preg_replace("/(ì|í|î|ị|ỉ|ĩ)/", 'i', $text);
+        $text = preg_replace("/(ö|ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $text);
+        $text = preg_replace("/(ü|ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $text);
+        $text = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $text);
+        $text = preg_replace("/(đ)/", 'd', $text);
+        $text = preg_replace("/(Ä|À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'a', $text);
+        $text = str_replace("Ç", "a", $text);
+        $text = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'e', $text);
+        $text = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'i', $text);
+        $text = preg_replace("/(Ö|Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'o', $text);
+        $text = preg_replace("/(Ü|Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'u', $text);
+        $text = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'y', $text);
+        $text = preg_replace("/(Đ)/", 'd', $text);
+        $text = str_replace(" / ", "-", $text);
+        $text = str_replace("/", "-", $text);
+        $text = str_replace(" - ", "-", $text);
+        $text = str_replace("_", "-", $text);
+        $text = str_replace(" ", "-", $text);
+        $text = str_replace("ß", "ss", $text);
+        $text = str_replace("&", "", $text);
+        $text = str_replace("%", "", $text);
+        $text = preg_replace("[^A-Za-z0-9-]", "", $text);
+        $text = str_replace("----", "-", $text);
+        $text = str_replace("---", "-", $text);
+        $text = str_replace("--", "-", $text);
+        $text = preg_replace("/( |!||#|$|%|')/", '', $text);
+        $text = preg_replace("/(̀|́|̉|$|>)/", '', $text);
+        $text = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $text);
+        $text = strtolower($text);
+        return $text;
+    }
+
     // ====================================== Frontend News ===============================================
     public function news_post_list(Request $request)
     {
@@ -61,7 +101,7 @@ class PostController extends Controller
         }
 
         foreach ($all_posts as $post) {
-            $post->tags();
+            $post->tags;
             $post->author = User::find($post->user_id)->name;
         }
 
@@ -90,37 +130,73 @@ class PostController extends Controller
     // =================================== Frontend Recuitment ============================================
     public function recruitment_post_list(Request $request)
     {
-        $all_posts = Post::all();
+        $all_posts = Post::where([
+            ['post_type', PostCategory::Recruitment],
+            ['post_status', 'publish']
+        ])->get();
+
         $count_post = count($all_posts);
 
-        if (isset($request->keyword)) {
-            $all_posts = Post::where('post_title', 'LIKE', '%' . $request->keyword . '%')
-                ->orWhere('post_title', 'LIKE', '%' . $request->keyword . '%')->get();
-        }
+        $tags = Tag::orderBy('tag_name')->get();
 
         foreach ($all_posts as $post) {
             $post->getInforRecruitment();
-            $post->tags();
+            $post->tags;
             $post->author = User::find($post->user_id)->name;
         }
 
-        $filters = [
-            'post_type' => PostCategory::Recruitment,
-            'post_status' => 'publish',
-        ];
+        if ($request->has('keyword') && $request->get('keyword') != null) {
+            $query = $this->stripVN(strtolower($request->get('keyword')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (Str::contains($this->stripVN(strtolower($post->post_title)), $query)) {
+                    return true;
+                }
 
-        if (isset($request->filter_address) && $request->filter_address != '') {
-            $filters['recruitment_address'] = $request->filter_address;
+                if (Str::contains($this->stripVN(strtolower($post->author)), $query)) {
+                    return true;
+                }
+
+                if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
+                    return true;
+                }
+
+                return false;
+            });
+
         }
 
-        if (isset($request->filter_job_nature) && $request->filter_job_nature != '') {
-            $filters['recruitment_job_nature'] = $request->filter_job_nature;
+        if ($request->has('filter_address') && $request->get('filter_address') != null) {
+            $query = $this->stripVN(strtolower($request->get('filter_address')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
+                    return true;
+                }
+                return false;
+            });
+
+        }
+        if ($request->has('filter_job_nature') && $request->get('filter_job_nature') != null) {
+            $query = $this->stripVN(strtolower($request->get('filter_job_nature')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (Str::contains($this->stripVN(strtolower($post->recruitment_job_nature)), $query)) {
+                    return true;
+                }
+                return false;
+            });
+
         }
 
-        $posts = $this->filter($all_posts, $filters);
+        if ($request->has('tag') && $request->get('tag') != null) {
+            $tag = $request->get('tag');
+            $all_posts = $all_posts->filter(function ($post) use ($tag) {
+                return $post->tags->contains('tag_key', $tag);
+            });
+        }
+
 
         return view('frontend.pages.all-jobs', [
-            'posts' => $posts,
+            'posts' => $all_posts,
+            'tags' => $tags,
             'count_post' => $count_post
         ]);
     }
@@ -137,7 +213,7 @@ class PostController extends Controller
         }
 
         $post->getInforRecruitment();
-        $post->tags = $post->tags();
+        $post->tags = $post->tags;
         $post->author = User::find($post->user_id)->name;
 
         if (Cookie::get($cookie_name) == '') { //check if cookie is set

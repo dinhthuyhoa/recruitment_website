@@ -44,11 +44,7 @@ class Post extends Model
 
     public function tags()
     {
-        $arr_tags = [];
-        foreach (PostTag::where('post_id', $this->id)->get() as $v) {
-            $arr_tags[] = Tag::find($v->tag_id);
-        }
-        return $arr_tags;
+        return $this->belongsToMany(Tag::class, 'post_tags');
     }
 
     public function user()

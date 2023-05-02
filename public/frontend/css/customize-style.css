@@ -345,10 +345,10 @@ html {
 
 .blog_item_img {
     max-height: 350px;
-    overflow: hidden;
+    display: flex;
 }
 
-.avatar{
+.avatar {
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
