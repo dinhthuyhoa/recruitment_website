@@ -43,7 +43,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <img src="https://pnclogosofficial.s3.us-west-2.amazonaws.com/2017/02/12130054/The-9Best-Sports-Logo-Designs-in-History-1.png"
+                        <img src="https://yu.ctu.edu.vn/images/upload/article/2020/03/0305-logo-ctu.png"
                             alt="logo"
                             style="width: 200px; margin-bottom: 15px; clear: both; display: inline-block; margin-left: 31%;" />
                         <br />

@@ -146,16 +146,17 @@
                                 <li>Location: <span>{{ $post->recruitment_address }}</span></li>
                                 <li>Job Nature: <span>{{ $post->recruitment_job_nature }}</span></li>
                                 <li>Exprience: <span>{{ $post->recruitment_experience }}</span></li>
-                                <li>Deadline: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span></li>
+                                <li>Deadline: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="share_wrap d-flex flex-column tags_list">
                         <span>Tag:</span>
                         <ul class="py-3">
-                            @if (count($post->tags) > 0)
+                            @if (!is_null($post->tags))
                                 @foreach ($post->tags as $tag)
-                                    <li><a href="#"> {{ $tag->tag_name }}</a> </li>
+                                    <li><a href="{{ route('posts.recruitment.list', ['tag'=> $tag->tag_key]) }}"> {{ $tag->tag_name }}</a> </li>
                                 @endforeach
                             @else
                                 <li>No tags</li>

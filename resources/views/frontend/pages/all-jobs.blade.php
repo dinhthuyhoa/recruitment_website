@@ -98,19 +98,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="range_wrap">
-                                            <label for="amount">Salary range:</label>
-                                            <div id="slider-range"></div>
-                                            <p>
-                                                <input type="hidden" id="filter_salary_start" name="filter_salary_start">
-                                                <input type="hidden" id="filter_salary_end" name="filter_salary_end">
-
-                                                <input type="text" id="amount" readonly
-                                                    style="border:0; color:#7A838B; font-size: 14px; font-weight:400; width:100%;">
-                                            </p>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="reset_btn col-12">
                                     <button class="boxed-btn3 w-100 mb-3" form="form_filter_jobs"
@@ -129,6 +116,12 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <h4>Job Listing</h4>
+
+                                    @if (isset(request()->keyword))
+                                        <p>
+                                            {{ count($posts) }} result by keyword <b>{{ request()->keyword }}</b>
+                                        </p>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-6">
@@ -151,6 +144,23 @@
                         </div>
                     </div>
 
+                    <div class="my-3">
+                        <form action="" class="d-flex flex-wrap" style="gap: 15px">
+                            @foreach ($tags as $tag)
+                                @if (isset(request()->tag) && request()->tag == $tag->tag_key)
+                                    <button class="btn btn-primary" type="submit" name="tag"
+                                        value="{{ $tag->tag_key }}">
+                                        {{ $tag->tag_name }}
+                                    </button>
+                                @else
+                                    <button class="btn btn-info" type="submit" name="tag" value="{{ $tag->tag_key }}">
+                                        {{ $tag->tag_name }}
+                                    </button>
+                                @endif
+                            @endforeach
+                        </form>
+                    </div>
+
                     <div class="job_lists m-0">
                         <div class="row" id="paginated-list" data-current-page="1" aria-live="polite">
                             @if (count($posts) > 0)
@@ -159,8 +169,7 @@
                                         <div class="single_jobs white-bg d-flex justify-content-between">
                                             <div class="jobs_left d-flex align-items-center col-8">
                                                 <div class="thumb">
-                                                    <img src="{{ asset('storage/' . $post->post_image) }}"
-                                                        alt="">
+                                                    <img src="{{ asset('storage/' . $post->post_image) }}" alt="">
                                                 </div>
                                                 <div class="jobs_conetent">
                                                     <a href="{{ route('posts.recruitment.details', $post->id) }}">
