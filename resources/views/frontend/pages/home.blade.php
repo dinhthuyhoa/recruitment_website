@@ -82,88 +82,8 @@
     </div>
     <!--/ catagory_area -->
 
-    <!-- popular_catagory_area_start  -->
-    <div class="popular_catagory_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section_title mb-40">
-                        <h3>Popolar Categories</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Design & Creative</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Marketing</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Telemarketing</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Software & Web</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Administration</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Teaching & Education</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Engineering</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html">
-                            <h4>Garments / Textile</h4>
-                        </a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- popular_catagory_area_end  -->
-
     <!-- job_listing_area_start  -->
-    <div class="job_listing_area">
+    <div class="job_listing_area pt-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -173,7 +93,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="brouse_job text-right">
-                        <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
+                        <a href="{{ route('posts.recruitment.list') }}" class="boxed-btn4">Browse More Job</a>
                     </div>
                 </div>
             </div>
@@ -185,7 +105,7 @@
                                 <div class="single_jobs white-bg d-flex justify-content-between">
                                     <div class="jobs_left d-flex align-items-center">
                                         <div class="thumb p-0">
-                                            <img src="{{ asset('storage/' . $post->recruitment_image) }}" alt="">
+                                            <img src="{{ asset('storage/' . $post->post_image) }}" alt="">
                                         </div>
                                         <div class="jobs_conetent">
                                             <a href="{{ route('posts.recruitment.details', $post->id) }}">
@@ -390,11 +310,6 @@
                         <h3>Top Companies</h3>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="brouse_job text-right">
-                        <a href="jobs.html" class="boxed-btn4">Browse More Job</a>
-                    </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-xl-3 col-md-6">
@@ -444,29 +359,6 @@
             </div>
         </div>
     </div>
-
-    <!-- job_searcing_wrap  -->
-    <div class="job_searcing_wrap overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 offset-lg-1 col-md-6">
-                    <div class="searching_text">
-                        <h3>Looking for a Job?</h3>
-                        <p>We provide online instant cash loans with quick approval </p>
-                        <a href="#" class="boxed-btn3">Browse Job</a>
-                    </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1 col-md-6">
-                    <div class="searching_text">
-                        <h3>Looking for a Expert?</h3>
-                        <p>We provide online instant cash loans with quick approval </p>
-                        <a href="#" class="boxed-btn3">Post a Job</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- job_searcing_wrap end  -->
 
     <!-- testimonial_area  -->
     <div class="testimonial_area  ">

@@ -10,8 +10,8 @@
                 </div>
                 <hr>
                 <div class="d-flex flex-column justify-content-center align-items-center apply-block">
-                    @if (!is_null($apply->post->image()))
-                        <img src="{{ asset('storage/' . $apply->post->image()) }}" alt="Avatar" class="rounded-circle me-2"
+                    @if (!is_null($apply->post->post_image))
+                        <img src="{{ asset('storage/' . $apply->post->post_image) }}" alt="Avatar" class="rounded-circle me-2"
                             width="100" />
                     @endif
                     <h4 class="my-2"><a href="{{ route('posts.recruitment.details', $apply->post->id) }}"

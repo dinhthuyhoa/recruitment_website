@@ -5,13 +5,10 @@
             (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator))
         <div
             class="display-comment {{ !is_null($comment->parent_id) ? 'd-none comment-child-of-' . $comment->parent_id : null }}">
-            <div class="comment-info d-flex">
-                <img src="{{ asset('storage/' . $comment->user->avatar) }}" alt="" class="avatar" width="40px" height="40px">
-                <div class="mx-2">
-                    <strong>{{ $comment->user->name }}</strong>
-                    <span class="text-secondary"> | {{ date('H:i d/m/Y', strtotime($comment->created_at)) }}</span>
-                    <p class="m-0 text-dark">{{ $comment->body }}</p>
-                </div>
+            <div class="comment-info">
+                <strong>{{ $comment->user->name }}</strong>
+                <span class="text-secondary"> | {{ date('H:i d/m/Y', strtotime($comment->created_at)) }}</span>
+                <p class="m-0 text-dark">{{ $comment->body }}</p>
             </div>
             <div class="ml-3 my-2">
                 <a class="btn-reply-comment" href="javascript:void(0);" data-comment-id="{{ $comment->id }}">

@@ -29,6 +29,8 @@ class PostFactory extends Factory
             'user_id' => User::all()->random()->id,
             'post_title' => $this->faker->realText(40),
             'post_content' => $post,
+            'post_description' =>  $this->faker->text(),
+            'post_image' => 'post/' . $this->faker->image('public/storage/post', 400, 400, false),
             'post_view' => 0,
             'post_status' => $this->faker->randomElement(['draft', 'pendding', 'publish']),
             'post_type' => $this->faker->randomElement(PostCategory::getValues()),

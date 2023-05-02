@@ -23,6 +23,8 @@
                     @foreach ($post_list as $post)
                         <tr>
                             <td>
+                                <img src="{{ !is_null($post->post_image) ? asset('storage/' . $post->post_image) : '' }}"
+                                    alt="Avatar" class="rounded-circle me-2" width="50" height="50" />
                                 <a href="{{ route('admin.posts.recruitment.edit', $post) }}" class="fw-bold">
                                     {{ $post->post_title }}
                                 </a>
