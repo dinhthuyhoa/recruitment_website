@@ -19,7 +19,7 @@
         <li class="menu-item {{ request()->is('admin') ? 'open active' : '' }}">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div data-i18n="Analytics">Welcome</div>
             </a>
         </li>
 

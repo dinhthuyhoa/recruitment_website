@@ -27,16 +27,21 @@ class AuthController extends Controller
 
         $login_email = [
             'email' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
         ];
 
         $login_phone = [
             'phone' => $request->username,
-            'password' => $request->password
+            'password' => $request->password,
         ];
 
 
         if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
+            if (Auth::check() && Auth::user()->status == 'Pendding') {
+                Auth::logout();
+                return back()->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+            }
+
             if (
                 !(Auth::check() &&
                     (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter || Auth::user()->role == UserRole::SubAdmin)
@@ -84,6 +89,17 @@ class AuthController extends Controller
 
 
         if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
+
+            if (Auth::check() && Auth::user()->status == 'Pendding') {
+                Auth::logout();
+
+                if ($request->redirect_to) {
+                    return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                } else {
+                    return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                }
+            }
+
             if ($request->redirect_to) {
                 return redirect($request->redirect_to);
             } else {

@@ -59,90 +59,102 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mb-5 mb-lg-0">
-                    <div class="blog_left_sidebar">
-                        @if (count($posts) > 0)
-                            @foreach ($posts as $post)
-                                <article class="blog_item">
-                                    <div class="blog_item_img">
-                                        <img class="card-img rounded-0" src="{{ asset('storage/' . $post->post_image) }}"
-                                            alt="">
-                                        <span class="blog_item_date">
-                                            <h3>{{ date('d', strtotime($post->created_at)) }}</h3>
-                                            <p>{{ date('F', strtotime($post->created_at)) }}</p>
-                                            <p>{{ date('Y', strtotime($post->created_at)) }}</p>
-                                        </span>
-                                    </div>
+                    <div class="blog_left_sidebar" id="paginated-list-news" data-current-page="1" aria-live="polite">
 
-                                    <div class="blog_details">
-                                        <a class="d-inline-block" href="{{ route('posts.news.details', $post->id) }}">
-                                            <h2>{{ $post->post_title }}</h2>
-                                        </a>
-                                        <p class="post-description">{{ $post->post_description }}</p>
-                                        <ul class="blog-info-link">
-                                            <li><span><i class="fa fa-user"></i> {{ $post->author }}</span></li>
-                                            <li><span><i class="fa fa-comments"></i> {{ count($post->comments) }}
-                                                    Comments</span></li>
-                                            <li><span><i class="fa fa-eye"></i> {{ $post->post_view }} View</span></li>
-                                        </ul>
-                                    </div>
-                                </article>
-                            @endforeach
-                        @else
-                            <h3>Not found post</h3>
-                        @endif
+                        <div class="row" id="paginated-list" data-current-page="1" aria-live="polite">
+                            @if (count($posts) > 0)
+                                @foreach ($posts as $post)
+                                    <li class="col-lg-12 col-md-12 item_list_jobs">
+                                        <div class="blog_item">
+                                            <div class="blog_item_img">
+                                                <img class="card-img rounded-0"
+                                                    src="{{ asset('storage/' . $post->post_image) }}" alt="">
+                                                <span class="blog_item_date">
+                                                    <h3>{{ date('d', strtotime($post->created_at)) }}</h3>
+                                                    <p>{{ date('F', strtotime($post->created_at)) }}</p>
+                                                    <p>{{ date('Y', strtotime($post->created_at)) }}</p>
+                                                </span>
+                                            </div>
 
+                                            <div class="blog_details">
+                                                <a class="d-inline-block"
+                                                    href="{{ route('posts.news.details', $post->id) }}">
+                                                    <h2>{{ $post->post_title }}</h2>
+                                                </a>
+                                                <p class="post-description">{{ $post->post_description }}</p>
+                                                <ul class="blog-info-link">
+                                                    <li><span><i class="fa fa-user"></i> {{ $post->author }}</span></li>
+                                                    <li><span><i class="fa fa-comments"></i> {{ count($post->comments) }}
+                                                            Comments</span></li>
+                                                    <li><span><i class="fa fa-eye"></i> {{ $post->post_view }} View</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @else
+                                <h3>Not found post</h3>
+                            @endif
 
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                        </div>
+
+                        <nav class="pagination-container">
+                            <button class="pagination-button" id="prev-button" aria-label="Previous page"
+                                title="Previous page">
+                                &lt;
+                            </button>
+
+                            <div id="pagination-numbers">
+
+                            </div>
+
+                            <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
+                                &gt;
+                            </button>
                         </nav>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
-                            <form action="#">
+                            <form action="#" id="form-search-news">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='Search Keyword'
-                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                                        <input type="search" class="form-control" placeholder='Search Keyword'
+                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'"
+                                            id="keyword" name="keyword" class="form-control"
+                                            value="{{ request()->keyword }}">
+
                                         <div class="input-group-append">
-                                            <button class="btn" type="button"><i class="ti-search"></i></button>
+                                            <button class="btn" type="submmit" form="form-search-news"><i
+                                                    class="ti-search"></i></button>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                    type="submit">Search</button>
+                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit"
+                                    form="form-search-news">Search</button>
                             </form>
                         </aside>
 
                         <aside class="single_sidebar_widget tag_cloud_widget">
                             <h4 class="widget_title">Tag Clouds</h4>
                             <ul class="list">
-                                @if (!is_null($post->tags))
-                                    @foreach ($post->tags as $tag)
-                                        <li><a href="{{ route('posts.recruitment.list', ['tag' => $tag->tag_key]) }}">
-                                                {{ $tag->tag_name }}</a> </li>
+                                <form action="" class="d-flex flex-wrap" style="gap: 15px">
+                                    @foreach ($tags as $tag)
+                                        @if (isset(request()->tag) && request()->tag == $tag->tag_key)
+                                            <button class="btn btn-orange-checked" type="submit" name="tag"
+                                                value="{{ $tag->tag_key }}">
+                                                {{ $tag->tag_name }}
+                                            </button>
+                                        @else
+                                            <button class="btn btn-orange" type="submit" name="tag"
+                                                value="{{ $tag->tag_key }}">
+                                                {{ $tag->tag_name }}
+                                            </button>
+                                        @endif
                                     @endforeach
-                                @else
-                                    <li>No tags</li>
-                                @endif
+                                </form>
                             </ul>
                         </aside>
                     </div>
@@ -160,7 +172,7 @@
 @section('js')
     <script>
         const paginationNumbers = document.getElementById("pagination-numbers");
-        const paginatedList = document.getElementById("paginated-list");
+        const paginatedList = document.getElementById("paginated-list-news");
         const listItems = paginatedList.querySelectorAll("li");
         const nextButton = document.getElementById("next-button");
         const prevButton = document.getElementById("prev-button");

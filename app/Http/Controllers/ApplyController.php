@@ -49,6 +49,16 @@ class ApplyController extends Controller
             $v->post = Post::find($v->post_id);
             $v->user = User::find($v->user_id);
         }
+        
+        $apply_list = $apply_list->filter(function ($apply) {
+
+            if ($apply->post->user->id != Auth::user()->id) {
+                return true;
+            }
+
+            return false;
+        });
+
 
         return view('admin.pages.job-apply-list', ['apply_list' => $apply_list]);
     }
