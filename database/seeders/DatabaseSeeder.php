@@ -15,6 +15,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Faker\Generator;
 use Illuminate\Support\Facades\Storage;
+use Buihuycuong\Vnfaker\VNFaker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,7 +41,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin',
                 'email_verified_at' => now(),
                 'password' => Hash::make('admin'),
-                // password
                 'phone' => '0941649826',
                 'status' => 'Active',
                 'gender' => 'Male',
@@ -53,7 +53,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'sub-admin',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                // password
                 'phone' => '09416498225',
                 'status' => 'Active',
                 'gender' => 'Female',
@@ -62,11 +61,10 @@ class DatabaseSeeder extends Seeder
                 'role' => UserRole::SubAdmin
             ],
             [
-                'name' => 'Recruiter',
+                'name' => VNFaker::company(),
                 'email' => 'recruiter@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                // password
                 'phone' => '0941649825',
                 'status' => 'Active',
                 'gender' => 'Male',
@@ -79,7 +77,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'customer@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                // password
                 'phone' => '0941649823',
                 'status' => 'Active',
                 'gender' => 'Male',
@@ -147,7 +144,7 @@ class DatabaseSeeder extends Seeder
                     [
                         'post_id' => $v->id,
                         'key' => 'address',
-                        'value' => Arr::random(['Can Tho', 'HCM'])
+                        'value' => VNFaker::address()
                     ],
                     [
                         'post_id' => $v->id,
@@ -182,12 +179,12 @@ class DatabaseSeeder extends Seeder
                     [
                         'post_id' => $v->id,
                         'key' => 'phone',
-                        'value' => $faker->phoneNumber()
+                        'value' => VNFaker::mobilephone()
                     ],
                     [
                         'post_id' => $v->id,
                         'key' => 'email',
-                        'value' => $faker->email()
+                        'value' => VNFaker::email()
                     ],
                 ]);
             }
