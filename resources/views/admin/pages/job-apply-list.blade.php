@@ -22,8 +22,8 @@
                     @foreach ($apply_list as $apply)
                         <tr>
                             <td>
-                                <img src="{{ !is_null($apply->post->image()) ? asset('storage/' . $apply->post->image()) : '' }}"
-                                    alt="Avatar" class="rounded-circle me-2" width="50" />
+                                <img src="{{ !is_null($apply->post->post_image) ? asset('storage/' . $apply->post->post_image) : '' }}"
+                                    alt="Avatar" class="rounded-circle me-2" width="50" height="50" />
                                 <a href="{{ route('admin.job_apply.edit', $apply->id) }}" class="fw-bold">
                                     {{ $apply->post->post_title }}
                                 </a>

@@ -179,7 +179,7 @@ html {
 }
 
 .comment-info {
-    background-color: #cccccc;
+    background-color: #cccccc80;
     padding: 20px;
     border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -342,3 +342,16 @@ html {
 }
 
 /* End Emoji React css*/
+
+.blog_item_img {
+    max-height: 350px;
+    overflow: hidden;
+}
+
+.avatar{
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}

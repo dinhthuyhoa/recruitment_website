@@ -49,6 +49,44 @@ class PostController extends Controller
         });
     }
 
+    // ====================================== Frontend News ===============================================
+    public function news_post_list(Request $request)
+    {
+        $all_posts = Post::all();
+        $count_post = count($all_posts);
+
+        if (isset($request->keyword)) {
+            $all_posts = Post::where('post_title', 'LIKE', '%' . $request->keyword . '%')
+                ->orWhere('post_title', 'LIKE', '%' . $request->keyword . '%')->get();
+        }
+
+        foreach ($all_posts as $post) {
+            $post->tags();
+            $post->author = User::find($post->user_id)->name;
+        }
+
+        $filters = [
+            'post_type' => PostCategory::News,
+            'post_status' => 'publish',
+        ];
+
+        if (isset($request->filter_address) && $request->filter_address != '') {
+            $filters['recruitment_address'] = $request->filter_address;
+        }
+
+        if (isset($request->filter_job_nature) && $request->filter_job_nature != '') {
+            $filters['recruitment_job_nature'] = $request->filter_job_nature;
+        }
+
+        $posts = $this->filter($all_posts, $filters);
+
+        return view('frontend.pages.news-list', [
+            'posts' => $posts,
+            'count_post' => $count_post
+        ]);
+    }
+
+
     // =================================== Frontend Recuitment ============================================
     public function recruitment_post_list(Request $request)
     {
@@ -139,13 +177,7 @@ class PostController extends Controller
     }
     public function admin_recruitment_post_store(Request $request)
     {
-        $post_new = Post::create([
-            'user_id' => Auth::user()->id,
-            'post_title' => $request->title,
-            'post_content' => $request->content,
-            'post_status' => 'pendding',
-            'post_type' => PostCategory::Recruitment,
-        ]);
+
 
         if ($request->hasFile('avatar')) {
             $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
@@ -167,6 +199,15 @@ class PostController extends Controller
                 $file_name = Storage::put('/post', $file);
             }
         }
+
+        $post_new = Post::create([
+            'user_id' => Auth::user()->id,
+            'post_title' => $request->title,
+            'post_content' => $request->content,
+            'post_status' => 'pendding',
+            'post_type' => PostCategory::Recruitment,
+            'post_image' => $file_name
+        ]);
 
         PostMeta::insert([
             [
@@ -212,12 +253,7 @@ class PostController extends Controller
             [
                 'post_id' => $post_new->id,
                 'key' => 'job-nature',
-                'value' => $file_name
-            ],
-            [
-                'post_id' => $post_new->id,
-                'key' => 'image',
-                'value' => $file_name
+                'value' => $request->job_nature
             ],
         ]);
 
@@ -243,7 +279,9 @@ class PostController extends Controller
         if ($request->post_status)
             $post_status = $request->post_status;
 
-        $post_update = Post::whereId($id)->update(
+        $post_update = Post::whereId($id);
+
+        $post_update->update(
             [
                 'post_title' => $request->title,
                 'post_content' => $request->content,
@@ -274,7 +312,10 @@ class PostController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 // $filename = $file->store('media');
                 $file_name = Storage::put('/post', $file);
-                $this->update_post_meta($id, 'image', $file_name);
+
+                $post_update->update([
+                    'post_image' => $file_name
+                ]);
             }
         }
 
@@ -314,14 +355,6 @@ class PostController extends Controller
             $post_status = 'pendding';
         }
 
-        $post_new = Post::create([
-            'user_id' => Auth::user()->id,
-            'post_title' => $request->title,
-            'post_content' => $request->content,
-            'post_status' => $post_status,
-            'post_type' => PostCategory::News,
-        ]);
-
         $file_name = '';
 
         if ($request->hasFile('avatar')) {
@@ -345,12 +378,13 @@ class PostController extends Controller
             }
         }
 
-        PostMeta::insert([
-            [
-                'post_id' => $post_new->id,
-                'key' => 'image',
-                'value' => $file_name
-            ],
+        $post_new = Post::create([
+            'user_id' => Auth::user()->id,
+            'post_title' => $request->title,
+            'post_content' => $request->content,
+            'post_status' => $post_status,
+            'post_type' => PostCategory::News,
+            'post_image' => $file_name
         ]);
 
         if ($request->submit == 'redirect') {
@@ -362,18 +396,19 @@ class PostController extends Controller
     public function admin_news_post_edit($id)
     {
         $post = Post::find($id);
-        $post->news_image = PostMeta::where('post_id', $post->id)->where('key', 'image')->exists()
-            ? PostMeta::where('post_id', $post->id)->where('key', 'image')->first()->value
-            : '';
+        $post->news_image = $post->post_image;
+
         return view('admin.pages.news-posts-edit', ['post' => $post]);
     }
+
     public function admin_news_post_update(Request $request, $id)
     {
+        $post_update = Post::whereId($id);
         if (isset($request->post_status) && (Auth::user()->role == UserRole::Administrator || $request->post_status != 'publish')) {
 
             $post_status = $request->post_status;
 
-            $post_update = Post::whereId($id)->update(
+            $post_update->update(
                 [
                     'post_title' => $request->title,
                     'post_content' => $request->content,
@@ -382,7 +417,7 @@ class PostController extends Controller
                 ]
             );
         } else {
-            $post_update = Post::whereId($id)->update(
+            $post_update->update(
                 [
                     'post_title' => $request->title,
                     'post_content' => $request->content,
@@ -412,7 +447,12 @@ class PostController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 // $filename = $file->store('media');
                 $file_name = Storage::put('/post', $file);
-                $this->update_post_meta($id, 'image', $file_name);
+
+                $post_update->update(
+                    [
+                        'post_image' => $file_name,
+                    ]
+                );
             }
         }
 

@@ -157,11 +157,6 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
                         'post_id' => $v->id,
-                        'key' => 'image',
-                        'value' => 'post/' . $faker->image('public/storage/post', 400, 400, false)
-                    ],
-                    [
-                        'post_id' => $v->id,
                         'key' => 'phone',
                         'value' => $faker->phoneNumber()
                     ],

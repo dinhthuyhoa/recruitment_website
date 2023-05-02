@@ -22,11 +22,6 @@ class Post extends Model
         'post_type',
     ];
 
-    public function image()
-    {
-        return $this->getMeta('image');
-    }
-
     public function getMeta($key)
     {
         return PostMeta::where('post_id', $this->id)->where('key', $key)->first() ? PostMeta::where('post_id', $this->id)->where('key', $key)->first()->value : '';
@@ -38,7 +33,6 @@ class Post extends Model
         $this->recruitment_job_nature = $this->getMeta('job-nature');
         $this->recruitment_vacancy = $this->getMeta('vacancy');
         $this->recruitment_salary = $this->getMeta('salary');
-        $this->recruitment_image = $this->getMeta('image');
         $this->recruitment_email = $this->getMeta('email');
         $this->recruitment_phone = $this->getMeta('phone');
         $this->recruitment_position = $this->getMeta('position');

@@ -23,7 +23,7 @@
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
                                 <div class="thumb">
-                                    <img src="{{ asset('storage/' . $post->recruitment_image) }}" alt="">
+                                    <img src="{{ asset('storage/' . $post->post_image) }}" alt="">
                                 </div>
 
                                 <div class="jobs_conetent">

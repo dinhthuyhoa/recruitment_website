@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('post_title')->nullable();
+            $table->string('post_image')->nullable();
+            $table->string('post_description')->nullable();
             $table->longText('post_content')->nullable();
             $table->date('post_date')->default(Carbon::now());
             $table->date('post_date_update')->default(Carbon::now());
