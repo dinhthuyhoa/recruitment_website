@@ -30,50 +30,64 @@
     <!-- catagory_area -->
     <div class="catagory_area">
         <div class="container">
-            <div class="row cat_search">
-                <div class="col-lg-3 col-md-4">
-                    <div class="single_input">
-                        <input type="text" placeholder="Search keyword">
+            <form action="{{ route('posts.recruitment.list') }}" method="get">
+                <div class="row cat_search">
+                    @csrf
+                    <div class="col-lg-3 col-md-4">
+                        <div class="single_input">
+                            <input type="text" name="keyword" placeholder="Search keyword">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <div class="single_input">
+                            <select class="wide" name="filter_address" id="filter_address">
+                                <option value="">All</option>
+                                <option value="Can Tho" {{ request()->filter_address == 'Can Tho' ? 'selected' : '' }}>Cần
+                                    Thơ
+                                </option>
+                                <option value="HCM" {{ request()->filter_address == 'HCM' ? 'selected' : '' }}>Sài Gòn
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <div class="single_input">
+                            <select class="wide" name="filter_job_nature" id="filter_job_nature">
+                                <option value="">All</option>
+                                <option value="Full-time"
+                                    {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>Full
+                                    time
+                                </option>
+                                <option value="Part-time"
+                                    {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>Part
+                                    time
+                                </option>
+                                <option value="Freelancer"
+                                    {{ request()->filter_job_nature == 'Freelancer' ? 'selected' : '' }}>
+                                    Freelancer
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="job_btn">
+                            <button type="sumit" class="boxed-btn3">Find Job</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4">
-                    <div class="single_input">
-                        <select class="wide">
-                            <option data-display="Location">Location</option>
-                            <option value="1">Dhaka</option>
-                            <option value="2">Rangpur</option>
-                            <option value="4">Sylet</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <div class="single_input">
-                        <select class="wide">
-                            <option data-display="Category">Category</option>
-                            <option value="1">Category 1</option>
-                            <option value="2">Category 2</option>
-                            <option value="4">Category 3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="job_btn">
-                        <a href="#" class="boxed-btn3">Find Job</a>
-                    </div>
-                </div>
-            </div>
+            </form>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="popular_search d-flex align-items-center">
                         <span>Popular Search:</span>
                         <ul>
-                            <li><a href="#">Design & Creative</a></li>
-                            <li><a href="#">Marketing</a></li>
-                            <li><a href="#">Administration</a></li>
-                            <li><a href="#">Teaching & Education</a></li>
-                            <li><a href="#">Engineering</a></li>
-                            <li><a href="#">Software & Web</a></li>
-                            <li><a href="#">Telemarketing</a></li>
+                            @foreach ($tags as $tag)
+                                <li>
+                                    <a href="{{ route('posts.recruitment.list', ['tag' => $tag->tag_key]) }}">
+                                        {{ $tag->tag_name }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

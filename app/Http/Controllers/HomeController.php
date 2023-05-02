@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\PostCategory;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,11 @@ class HomeController extends Controller
             $post->author = User::find($post->user_id)->name;
 
         }
-        return view('frontend.pages.home', ['recruitment_post_list' => $recruitment_post_list]);
+        $tags = Tag::where('tag_category', 'post-recruiment')->orderBy('tag_name')->get();
+        return view('frontend.pages.home', [
+            'recruitment_post_list' => $recruitment_post_list,
+            'tags' => $tags
+        ]);
     }
 
     public function storeImage(Request $request)
