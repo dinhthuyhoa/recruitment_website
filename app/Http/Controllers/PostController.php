@@ -92,36 +92,72 @@ class PostController extends Controller
     // ====================================== Frontend News ===============================================
     public function news_post_list(Request $request)
     {
-        $all_posts = Post::all();
+        $all_posts = Post::where([
+            ['post_type', PostCategory::News],
+            ['post_status', 'publish']
+        ])->get();
+
         $count_post = count($all_posts);
 
-        if (isset($request->keyword)) {
-            $all_posts = Post::where('post_title', 'LIKE', '%' . $request->keyword . '%')
-                ->orWhere('post_title', 'LIKE', '%' . $request->keyword . '%')->get();
-        }
+        $tags = Tag::where('tag_category', 'post-recruiment')->orderBy('tag_name')->get();
 
         foreach ($all_posts as $post) {
             $post->tags;
             $post->author = User::find($post->user_id)->name;
         }
 
-        $filters = [
-            'post_type' => PostCategory::News,
-            'post_status' => 'publish',
-        ];
+        if ($request->has('keyword') && $request->get('keyword') != null) {
+            $query = $this->stripVN(strtolower($request->get('keyword')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (Str::contains($this->stripVN(strtolower($post->post_title)), $query)) {
+                    return true;
+                }
 
-        if (isset($request->filter_address) && $request->filter_address != '') {
-            $filters['recruitment_address'] = $request->filter_address;
+                if (Str::contains($this->stripVN(strtolower($post->author)), $query)) {
+                    return true;
+                }
+
+                if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
+                    return true;
+                }
+
+                return false;
+            });
+
         }
 
-        if (isset($request->filter_job_nature) && $request->filter_job_nature != '') {
-            $filters['recruitment_job_nature'] = $request->filter_job_nature;
+        if ($request->has('filter_address') && $request->get('filter_address') != null) {
+            $query = $this->stripVN(strtolower($request->get('filter_address')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (Str::contains($this->stripVN(strtolower($post->recruitment_address)), $query)) {
+                    return true;
+                }
+                return false;
+            });
+
+        }
+        if ($request->has('filter_job_nature') && $request->get('filter_job_nature') != null) {
+            $query = $this->stripVN(strtolower($request->get('filter_job_nature')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (Str::contains($this->stripVN(strtolower($post->recruitment_job_nature)), $query)) {
+                    return true;
+                }
+                return false;
+            });
+
         }
 
-        $posts = $this->filter($all_posts, $filters);
+        if ($request->has('tag') && $request->get('tag') != null) {
+            $tag = $request->get('tag');
+            $all_posts = $all_posts->filter(function ($post) use ($tag) {
+                return $post->tags->contains('tag_key', $tag);
+            });
+        }
+
 
         return view('frontend.pages.news-list', [
-            'posts' => $posts,
+            'posts' => $all_posts,
+            'tags' => $tags,
             'count_post' => $count_post
         ]);
     }
@@ -137,7 +173,7 @@ class PostController extends Controller
 
         $count_post = count($all_posts);
 
-        $tags = Tag::orderBy('tag_name')->get();
+        $tags = Tag::where('tag_category', 'post-recruiment')->orderBy('tag_name')->get();
 
         foreach ($all_posts as $post) {
             $post->getInforRecruitment();
