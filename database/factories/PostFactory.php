@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\PostCategory;
+use App\Enums\UserRole;
 use App\Models\PostMeta;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -27,7 +28,7 @@ class PostFactory extends Factory
         // }
 
         return [
-            'user_id' => User::all()->random()->id,
+            'user_id' => User::where('role', UserRole::Recruiter)->get()->random()->id,
             'post_title' => $this->faker->realText(40),
             'post_content' => $paragraphs,
             'post_description' => VNFaker::sentences(rand(2, 8)),
