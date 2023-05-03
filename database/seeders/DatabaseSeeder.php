@@ -44,19 +44,19 @@ class DatabaseSeeder extends Seeder
                 'phone' => 'admin',
                 'status' => 'Active',
                 'gender' => 'Male',
-                'birthday' => '2000-04-21',
+                'birthday' => '2001-08-16',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Administrator
             ],
             [
                 'name' => 'Đinh Thùy Hoa',
-                'email' => 'sub_admin@gmail.com',
+                'email' => 'dinhthuyhoa61@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
                 'phone' => 'sub-admin',
                 'status' => 'Active',
                 'gender' => 'Female',
-                'birthday' => '2000-04-21',
+                'birthday' => '2001-08-16',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::SubAdmin
             ],
@@ -65,25 +65,73 @@ class DatabaseSeeder extends Seeder
                 'email' => 'recruiter@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                'phone' => '0941649825',
+                'phone' => '0965070061',
                 'status' => 'Active',
-                'gender' => 'Male',
-                'birthday' => '2000-04-21',
+                'gender' => 'Female',
+                'birthday' => '1988-04-16',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Recruiter
             ],
             [
-                'name' => 'Customer',
-                'email' => 'customer@gmail.com',
+                'name' => VNFaker::company(),
+                'email' => 'recruiter123@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                'phone' => '0941649823',
+                'phone' => '0909999999',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '1997-12-11',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Recruiter
+            ],
+            [
+                'name' => VNFaker::company(),
+                'email' => 'recruiter123@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0909999998',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '1999-10-12',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Recruiter
+            ],
+            [
+                'name' => 'Nguyen Van A',
+                'email' => 'a@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0965070061',
                 'status' => 'Active',
                 'gender' => 'Male',
-                'birthday' => '2000-04-21',
+                'birthday' => '2001-08-16',
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Candidate
-            ]
+            ],
+            [
+                'name' => 'Nguyen Thi C',
+                'email' => 'c@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0965070061',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-08-16',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Nguyen Thi D',
+                'email' => 'd@gmail.com',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0965070061',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2002-10-02',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
         ]);
 
         Post::factory($number_post)->create();
@@ -112,7 +160,7 @@ class DatabaseSeeder extends Seeder
             [
                 'tag_category' => 'post-recruiment',
                 'tag_key' => 'tester',
-                'tag_name' => 'Teser'
+                'tag_name' => 'Tester'
             ],
             [
                 'tag_category' => 'post-news',
@@ -144,7 +192,7 @@ class DatabaseSeeder extends Seeder
                     [
                         'post_id' => $v->id,
                         'key' => 'address',
-                        'value' => VNFaker::address()
+                        'value' => VNFaker::city()
                     ],
                     [
                         'post_id' => $v->id,
