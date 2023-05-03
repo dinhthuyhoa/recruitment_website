@@ -1,44 +1,5 @@
 @extends('frontend.master.master')
-@section('css')
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-        .hidden {
-            display: none;
-        }
-
-        .pagination-container {
-            width: calc(100% - 2rem);
-            display: flex;
-            align-items: center;
-            bottom: 0;
-            padding: 1rem 0;
-            justify-content: center;
-        }
-
-        .pagination-number,
-        .pagination-button {
-            font-size: 1.1rem;
-            background-color: transparent;
-            border: none;
-            margin: 0.25rem 0.25rem;
-            cursor: pointer;
-            height: 2.5rem;
-            width: 2.5rem;
-            border-radius: .2rem;
-        }
-
-        .pagination-number:hover,
-        .pagination-button:not(.disabled):hover {
-            background: #fff;
-        }
-
-        .pagination-number.active {
-            color: #fff;
-            background: var(--orange);
-        }
-    </style>
-@endsection
 @section('content')
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_1">

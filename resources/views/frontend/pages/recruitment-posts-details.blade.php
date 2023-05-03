@@ -155,108 +155,113 @@
                         <span>Tag:</span>
                         <ul class="py-3">
                             @if (!is_null($post->tags))
-                                @foreach ($post->tags as $tag)
-                                    <li><a href="{{ route('posts.recruitment.list', ['tag' => $tag->tag_key]) }}">
-                                            {{ $tag->tag_name }}</a> </li>
-                                @endforeach
+                                <form action="{{ route('posts.news.list') }}" class="d-flex flex-wrap" style="gap: 15px">
+                                    @foreach ($post->tags as $tag)
+                                        <button class="btn btn-secondary" type="submit" name="tag"
+                                            value="{{ $tag->tag_key }}">
+                                            {{ $tag->tag_name }}
+                                        </button>
+                                    @endforeach
+                                </form>
                             @else
                                 <li>No tags</li>
                             @endif
                         </ul>
                     </div>
-
-                    <div id="apply_job">
-                        <div class="apply_job_form white-bg">
-                            <h4>Apply for the job</h4>
-                            <form action="{{ route('job_apply.apply') }}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="input_field">
-                                            <label for="fullname">Full name</label>
-                                            <input type="text" placeholder="Your name" name="fullname" id="fullname"
-                                                value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="margin-bottom: 20px;">
-                                        <div class="select_field">
-                                            <label for="gender">Gender</label>
-                                            <select name="gender" id="gender" class="w-100" style="height: 60px;"
-                                                required>
-                                                <option value="Male"
-                                                    {{ Auth::check() && Auth::user()->gender == 'Male' ? 'selected' : '' }}>
-                                                    Male
-                                                </option>
-                                                <option value="Female"
-                                                    {{ Auth::check() && Auth::user()->gender == 'Female' ? 'selected' : '' }}>
-                                                    Female
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input_field">
-                                            <label for="email">Email</label>
-                                            <input type="text" placeholder="Email" name="email" id="email"
-                                                value="{{ Auth::check() ? Auth::user()->email : '' }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input_field">
-                                            <label for="phone">Phone</label>
-                                            <input type="text" placeholder="Phone" name="phone" id="phone"
-                                                value="{{ Auth::check() ? Auth::user()->phone : '' }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input_field">
-                                            <label for="address">Address</label>
-                                            <input type="text" placeholder="Your address" name="address"
-                                                id="address" value="{{ Auth::check() ? Auth::user()->address : '' }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input_field">
-                                            <label for="birthday">Birthday</label>
-                                            <input type="date" placeholder="Your address" name="birthday"
-                                                id="birthday"
-                                                value="{{ Auth::check() ? date('Y-m-d', strtotime(Auth::user()->birthday)) : date('Y-m-d', strtotime(now())) }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="">CV file</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <button type="button" id="inputGroupFileAddon03"><i
-                                                        class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile03"
-                                                    aria-describedby="inputGroupFileAddon03" name="attachment"
-                                                    accept=".pdf,.doc,.docx,image/*">
-                                                <label class="custom-file-label" for="inputGroupFile03">Upload CV
-                                                    here</label>
+                    @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Candidate)
+                        <div id="apply_job">
+                            <div class="apply_job_form white-bg">
+                                <h4>Apply for the job</h4>
+                                <form action="{{ route('job_apply.apply') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input_field">
+                                                <label for="fullname">Full name</label>
+                                                <input type="text" placeholder="Your name" name="fullname" id="fullname"
+                                                    value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input_field">
-                                            <label for="">Note</label>
-                                            <textarea name="candidate_note" id="candidate_note" cols="30" rows="10" placeholder="Note"></textarea>
+                                        <div class="col-md-12" style="margin-bottom: 20px;">
+                                            <div class="select_field">
+                                                <label for="gender">Gender</label>
+                                                <select name="gender" id="gender" class="w-100"
+                                                    style="height: 60px;" required>
+                                                    <option value="Male"
+                                                        {{ Auth::check() && Auth::user()->gender == 'Male' ? 'selected' : '' }}>
+                                                        Male
+                                                    </option>
+                                                    <option value="Female"
+                                                        {{ Auth::check() && Auth::user()->gender == 'Female' ? 'selected' : '' }}>
+                                                        Female
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input_field">
+                                                <label for="email">Email</label>
+                                                <input type="text" placeholder="Email" name="email" id="email"
+                                                    value="{{ Auth::check() ? Auth::user()->email : '' }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input_field">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" placeholder="Phone" name="phone" id="phone"
+                                                    value="{{ Auth::check() ? Auth::user()->phone : '' }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input_field">
+                                                <label for="address">Address</label>
+                                                <input type="text" placeholder="Your address" name="address"
+                                                    id="address"
+                                                    value="{{ Auth::check() ? Auth::user()->address : '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input_field">
+                                                <label for="birthday">Birthday</label>
+                                                <input type="date" placeholder="Your address" name="birthday"
+                                                    id="birthday"
+                                                    value="{{ Auth::check() ? date('Y-m-d', strtotime(Auth::user()->birthday)) : date('Y-m-d', strtotime(now())) }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="">CV file</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button type="button" id="inputGroupFileAddon03"><i
+                                                            class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile03"
+                                                        aria-describedby="inputGroupFileAddon03" name="attachment"
+                                                        accept=".pdf,.doc,.docx,image/*">
+                                                    <label class="custom-file-label" for="inputGroupFile03">Upload CV
+                                                        here</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input_field">
+                                                <label for="">Note</label>
+                                                <textarea name="candidate_note" id="candidate_note" cols="30" rows="10" placeholder="Note"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="submit_btn">
+                                                <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="submit_btn">
-                                            <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-
+                    @endif
                 </div>
             </div>
         </div>

@@ -49,10 +49,10 @@ class ApplyController extends Controller
             $v->post = Post::find($v->post_id);
             $v->user = User::find($v->user_id);
         }
-        
+
         $apply_list = $apply_list->filter(function ($apply) {
 
-            if ($apply->post->user->id != Auth::user()->id) {
+            if ($apply->post->user->id == Auth::user()->id) {
                 return true;
             }
 
@@ -124,6 +124,7 @@ class ApplyController extends Controller
     {
         $apply = Apply::find($id);
         $apply->post = Post::find($apply->post_id);
+        $apply->post->getInforRecruitment();
         $apply->user = User::find($apply->user_id);
         return view('admin.pages.job-apply-edit', ['apply' => $apply]);
 

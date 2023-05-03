@@ -2,6 +2,12 @@ html {
     scroll-behavior: smooth;
 }
 
+:root {
+    --primary: #d7a50c;
+    --primary-bold: #C07F00;
+    --dark: #000000;
+}
+
 #page-loading {
     width: 100vw;
     height: 100vh;
@@ -38,23 +44,27 @@ html {
     align-items: center;
 }
 
+.header-area .main-header-area.sticky {
+    background-color: var(--primary) !important;
+}
+
 #apply_job {
     /* padding-top: 80px !important; */
 }
 
 .boxed-btn3 {
-    background: var(--orange);
+    background: var(--dark);
     border: 1px solid #c14c00;
 }
 
 .boxed-btn3:hover {
     background: #fff;
     border: 1px solid #c14c00;
-    color: var(--orange) !important;
+    color: var(--yellow) !important;
 }
 
 .boxed-btn4 {
-    color: var(--orange) !important;
+    color: var(--yellow) !important;
     border: 1px solid #c14c00;
 }
 
@@ -64,16 +74,16 @@ html {
 }
 
 .footer .footer_top .footer_widget .newsletter_form button {
-    background: var(--orange);
+    background: var(--yellow);
 }
 
 .single_jobs .jobs_right .apply_now a.heart_mark {
-    color: var(--orange) !important;
+    color: var(--yellow) !important;
     background: #EFFDF5;
 }
 
 .single_jobs .jobs_right .apply_now a.heart_mark:hover {
-    background: var(--orange) !important;
+    background: var(--yellow) !important;
     color: #EFFDF5 !important;
 }
 
@@ -82,7 +92,7 @@ html {
 }
 
 .footer {
-    background: orange;
+    background: var(--primary-bold);
 
 }
 
@@ -120,7 +130,7 @@ html {
 
 .tags_list ul li a:hover {
     color: white !important;
-    background-color: var(--orange) !important;
+    background-color: var(--yellow) !important;
 }
 
 #navigation .active>a {
@@ -280,7 +290,7 @@ html {
     filter: grayscale(0);
     transform: scale(0.95);
     transition: filter .5s .5s, transform 1s cubic-bezier(0, 26.67, .5, 26.67);
-    border: 1px solid var(--orange);
+    border: 1px solid var(--yellow);
     content: "";
     grid-area: 1/1;
     --c1: radial-gradient(red 50%, #0000 60%);
@@ -343,7 +353,7 @@ html {
 
 /* End Emoji React css*/
 
-.blog_item_img img{
+.blog_item_img img {
     max-height: 350px;
 }
 
@@ -356,12 +366,12 @@ html {
 }
 
 .btn-orange-checked {
-    background-color: orangered;
+    background-color: var(--primary-bold);
     color: white;
 }
 
 .btn-orange {
-    background-color: var(--orange);
+    background-color: var(--yellow);
     color: white;
 }
 
@@ -372,4 +382,51 @@ html {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+.footer .footer_top {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.hidden {
+    display: none;
+}
+
+.pagination-container {
+    width: calc(100% - 2rem);
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    padding: 1rem 0;
+    justify-content: center;
+}
+
+.pagination-number,
+.pagination-button {
+    font-size: 1.1rem;
+    background-color: transparent;
+    border: none;
+    margin: 0.25rem 0.25rem;
+    cursor: pointer;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: .2rem;
+}
+
+.pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+    background: #fff;
+}
+
+.pagination-number.active {
+    color: #fff;
+    background: var(--primary-bold);
+}
+
+.location .fa {
+    color: var(--primary)
 }
