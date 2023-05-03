@@ -29,11 +29,13 @@ class DatabaseSeeder extends Seeder
         $faker = app(Generator::class);
 
         /** ========================= SETTING ============================ */
-        $number_post = 100;
+        $number_post = 50;
         /** =============================================================== */
 
-        Storage::makeDirectory('avatar');
-        Storage::makeDirectory('post');
+        // Storage::makeDirectory('avatar');
+        // Storage::makeDirectory('post');
+        // Storage::makeDirectory('apply_attachment');
+        // Storage::makeDirectory('ckeditor-media');
 
         User::insert([
             [
@@ -86,7 +88,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => VNFaker::company(),
-                'email' => 'recruiter123@gmail.com',
+                'email' => 'recruiter456@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
                 'phone' => '0909999998',
@@ -101,7 +103,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'a@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                'phone' => '0965070061',
+                'phone' => '0965070062',
                 'status' => 'Active',
                 'gender' => 'Male',
                 'birthday' => '2001-08-16',
@@ -113,7 +115,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'c@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                'phone' => '0965070061',
+                'phone' => '0965070063',
                 'status' => 'Active',
                 'gender' => 'Female',
                 'birthday' => '2001-08-16',
@@ -125,7 +127,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'd@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                'phone' => '0965070061',
+                'phone' => '0965070064',
                 'status' => 'Active',
                 'gender' => 'Female',
                 'birthday' => '2002-10-02',
