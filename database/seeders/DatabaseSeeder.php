@@ -38,10 +38,10 @@ class DatabaseSeeder extends Seeder
         User::insert([
             [
                 'name' => 'Administrator',
-                'email' => 'admin',
+                'email' => 'admin@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('admin'),
-                'phone' => '0941649826',
+                'phone' => 'admin',
                 'status' => 'Active',
                 'gender' => 'Male',
                 'birthday' => '2000-04-21',
@@ -50,10 +50,10 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Đinh Thùy Hoa',
-                'email' => 'sub-admin',
+                'email' => 'sub_admin@gmail.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('123456'),
-                'phone' => '09416498225',
+                'phone' => 'sub-admin',
                 'status' => 'Active',
                 'gender' => 'Female',
                 'birthday' => '2000-04-21',

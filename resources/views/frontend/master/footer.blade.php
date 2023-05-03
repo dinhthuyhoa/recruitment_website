@@ -10,8 +10,8 @@
                             </a>
                         </div>
                         <p>
-                            thuyhoadinh@gmail.com <br>
-                            +84 ??? ??? ??? <br>
+                            hoaB1910225@student.ctu.edu.vn <br>
+                            0965070061 <br>
                             CIT/CTU
                         </p>
 

@@ -28,7 +28,7 @@ class PostFactory extends Factory
 
         return [
             'user_id' => User::all()->random()->id,
-            'post_title' => VNFaker::sentences(1),
+            'post_title' => $this->faker->realText(40),
             'post_content' => $paragraphs,
             'post_description' => VNFaker::sentences(rand(2, 8)),
             'post_image' => 'post/' . $this->faker->image('public/storage/post', 400, 400, false),

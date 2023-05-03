@@ -75,13 +75,16 @@
                                 <label for="gender" class="form-label">Gender</label>
                                 <select id="gender" name="gender" class="select2 form-select">
                                     <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                                    <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                    <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>Female
+                                    </option>
                                 </select>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="status" class="form-label">Status</label>
                                 <select id="status" name="status" class="select2 form-select">
                                     <option value="Active" {{ $user->status == 'Active' ? 'selected' : '' }}>Active
+                                    </option>
+                                    <option value="Pendding" {{ $user->status == 'Pendding' ? 'selected' : '' }}>Pendding
                                     </option>
                                     <option value="Deactive" {{ $user->status == 'Deactive' ? 'selected' : '' }}>Deactive
                                     </option>
