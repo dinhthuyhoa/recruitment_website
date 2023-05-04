@@ -125,3 +125,14 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+
+a,
+.bg-menu-theme .menu-inner>.menu-item.active>.menu-link {
+    color: #c5bf29;
+}
+
+
+.bg-menu-theme .menu-sub>.menu-item.active>.menu-link:not(.menu-toggle):before {
+    background-color: yellow !important;
+}

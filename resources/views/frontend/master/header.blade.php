@@ -67,7 +67,8 @@
                                                 </div>
                                             </a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('profile', Auth::user()->id) }}">
                                                     <div class="d-flex">
                                                         <div class="flex-shrink-0 me-3">
                                                             <div class="avatar avatar-online">
@@ -86,7 +87,6 @@
                                                     </div>
                                                 </a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item text-dark" href="#">Change Passowrd</a>
                                                 <a class="dropdown-item text-dark"
                                                     href="{{ route('logout') }}">Logout</a>
                                             </div>

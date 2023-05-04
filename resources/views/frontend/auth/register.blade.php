@@ -24,6 +24,21 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/util.c') }}ss">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/main.c') }}ss">
     <!--===============================================================================================-->
+    <style>
+        .login100-form-btn {
+            background-color: #d7a50c;
+        }
+
+        .login100-form-title {
+            font-size: 50px;
+            padding-bottom: 40px;
+
+        }
+
+        .login100-pic {
+            padding-top: 55px;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +47,8 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="{{ asset('frontend/login/images/img-01.png') }}" alt="IMG">
+                    <img src="https://media.istockphoto.com/id/1302836754/vector/symbol-of-people-connect-among-themselves-concept-of-teamwork-connection-communication-group.jpg?s=612x612&w=0&k=20&c=ooKtt0YbOmdYva872YZxQ-Upz-XEfaF7fOeQ2y7u7T8="
+                        alt="IMG">
                 </div>
 
                 <form class="login100-form validate-form" action="{{ route('login.submit') }}" method="post">
@@ -40,6 +56,7 @@
                     <span class="login100-form-title">
                         Login
                     </span>
+                    <input type="hidden" name="redirect_to" value="{{ request()->redirect_to }}">
                     @if (\Session::has('success'))
                         <div class="alert alert-success alert-dismissible" role="alert">
                             {!! \Session::get('success') !!}
@@ -70,21 +87,16 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
+                    <div class="wrap-input100 validate-input">
+                        <input class="ml-2" type="checkbox" id="remember-me" name="remember" />
+                        <label class="ml-2" for="remember-me"> Remember Me </label>
+                    </div>
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
                             Login
                         </button>
                     </div>
-
-                    {{-- <div class="text-center p-t-12">
-                        <span class="txt1">
-                            Forgot
-                        </span>
-                        <a class="txt2" href="#">
-                            Username / Password?
-                        </a>
-                    </div> --}}
 
                     <div class="text-center p-t-136">
                         <a class="txt2" href="{{ route('register') }}">
@@ -96,6 +108,8 @@
             </div>
         </div>
     </div>
+
+
 
 
     <!--===============================================================================================-->

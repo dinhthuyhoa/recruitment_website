@@ -8,6 +8,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostFavoriteController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReactController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
@@ -30,6 +31,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/change-post-favorite', [PostFavoriteController::class, 'change_post_favorite'])->name('change_post_favorite');
 Route::post('/reactions', [ReactController::class, 'reactions'])->name('reactions');
+
+// User Profile
+Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
 
 // Ckeditor
 Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.upload');
