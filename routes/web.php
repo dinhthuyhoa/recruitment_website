@@ -34,6 +34,7 @@ Route::post('/reactions', [ReactController::class, 'reactions'])->name('reaction
 
 // User Profile
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
+Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 // Ckeditor
 Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.upload');
