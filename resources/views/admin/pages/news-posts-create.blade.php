@@ -41,7 +41,7 @@
 
                             <div class="mb-3 col-12">
                                 <label for="description" class="form-label">Description *</label>
-                                <textarea class="form-control" id="description" name="description" required>{{ $post->post_description }}</textarea>
+                                <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
 
                             <style>
