@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Register</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,6 +29,7 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css">
+
     <style>
         .login100-form-btn {
             background-color: #d7a50c;
@@ -47,6 +48,10 @@
         .container-login100 {
             background: linear-gradient(-135deg, #ffd800, #5d3b00);
         }
+
+        .input100:focus+.focus-input100+.symbol-input100 {
+            color: #d7a50c;
+        }
     </style>
 </head>
 
@@ -60,12 +65,13 @@
                         alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form" action="{{ route('login.submit') }}" method="post">
+                <form class="login100-form validate-form" action="{{ route('register.submit') }}" method="post">
                     @csrf
                     <span class="login100-form-title">
-                        Login
+                        Register
+                        <span class="d-block text-secondary fs-24 m-t-10">- Recruiter -</span>
                     </span>
-                    <input type="hidden" name="redirect_to" value="{{ $redirect_to }}">
+                    <input type="hidden" name="redirect_to" value="{{ request()->redirect_to }}">
                     @if (\Session::has('success'))
                         <div class="alert alert-success alert-dismissible" role="alert">
                             {!! \Session::get('success') !!}
@@ -80,12 +86,32 @@
                                 aria-label="Close"></button>
                         </div>
                     @endif
-                    <div class="wrap-input100 validate-input"
-                        data-validate="Valid username is required: email or phone">
-                        <input class="input100" type="text" name="username" placeholder="Username">
+                    <div class="wrap-input100 validate-input" data-validate="Valid fullname is required">
+                        <input class="input100" type="text" name="fullname" placeholder="Company">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Valid address is required">
+                        <input class="input100" type="text" name="address" placeholder="Address">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-location-dot" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Valid Phone is required: phone number">
+                        <input class="input100" type="text" name="phone" placeholder="Phone">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Valid Email is required: email address">
+                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
 
@@ -96,26 +122,37 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input">
-                        <input class="ml-2" type="checkbox" id="remember-me" name="remember" />
-                        <label class="ml-2" for="remember-me"> Remember Me </label>
+                    <div class="wrap-input100 validate-input" data-validate="Password verify is required">
+                        <input class="input100" type="password" name="password_verify"
+                            placeholder="Password verify">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Login
+                            Register
                         </button>
                     </div>
 
-                    <div class="text-center p-t-136">
-                        <a class="txt2" href="{{ route('register') }}">
-                            Create your Account
+                    <div class="text-center p-t-10">
+                        <a class="txt2" href="{{ route('login') }}">
+                            Login
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
-                </form>
+                    <div class="text-center p-t-10">
+                        <a class="txt2" href="{{ route('register') }}">
+                            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+                            Become a Candidate
+                        </a>
+                    </div>
             </div>
+            </form>
         </div>
+    </div>
     </div>
 
 

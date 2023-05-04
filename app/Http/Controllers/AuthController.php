@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -116,5 +118,54 @@ class AuthController extends Controller
             return redirect()->route('home');
         }
         return view('frontend.auth.register');
+    }
+
+    public function register_recruiter_frontend()
+    {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+        return view('frontend.auth.register-recruiter');
+    }
+
+    public function submit_register_frontend(Request $request)
+    {
+        if ($request->password != $request->password_verify) {
+            return back()->with('error', 'Mật khẩu xác nhận không trùng khớp !!!');
+        }
+
+        $new_user = User::create([
+            'name' => $request->fullname,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+        ]);
+
+        if (isset($request->recruiter) && $request->recruiter != '') {
+            $new_user->update([
+                'role' => UserRole::Recruiter,
+                'status' => 'Pendding',
+            ]);
+
+            return redirect()->route('login')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
+        }
+
+        $login_email = [
+            'email' => $request->phone,
+            'password' => $request->password
+        ];
+
+        $login_phone = [
+            'phone' => $request->phone,
+            'password' => $request->password
+        ];
+
+
+        if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
+            return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
+        } else {
+            return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
+        }
     }
 }
