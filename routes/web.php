@@ -42,6 +42,8 @@ Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.
 Route::get('/login', [AuthController::class, 'login_frontend'])->name('login');
 Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'register_frontend'])->name('register');
+Route::get('/register/recruiter', [AuthController::class, 'register_recruiter_frontend'])->name('register.recruiter');
+Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
 
 // Frontend Apply
 Route::post('/job-apply/apply', [ApplyController::class, 'candidate_apply'])->name('job_apply.apply');

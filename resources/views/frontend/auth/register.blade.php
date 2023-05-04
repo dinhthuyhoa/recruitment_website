@@ -2,28 +2,29 @@
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Register</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.ico') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/bootstrap/css/bootstrap.min.c') }}ss">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('frontend/login/fonts/font-awesome-4.7.0/css/font-awesome.min.c') }}ss">
+        href="{{ asset('frontend/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/animate/animate.c') }}ss">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/animate/animate.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
-        href="{{ asset('frontend/login/vendor/css-hamburgers/hamburgers.min.c') }}ss">
+        href="{{ asset('frontend/login/vendor/css-hamburgers/hamburgers.min.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/select2/select2.min.c') }}ss">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/select2/select2.min.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/util.c') }}ss">
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/main.c') }}ss">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/main.css') }}">
     <!--===============================================================================================-->
+
     <style>
         .login100-form-btn {
             background-color: #d7a50c;
@@ -38,6 +39,14 @@
         .login100-pic {
             padding-top: 55px;
         }
+
+        .container-login100 {
+            background: linear-gradient(-135deg, #ffd800, #5d3b00);
+        }
+
+        .input100:focus+.focus-input100+.symbol-input100 {
+            color: #d7a50c;
+        }
     </style>
 </head>
 
@@ -51,10 +60,12 @@
                         alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form" action="{{ route('login.submit') }}" method="post">
+                <form class="login100-form validate-form" action="{{ route('register.submit') }}" method="post">
                     @csrf
                     <span class="login100-form-title">
-                        Login
+                        Register
+                        <span class="d-block text-secondary fs-24 m-t-10">- Candidate -</span>
+
                     </span>
                     <input type="hidden" name="redirect_to" value="{{ request()->redirect_to }}">
                     @if (\Session::has('success'))
@@ -71,12 +82,25 @@
                                 aria-label="Close"></button>
                         </div>
                     @endif
-                    <div class="wrap-input100 validate-input"
-                        data-validate="Valid username is required: email or phone">
-                        <input class="input100" type="text" name="username" placeholder="Username">
+                    <div class="wrap-input100 validate-input" data-validate="Valid fullname is required">
+                        <input class="input100" type="text" name="fullname" placeholder="Full name">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Valid Phone is required: phone number">
+                        <input class="input100" type="text" name="phone" placeholder="Phone">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Valid Email is required: email address">
+                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
 
@@ -87,20 +111,29 @@
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input">
-                        <input class="ml-2" type="checkbox" id="remember-me" name="remember" />
-                        <label class="ml-2" for="remember-me"> Remember Me </label>
+                    <div class="wrap-input100 validate-input" data-validate="Password verify is required">
+                        <input class="input100" type="password" name="password_verify" placeholder="Password verify">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Login
+                            Register
                         </button>
                     </div>
 
-                    <div class="text-center p-t-136">
-                        <a class="txt2" href="{{ route('register') }}">
-                            Create your Account
+                    <div class="text-center p-t-10">
+                        <a class="txt2" href="{{ route('login') }}">
+                            Login
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="text-center p-t-10">
+                        <a class="txt2" href="{{ route('register.recruiter') }}">
+                            Become a recruiter
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
