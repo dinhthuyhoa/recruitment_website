@@ -115,15 +115,15 @@
                 <ul class="row">
                     @if (count($recruitment_post_list) > 0)
                         @foreach ($recruitment_post_list as $post)
-                            <li class="col-lg-12 col-md-12">
+                            <li class="col-lg-12 col-md-12 item_list_jobs">
                                 <div class="single_jobs white-bg d-flex justify-content-between">
-                                    <div class="jobs_left d-flex align-items-center">
-                                        <div class="thumb p-0">
+                                    <div class="jobs_left d-flex align-items-center col-8">
+                                        <div class="thumb">
                                             <img src="{{ asset('storage/' . $post->post_image) }}" alt="">
                                         </div>
                                         <div class="jobs_conetent">
                                             <a href="{{ route('posts.recruitment.details', $post->id) }}">
-                                                <h4>{{ $post->post_title }}</h4>
+                                                <h4 class="job-title-item">{{ $post->post_title }}</h4>
                                             </a>
                                             <div>
                                                 <h6> {{ $post->author }}</h6>
@@ -156,7 +156,6 @@
                                                     @endif
                                                 </a>
                                             @endif
-
                                             <a href="{{ route('posts.recruitment.details', $post->id) }}/#apply_job"
                                                 class="boxed-btn3">Apply Now</a>
                                         </div>

@@ -438,3 +438,7 @@ html {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
+
+.header-area {
+    background: rgb(255 129 0 / 80%);
+}
