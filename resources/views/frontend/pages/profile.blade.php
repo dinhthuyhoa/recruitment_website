@@ -74,13 +74,23 @@
                     <div class="tab-pane active" id="home">
                         @if (Auth::check() && Auth::user()->id == $user->id)
                             <div class="my-5">
-                                <form id="frmEditUser" method="POST" action="{{ route('users.update', $user) }}"
+                                <form id="form-update-profile" method="POST" action="{{ route('profile.update', $user) }}"
                                     enctype="multipart/form-data">
-                                    @method('put')
                                     @csrf
-                                    <input type="file" id="upload" class="account-file-input text-center center-block file-upload" hidden
+                                    <input type="file" id="upload"
+                                        class="account-file-input text-center center-block file-upload" hidden
                                         accept="image/png, image/jpeg" name="avatar" />
                                     <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label for="phone" class="form-label">Phone</label>
+                                            <input class="form-control" type="text" name="phone" id="phone"
+                                                value="{{ $user->phone }}" readonly />
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">E-mail</label>
+                                            <input class="form-control" readonly type="text" id="email"
+                                                name="email" value="{{ $user->email }}" placeholder="Enter email..." />
+                                        </div>
                                         <div class="mb-3 col-md-6">
                                             <label for="fullname" class="form-label">Full Name</label>
                                             <input class="form-control" type="text" id="fullname" name="name"
@@ -97,16 +107,6 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="phone" class="form-label">Phone</label>
-                                            <input class="form-control" type="text" name="phone" id="phone"
-                                                value="{{ $user->phone }}" readonly />
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label for="email" class="form-label">E-mail</label>
-                                            <input class="form-control" readonly type="text" id="email"
-                                                name="email" value="{{ $user->email }}" placeholder="Enter email..." />
-                                        </div>
-                                        <div class="mb-3 col-md-6">
                                             <label for="address" class="form-label">Address</label>
                                             <input type="text" class="form-control" id="address" name="address"
                                                 value="{{ $user->address }}" placeholder="Address" />
@@ -119,9 +119,10 @@
                                         </div>
                                     </div>
                                     <div class="mt-2">
-                                        <button type="submit" form="frmEditUser" class="btn btn-primary me-2">Save
+                                        <button type="submit" form="form-update-profile"
+                                            class="btn btn-primary me-2">Save
                                             changes</button>
-                                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                     </div>
                                 </form>
                             </div>
@@ -202,7 +203,8 @@
                                                                         <div class="jobs_conetent">
                                                                             <a
                                                                                 href="{{ route('posts.recruitment.details', $post->id) }}">
-                                                                                <h4 class="job-title-item">{{ $post->post_title }}</h4>
+                                                                                <h4 class="job-title-item">
+                                                                                    {{ $post->post_title }}</h4>
                                                                             </a>
                                                                             <div>
                                                                                 <h6> {{ $post->author }}</h6>
