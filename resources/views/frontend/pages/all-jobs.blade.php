@@ -1,5 +1,10 @@
 @extends('frontend.master.master')
 
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
 @section('content')
     <!-- bradcam_area  -->
     <div class="bradcam_area bradcam_bg_1">
@@ -30,19 +35,20 @@
                                             <label for="filter_address">Location</label>
                                             <select class="wide" name="filter_address" id="filter_address">
                                                 <option value="">All</option>
-                                                <option value="Can Tho"
-                                                    {{ request()->filter_address == 'Can Tho' ? 'selected' : '' }}>Cần Thơ
-                                                </option>
-                                                <option value="HCM"
-                                                    {{ request()->filter_address == 'HCM' ? 'selected' : '' }}>Sài Gòn
-                                                </option>
+                                                @foreach (config('63-tinh-vn') as $k => $v)
+                                                    <option value="{{ $k }}"
+                                                        {{ request()->filter_address == $k ? 'selected' : '' }}>
+                                                        {{ $v }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
                                             <label for="filter_job_nature">Job nature</label>
-                                            <select class="wide" name="filter_job_nature" id="filter_job_nature">
+                                            <select class="wide select-tinh-tp" name="filter_job_nature"
+                                                id="filter_job_nature">
                                                 <option value="">All</option>
                                                 <option value="Full-time"
                                                     {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>Full
@@ -57,6 +63,10 @@
                                                     Freelancer
                                                 </option>
                                             </select>
+
+                                            <script>
+                                                $('#filter_address').select2();
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +124,8 @@
                                         {{ $tag->tag_name }}
                                     </button>
                                 @else
-                                    <button class="btn btn-orange" type="submit" name="tag" value="{{ $tag->tag_key }}">
+                                    <button class="btn btn-orange" type="submit" name="tag"
+                                        value="{{ $tag->tag_key }}">
                                         {{ $tag->tag_name }}
                                     </button>
                                 @endif
@@ -134,7 +145,7 @@
                                                 </div>
                                                 <div class="jobs_conetent">
                                                     <a href="{{ route('posts.recruitment.details', $post->id) }}">
-                                                        <h4>{{ $post->post_title }}</h4>
+                                                        <h4 class="job-title-item">{{ $post->post_title }}</h4>
                                                     </a>
                                                     <div>
                                                         <h6> {{ $post->author }}</h6>
@@ -185,20 +196,23 @@
 
                         </div>
 
-                        <nav class="pagination-container">
-                            <button class="pagination-button" id="prev-button" aria-label="Previous page"
-                                title="Previous page">
-                                &lt;
-                            </button>
+                        @if (count($posts) > 0)
+                            <nav class="pagination-container">
+                                <button class="pagination-button" id="prev-button" aria-label="Previous page"
+                                    title="Previous page">
+                                    &lt;
+                                </button>
 
-                            <div id="pagination-numbers">
+                                <div id="pagination-numbers">
 
-                            </div>
+                                </div>
 
-                            <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
-                                &gt;
-                            </button>
-                        </nav>
+                                <button class="pagination-button" id="next-button" aria-label="Next page"
+                                    title="Next page">
+                                    &gt;
+                                </button>
+                            </nav>
+                        @endif
 
                     </div>
                 </div>

@@ -62,4 +62,26 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function is_apply($post_id)
+    {
+        if (
+            Apply::where('post_id', $post_id)->where('user_id', $this->id)->exists()
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function apply_count($post_id)
+    {
+        if (
+            Apply::where('post_id', $post_id)->where('user_id', $this->id)->exists()
+        ) {
+            return Apply::where('post_id', $post_id)->where('user_id', $this->id)->count();
+        } else {
+            return '';
+        }
+    }
 }

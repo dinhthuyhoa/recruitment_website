@@ -19,6 +19,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    @if (Auth::check() && Auth::user()->is_apply($post->id))
+                        <div class="d-flex bg-success text-white p-2 mb-3" style="border-radius: 10px">
+                            Bạn đã nộp hồ sơ vào bài tuyển dụng này {{ Auth::user()->apply_count($post->id) }} lần
+                        </div>
+                    @endif
                     <div class="job_details_header">
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
@@ -61,7 +66,11 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
+
+
                     <div class="descript_wrap white-bg">
                         {!! $post->post_content !!}
                         <hr>
