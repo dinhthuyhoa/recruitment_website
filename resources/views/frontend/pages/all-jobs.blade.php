@@ -51,12 +51,12 @@
                                                 id="filter_job_nature">
                                                 <option value="">All</option>
                                                 <option value="Full-time"
-                                                    {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>Full
-                                                    time
+                                                    {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>
+                                                    Full time
                                                 </option>
                                                 <option value="Part-time"
-                                                    {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>Part
-                                                    time
+                                                    {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>
+                                                    Part time
                                                 </option>
                                                 <option value="Freelancer"
                                                     {{ request()->filter_job_nature == 'Freelancer' ? 'selected' : '' }}>
