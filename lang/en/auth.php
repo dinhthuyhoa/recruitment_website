@@ -1,20 +1,20 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
-
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'login' => 'Login',
+    'register' => 'Register',
+    'username' => 'Username',
+    'password' => 'Password',
+    'address' => 'Address',
+    'remember-me' => 'Remember Me',
+    'create-your-account' => 'Create your Account',
+    'candidate' => 'Candidate',
+    'recruiter' => 'Recruiter',
+    'fullname' => 'Full name',
+    'company' => 'Company',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'password-verify' => 'Password Verify',
+    'become-a-recruiter' => 'Become a recruiter',
+    'become-a-candidate' => 'Become a candidate',
 ];

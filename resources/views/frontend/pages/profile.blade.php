@@ -21,8 +21,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    <div class="bradcam_text">
-                        <h3>PROFILE</h3>
+                    <div class="bradcam_text ">
+                        <h3 class="text-uppercase text-dark">{{ __('profile.profile') }}</h3>
                     </div>
                 </div>
             </div>
@@ -44,16 +44,16 @@
                     <img src="{{ asset('storage/' . $user->avatar) }}" class="avatar img-circle img-thumbnail"
                         alt="avatar" style="width:250px; height:250px !important" id="uploadedAvatar">
                     @if (Auth::check() && Auth::user()->id == $user->id)
-                        <h6>Upload a different photo...</h6>
+                        <h6>{{ __('profile.upload-a-different-photo') }}</h6>
                         <div class="button-wrapper">
                             <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
+                                <span class="d-none d-sm-block">{{ __('profile.upload-new-photo') }}</span>
                                 <i class="bx bx-upload d-block d-sm-none"></i>
 
                             </label>
                             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                 <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
+                                <span class="d-none d-sm-block">{{ __('profile.reset') }}</span>
                             </button>
                         </div>
                     @endif
@@ -63,9 +63,9 @@
             <!--/col-3-->
             <div class="col-sm-9">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home">{{ __('profile.profile') }}</a></li>
                     @if (Auth::check() && Auth::user()->id == $user->id)
-                        <li><a data-toggle="tab" href="#post-favorite">Post favorite</a></li>
+                        <li><a data-toggle="tab" href="#post-favorite">{{ __('profile.post-favorite') }}</a></li>
                     @endif
                 </ul>
 
@@ -82,37 +82,37 @@
                                         accept="image/png, image/jpeg" name="avatar" />
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                            <label for="phone" class="form-label">Phone</label>
+                                            <label for="phone" class="form-label">{{ __('profile.phone') }}</label>
                                             <input class="form-control" type="text" name="phone" id="phone"
                                                 value="{{ $user->phone }}" readonly />
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="email" class="form-label">E-mail</label>
+                                            <label for="email" class="form-label">{{ __('profile.email') }}</label>
                                             <input class="form-control" readonly type="text" id="email"
-                                                name="email" value="{{ $user->email }}" placeholder="Enter email..." />
+                                                name="email" value="{{ $user->email }}" placeholder="{{ __('profile.email') }}" />
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="fullname" class="form-label">Full Name</label>
+                                            <label for="fullname" class="form-label">{{ __('profile.fullname') }}</label>
                                             <input class="form-control" type="text" id="fullname" name="name"
                                                 value="{{ $user->name }}" autofocus />
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="gender" class="form-label">Gender</label>
+                                            <label for="gender" class="form-label">{{ __('profile.gender') }}</label>
                                             <select id="gender" name="gender" class="select2 form-select">
-                                                <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>Male
+                                                <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>{{ __('profile.male') }}
                                                 </option>
                                                 <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>
-                                                    Female
+                                                    {{ __('profile.female') }}
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="address" class="form-label">Address</label>
+                                            <label for="address" class="form-label">{{ __('profile.address') }}</label>
                                             <input type="text" class="form-control" id="address" name="address"
-                                                value="{{ $user->address }}" placeholder="Address" />
+                                                value="{{ $user->address }}" placeholder="{{ __('profile.address') }}" />
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="birthday" class="form-label">Birthday</label>
+                                            <label for="birthday" class="form-label">{{ __('profile.birthday') }}</label>
                                             <input class="form-control" type="date" id="birthday" name="birthday"
                                                 placeholder="dd/mm/yyyy"
                                                 value={{ date('Y-m-d', strtotime($user->birthday)) }} />
@@ -120,9 +120,8 @@
                                     </div>
                                     <div class="mt-2">
                                         <button type="submit" form="form-update-profile"
-                                            class="btn btn-primary me-2">Save
-                                            changes</button>
-                                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                                            class="btn btn-primary me-2">{{ __('profile.save-changes') }}</button>
+                                        <button type="reset" class="btn btn-outline-secondary">{{ __('profile.reset') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -130,7 +129,7 @@
                             <div class="my-5">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Name</label>
+                                        <label>{{ __('profile.fullname') }}</label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>{{ $user->name }}</p>
@@ -138,15 +137,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Gender</label>
+                                        <label>{{ __('profile.gender') }}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>{{ $user->gender == 'Male' ? 'Male' : 'Femmale' }}</p>
+                                        <p>{{ $user->gender == 'Male' ? __('profile.male') : __('profile.female') }}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Birthday</label>
+                                        <label>{{ __('profile.birthday') }}</label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>{{ date('d/m/Y', strtotime($user->birthday)) }}</p>
@@ -154,7 +153,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Email</label>
+                                        <label>{{ __('profile.birthday') }}</label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>{{ $user->email }}</p>
@@ -162,7 +161,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Phone</label>
+                                        <label>{{ __('profile.phone') }}</label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>{{ $user->phone }}</p>
@@ -170,7 +169,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label>Address</label>
+                                        <label>{{ __('profile.address') }}</label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>{{ $user->address }}</p>

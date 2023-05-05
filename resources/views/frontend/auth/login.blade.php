@@ -63,7 +63,7 @@
                 <form class="login100-form validate-form" action="{{ route('login.submit') }}" method="post">
                     @csrf
                     <span class="login100-form-title">
-                        Login
+                        {{ __('auth.login') }}
                     </span>
                     <input type="hidden" name="redirect_to" value="{{ $redirect_to }}">
                     @if (\Session::has('success'))
@@ -82,7 +82,7 @@
                     @endif
                     <div class="wrap-input100 validate-input"
                         data-validate="Valid username is required: email or phone">
-                        <input class="input100" type="text" name="username" placeholder="Username">
+                        <input class="input100" type="text" name="username" placeholder="{{ __('auth.username') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -90,7 +90,8 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="password" placeholder="Password">
+                        <input class="input100" type="password" name="password"
+                            placeholder="{{ __('auth.password') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -98,18 +99,18 @@
                     </div>
                     <div class="wrap-input100 validate-input">
                         <input class="ml-2" type="checkbox" id="remember-me" name="remember" />
-                        <label class="ml-2" for="remember-me"> Remember Me </label>
+                        <label class="ml-2" for="remember-me"> {{ __('auth.remember-me') }} </label>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Login
+                            {{ __('auth.login') }}
                         </button>
                     </div>
 
                     <div class="text-center p-t-136">
                         <a class="txt2" href="{{ route('register') }}">
-                            Create your Account
+                            {{ __('auth.create-your-account') }}
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>

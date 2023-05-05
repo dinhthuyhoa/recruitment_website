@@ -63,8 +63,8 @@
                 <form class="login100-form validate-form" action="{{ route('register.submit') }}" method="post">
                     @csrf
                     <span class="login100-form-title">
-                        Register
-                        <span class="d-block text-secondary fs-24 m-t-10">- Candidate -</span>
+                        {{ __('auth.register') }}
+                        <span class="d-block text-secondary fs-24 m-t-10">- {{ __('auth.candidate') }} -</span>
 
                     </span>
                     <input type="hidden" name="redirect_to" value="{{ request()->redirect_to }}">
@@ -83,21 +83,21 @@
                         </div>
                     @endif
                     <div class="wrap-input100 validate-input" data-validate="Valid fullname is required">
-                        <input class="input100" type="text" name="fullname" placeholder="Full name">
+                        <input class="input100" type="text" name="fullname" placeholder="{{ __('auth.fullname') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Valid Phone is required: phone number">
-                        <input class="input100" type="text" name="phone" placeholder="Phone">
+                        <input class="input100" type="text" name="phone" placeholder="{{ __('auth.phone') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Valid Email is required: email address">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <input class="input100" type="text" name="email" placeholder="{{ __('auth.email') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -105,14 +105,14 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="password" placeholder="Password">
+                        <input class="input100" type="password" name="password" placeholder="{{ __('auth.password') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password verify is required">
-                        <input class="input100" type="password" name="password_verify" placeholder="Password verify">
+                        <input class="input100" type="password" name="password_verify" placeholder="{{ __('auth.password-verify') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -121,19 +121,19 @@
 
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Register
+                            {{ __('auth.register') }}
                         </button>
                     </div>
 
                     <div class="text-center p-t-10">
                         <a class="txt2" href="{{ route('login') }}">
-                            Login
+                            {{ __('auth.login') }}
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
                     <div class="text-center p-t-10">
                         <a class="txt2" href="{{ route('register.recruiter') }}">
-                            Become a recruiter
+                            {{ __('auth.become-a-recruiter') }}
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>

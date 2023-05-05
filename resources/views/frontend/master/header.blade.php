@@ -16,13 +16,14 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li class="{{ request()->is('/') ? 'active' : '' }}"><a
-                                                href="{{ route('home') }}">home</a></li>
+                                                href="{{ route('home') }}">{{ __('header.home') }}</a></li>
                                         <li class="{{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a
-                                                href="{{ route('posts.recruitment.list') }}">All Job</a></li>
+                                                href="{{ route('posts.recruitment.list') }}">{{ __('header.all-job') }}</a>
+                                        </li>
                                         <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a
-                                                href="{{ route('posts.news.list') }}">News</a></li>
+                                                href="{{ route('posts.news.list') }}">{{ __('header.news') }}</a></li>
                                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a
-                                                href="{{ route('contact') }}">Contact</a></li>
+                                                href="{{ route('contact') }}">{{ __('header.contact') }}</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -88,12 +89,13 @@
                                                 </a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item text-dark"
-                                                    href="{{ route('logout') }}">Logout</a>
+                                                    href="{{ route('logout') }}">{{ __('header.logout') }}</a>
                                             </div>
                                         </li>
                                         <!--/ User -->
                                     @else
-                                        <a href="{{ route('login', ['url' => url()->full()]) }}">Log in</a>
+                                        <a
+                                            href="{{ route('login', ['url' => url()->full()]) }}">{{ __('header.login') }}</a>
                                     @endif
                                 </div>
                             </div>
