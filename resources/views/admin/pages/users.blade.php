@@ -1,6 +1,6 @@
 @extends('admin.master.master');
 
-{{-- @section('title', __('message.admin.dashboard.title')) --}}
+@section('title','User | '. __('system.title'))
 
 @section('content')
     <!-- Hoverable Table rows -->
@@ -73,7 +73,7 @@
                                             action="{{ route('users.destroy', $user) }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <p>Muốn xóa người dùng này thiệt hông?</p>
+                                            <p>Muốn xóa người dùng này?</p>
                                         </form>
                                     </div>
                                     <div class="modal-footer">

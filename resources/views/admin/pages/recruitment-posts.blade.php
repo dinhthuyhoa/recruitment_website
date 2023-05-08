@@ -83,10 +83,10 @@
                                     </div>
                                     <div class="modal-body">
                                         <form id="formDelPost-{{ $post->id }}"
-                                            action="{{ route('users.destroy', $post) }}" method="post">
+                                            action="{{ route('admin.posts.recruitment.delete', $post) }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <p>Muốn xóa bài viết này thiệt hông?</p>
+                                            <p>Bạn có chắc muốn xóa bài viết?</p>
                                         </form>
                                     </div>
                                     <div class="modal-footer">

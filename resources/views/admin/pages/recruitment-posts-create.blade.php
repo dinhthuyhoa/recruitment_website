@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">New Recruitmentx Post</h5>
+                <h5 class="card-header">New Recruitment Post</h5>
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">

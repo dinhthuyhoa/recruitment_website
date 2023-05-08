@@ -38,7 +38,6 @@ class ApplyController extends Controller
                 Mail::to($email)->send(new SendMail($mailData));
             }
         }
-
     }
 
     public function list()
@@ -115,9 +114,7 @@ class ApplyController extends Controller
                 'user_id' => $user,
             ]);
             return back()->with('success', 'Đã nộp yêu cầu không kèm CV');
-
         }
-
     }
 
     public function edit($id)
@@ -127,7 +124,6 @@ class ApplyController extends Controller
         $apply->post->getInforRecruitment();
         $apply->user = User::find($apply->user_id);
         return view('admin.pages.job-apply-edit', ['apply' => $apply]);
-
     }
 
     public function update_status($id, Request $request)
@@ -163,7 +159,7 @@ class ApplyController extends Controller
                 'result' => 'Trượt ứng tuyển',
                 'candidate_name' => $apply->fullname,
                 'message' => $request->message,
-                'recruiter' => $post->user,
+                'recruiter' => $post->user ? $post->user : '',
             ];
 
             if (!filter_var($apply->email, FILTER_VALIDATE_EMAIL)) {
@@ -180,6 +176,5 @@ class ApplyController extends Controller
         }
 
         return back()->with('success', 'Cập nhật trạng thái thành công');
-
     }
 }

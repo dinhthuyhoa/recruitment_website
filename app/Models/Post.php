@@ -20,6 +20,7 @@ class Post extends Model
         'post_view',
         'post_status',
         'post_type',
+        'post_image',
     ];
 
     public function getMeta($key)
@@ -66,5 +67,4 @@ class Post extends Model
     {
         return React::where('type', 'post')->where('type_id', $this->id)->where('user_id', Auth::user()->id)->first();
     }
-
 }
