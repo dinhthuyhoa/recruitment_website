@@ -442,3 +442,6 @@ html {
 .header-area {
     background: rgb(255 129 0 / 80%);
 }
+.select2.select2-container.select2-container--default.select2-container--above{
+width: 100% !important;
+}

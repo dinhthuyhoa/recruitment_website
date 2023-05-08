@@ -460,7 +460,7 @@ class PostController extends Controller
             // nếu không có file nào vi phạm validate thì tiến hành lưu DB
             if ($exe_flg) {
 
-                $file_old = PostMeta::where('post_id', $id)->where('key', 'image')->first() ? PostMeta::where('post_id', $id)->where('key', 'image')->first()->value : null;
+                $file_old = Post::find($id)? Post::find($id)->post_image : null;
                 $del_file = !is_null($file_old) && Storage::delete($file_old);
 
                 $extension = $file->getClientOriginalExtension();
@@ -486,6 +486,12 @@ class PostController extends Controller
         return back()->with('success', 'cập nhật thành công!');
     }
 
+    public function admin_recruitment_post_delete($id){
+        Post::whereId($id)->delete();
+        return redirect()
+            ->route('admin.posts.recruitment.list')
+            ->with('success', 'Đã xóa bài viết thành công');
+    }
     // =================================== News ============================================
     public function admin_news_post_list()
     {
@@ -614,5 +620,12 @@ class PostController extends Controller
         }
 
         return back()->with('success', 'cập nhật thành công!');
+    }
+
+    public function admin_news_post_delete($id){
+        Post::whereId($id)->delete();
+        return redirect()
+            ->route('admin.posts.news.list')
+            ->with('success', 'Đã xóa bài viết thành công');
     }
 }

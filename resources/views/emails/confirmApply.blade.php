@@ -1,5 +1,4 @@
-<div
-    style="
+<div style="
             height: auto !important;
             max-width: 600px !important;
             font-family: Helvetica, Arial, sans-serif !important;
@@ -8,8 +7,7 @@
             margin-right: auto;
           ">
     <div style="margin-bottom: 100px">
-        <div
-            style="
+        <div style="
                 border-top-left-radius: 30px;
                 border-top-right-radius: 30px;
                 background-image: linear-gradient(#efff00,#fefff4);
@@ -22,8 +20,7 @@
         ">
             <h1>{{ env('APP_NAME') }}</h1>
         </div>
-        <table
-            style="
+        <table style="
                 max-width: 600px;
                 background-color: #fdffdefd;
                 border: 2px;
@@ -43,12 +40,9 @@
             <tbody>
                 <tr>
                     <td>
-                        <img src="https://yu.ctu.edu.vn/images/upload/article/2020/03/0305-logo-ctu.png"
-                            alt="logo"
-                            style="width: 200px; margin-bottom: 15px; clear: both; display: inline-block; margin-left: 31%;" />
+                        <img src="https://yu.ctu.edu.vn/images/upload/article/2020/03/0305-logo-ctu.png" alt="logo" style="width: 200px; margin-bottom: 15px; clear: both; display: inline-block; margin-left: 31%;" />
                         <br />
-                        <h6
-                            style="width: 536px; display: inline-block; font-size: 20px; margin: 10px 0; font-weight: 500; text-align: center;">
+                        <h6 style="width: 536px; display: inline-block; font-size: 20px; margin: 10px 0; font-weight: 500; text-align: center;">
                             <b>Kết quả tuyển dụng</b>
                         </h6>
                         <div>
@@ -61,18 +55,19 @@
                             <h1>{{ $mailData['body']['result'] }}</h1>
 
                             @if ($mailData['body']['message'] != '')
-                                <p>{!! $mailData['body']['message'] !!}</p>
+                            <p>{!! $mailData['body']['message'] !!}</p>
                             @endif
 
                             <p style="margin-top: 50px;">Cám ơn bạn đã xem.</p>
-
+                            @if (isset($mailData['body']['recruiter']))
                             <div>
                                 <p>----------------------</p>
-                                <p>Name: {{ $mailData['body']['recruiter']->name }}</p>
-                                <p>Address: {{ $mailData['body']['recruiter']->address }}</p>
-                                <p>Email: {{ $mailData['body']['recruiter']->email }}</p>
-                                <p>Phone: {{ $mailData['body']['recruiter']->phone }}</p>
+                                <p>Name: {{ isset($mailData['body']['recruiter'])?$mailData['body']['recruiter']->name :'' }}</p>
+                                <p>Address: {{ isset($mailData['body']['recruiter'])?$mailData['body']['recruiter']->address :'' }}</p>
+                                <p>Email: {{ isset($mailData['body']['recruiter'])?$mailData['body']['recruiter']->email :'' }}</p>
+                                <p>Phone: {{ isset($mailData['body']['recruiter'])?$mailData['body']['recruiter']->phone :'' }}</p>
                             </div>
+                            @endif
 
                         </div>
                     </td>
@@ -83,11 +78,9 @@
             <tbody>
                 <tr>
                     <td style="text-align: center; vertical-align: center">
-                        <p
-                            style="font-size: 10px; text-decoration: none; line-height: 1; color: #afafaf; margin-top: 0px">
+                        <p style="font-size: 10px; text-decoration: none; line-height: 1; color: #afafaf; margin-top: 0px">
                             Hãy ghé thăm website của chúng tôi để trải nghiệm nhiều hơn
-                            <a href="{{ env('APP_URL') }}" target="_blank"
-                                style="color: #2499e3; text-decoration: none">{{ env('APP_NAME') }}</a>
+                            <a href="{{ env('APP_URL') }}" target="_blank" style="color: #2499e3; text-decoration: none">{{ env('APP_NAME') }}</a>
                         </p>
                     </td>
                 </tr>

@@ -11,13 +11,11 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('frontend/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/animate/animate.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('frontend/login/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/css-hamburgers/hamburgers.min.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/select2/select2.min.css') }}">
     <!--===============================================================================================-->
@@ -25,11 +23,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/css/main.css') }}">
     <!--===============================================================================================-->
     {{-- Font Awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css">
     <style>
+        html {
+            font-family: math !important;
+        }
+
         .login100-form-btn {
             background-color: #d7a50c;
         }
@@ -37,6 +37,7 @@
         .login100-form-title {
             font-size: 50px;
             padding-bottom: 40px;
+            font-family: math !important;
 
         }
 
@@ -47,6 +48,10 @@
         .container-login100 {
             background: linear-gradient(-135deg, #ffd800, #5d3b00);
         }
+
+        input {
+            font-family: math !important;
+        }
     </style>
 </head>
 
@@ -56,8 +61,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="https://media.istockphoto.com/id/1302836754/vector/symbol-of-people-connect-among-themselves-concept-of-teamwork-connection-communication-group.jpg?s=612x612&w=0&k=20&c=ooKtt0YbOmdYva872YZxQ-Upz-XEfaF7fOeQ2y7u7T8="
-                        alt="IMG">
+                    <img src="https://media.istockphoto.com/id/1302836754/vector/symbol-of-people-connect-among-themselves-concept-of-teamwork-connection-communication-group.jpg?s=612x612&w=0&k=20&c=ooKtt0YbOmdYva872YZxQ-Upz-XEfaF7fOeQ2y7u7T8=" alt="IMG">
                 </div>
 
                 <form class="login100-form validate-form" action="{{ route('login.submit') }}" method="post">
@@ -67,21 +71,18 @@
                     </span>
                     <input type="hidden" name="redirect_to" value="{{ $redirect_to }}">
                     @if (\Session::has('success'))
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            {!! \Session::get('success') !!}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {!! \Session::get('success') !!}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
                     @if (\Session::has('error'))
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            {!! \Session::get('error') !!}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        {!! \Session::get('error') !!}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     @endif
-                    <div class="wrap-input100 validate-input"
-                        data-validate="Valid username is required: email or phone">
+                    <div class="wrap-input100 validate-input" data-validate="Valid username is required: email or phone">
                         <input class="input100" type="text" name="username" placeholder="{{ __('auth.username') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -90,8 +91,7 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="password"
-                            placeholder="{{ __('auth.password') }}">
+                        <input class="input100" type="password" name="password" placeholder="{{ __('auth.password') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>

@@ -38,7 +38,10 @@
         .login100-form-title {
             font-size: 50px;
             padding-bottom: 40px;
-
+            font-family: math !important;
+        }
+        .login100-form-title span{
+            font-family: math !important;
         }
 
         .login100-pic {
