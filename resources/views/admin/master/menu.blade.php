@@ -2,7 +2,7 @@
     <div class="app-brand demo">
         <a href="{{ route('home') }}" target="_blank" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset('logo-flower.png') }}" alt="" width="50" height="50">
+                <img src="{{ asset('logo-flower.png') }}" >
             </span>
             <span class="app-brand-text demo menu-text fw-bolder ms-2">Flower</span>
         </a>

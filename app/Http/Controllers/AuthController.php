@@ -145,27 +145,32 @@ class AuthController extends Controller
         if (isset($request->recruiter) && $request->recruiter != '') {
             $new_user->update([
                 'role' => UserRole::Recruiter,
-                'status' => 'Pendding',
+                'status' => 'Pending',
             ]);
-
+        
+            dd($new_user);  // Ghi log thông tin của $new_user
+            // echo(UserRole::Recruiter);
+        
             return redirect()->route('login')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
         }
-
-        $login_email = [
-            'email' => $request->phone,
-            'password' => $request->password
-        ];
-
-        $login_phone = [
-            'phone' => $request->phone,
-            'password' => $request->password
-        ];
-
-
-        if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
-            return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
-        } else {
-            return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
-        }
+        
+        // else {
+        //     $login_email = [
+        //         'email' => $request->phone,
+        //         'password' => $request->password,
+        //     ];
+    
+        //     $login_phone = [
+        //         'phone' => $request->phone,
+        //         'password' => $request->password
+        //     ];
+    
+    
+        //     if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
+        //         return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
+        //     } else {
+        //         return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
+        //     }
+        // }
     }
 }

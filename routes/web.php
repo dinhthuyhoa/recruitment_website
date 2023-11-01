@@ -45,6 +45,7 @@ Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('l
 Route::get('/register', [AuthController::class, 'register_frontend'])->name('register');
 Route::get('/register/recruiter', [AuthController::class, 'register_recruiter_frontend'])->name('register.recruiter');
 Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
+// Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
 
 // Frontend Apply
 Route::post('/job-apply/apply', [ApplyController::class, 'candidate_apply'])->name('job_apply.apply');
@@ -71,7 +72,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/login', [AuthController::class, 'submit_login_admin'])->name('admin.login.submit');
 
     Route::group(['middleware' => 'admin'], function () {
-
         Route::resource('/users', UserController::class);
         Route::get('/job-apply/list', [ApplyController::class, 'list'])->name('admin.job_apply.list');
         Route::get('/job-apply/edit/{id}', [ApplyController::class, 'edit'])->name('admin.job_apply.edit');

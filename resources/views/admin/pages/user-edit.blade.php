@@ -29,6 +29,8 @@
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
+
+
                     <form id="frmEditUser" method="POST" action="{{ route('users.update', $user) }}"
                         enctype="multipart/form-data">
                         @method('put')
@@ -41,6 +43,11 @@
                                 <input class="form-control" type="text" id="fullname" name="name"
                                     value="{{ $user->name }}" autofocus />
                             </div>
+
+
+
+
+
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="country">Role</label>
                                 <select id="country" class="select2 form-select" name="role">
@@ -51,6 +58,12 @@
                                     @endforeach
                                 </select>
                             </div>
+
+
+
+
+
+
                             <div class="mb-3 col-md-6">
                                 <label for="phone" class="form-label">Phone</label>
                                 <input class="form-control" type="text" name="phone" id="phone"
@@ -84,8 +97,8 @@
                                 <select id="status" name="status" class="select2 form-select">
                                     <option value="Active" {{ $user->status == 'Active' ? 'selected' : '' }}>Active
                                     </option>
-                                    <option value="Pendding" {{ $user->status == 'Pendding' ? 'selected' : '' }}>Pendding
-                                    </option>
+                                    <option value="Pending" {{ $user->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+
                                     <option value="Deactive" {{ $user->status == 'Deactive' ? 'selected' : '' }}>Deactive
                                     </option>
                                 </select>
@@ -96,6 +109,13 @@
                             <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                     </form>
+
+
+
+
+
+
+                    
                 </div>
                 <!-- /Account -->
             </div>

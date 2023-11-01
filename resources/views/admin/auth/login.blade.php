@@ -48,7 +48,6 @@
 
 <body>
     <!-- Content -->
-
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
@@ -74,7 +73,7 @@
                         <div class="app-brand justify-content-center">
                             <a href="index.html" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    <img src="{{ asset('logo-flower.png') }}" alt="" width="50" height="50">
+                                    <img src="{{ asset('logo-flower.png') }}" alt="" >
                                 </span>
                                 <span class="app-brand-text demo text-body fw-bolder">Flower</span>
                             </a>
