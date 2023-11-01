@@ -133,6 +133,8 @@
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
+                        <input type="checkbox" name="recruiter" value="1">
+
                     </div>
 
                     <div class="container-login100-form-btn">
