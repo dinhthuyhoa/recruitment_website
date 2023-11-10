@@ -7,6 +7,10 @@ use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationSuccessful;
+
 class CheckoutController extends Controller
 {
     public function package_checkout_frontend(){
@@ -109,6 +113,7 @@ class CheckoutController extends Controller
     
             if ($user) {
                 $user->update(['status' => 'Active']);
+                Mail::to($user['email'])->send(new RegistrationSuccessful($checkout));
             }
     
             return view('frontend.auth.after-checkout');
@@ -127,5 +132,5 @@ class CheckoutController extends Controller
     
         return null;
     }
-    
+
 }

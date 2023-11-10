@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b787bc68b283b46430645ea36428116",
+    "content-hash": "7f9c8d756078e503fccd3044fc511679",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
@@ -2038,7 +2038,6 @@
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
                 "source": "https://github.com/thephpleague/flysystem/tree/3.19.0"
-
             },
             "funding": [
                 {
@@ -2050,7 +2049,6 @@
                     "type": "github"
                 }
             ],
-
             "time": "2023-11-07T09:04:28+00:00"
         },
         {
@@ -2100,7 +2098,6 @@
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem-local/issues",
                 "source": "https://github.com/thephpleague/flysystem-local/tree/3.19.0"
-
             },
             "funding": [
                 {
@@ -2113,7 +2110,6 @@
                 }
             ],
             "time": "2023-11-06T20:35:28+00:00"
-
         },
         {
             "name": "league/mime-type-detection",
@@ -3372,7 +3368,6 @@
         },
         {
             "name": "ramsey/uuid",
-
             "version": "4.7.5",
             "source": {
                 "type": "git",
@@ -3383,7 +3378,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/ramsey/uuid/zipball/5f0df49ae5ad6efb7afa69e6bfab4e5b1e080d8e",
                 "reference": "5f0df49ae5ad6efb7afa69e6bfab4e5b1e080d8e",
-
                 "shasum": ""
             },
             "require": {
@@ -3451,7 +3445,6 @@
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
                 "source": "https://github.com/ramsey/uuid/tree/4.7.5"
-
             },
             "funding": [
                 {
@@ -3464,7 +3457,6 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
-
         },
         {
             "name": "symfony/console",
@@ -6630,7 +6622,6 @@
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
                 "source": "https://github.com/filp/whoops/tree/2.15.4"
-
             },
             "funding": [
                 {
@@ -6639,7 +6630,6 @@
                 }
             ],
             "time": "2023-11-03T12:00:00+00:00"
-
         },
         {
             "name": "hamcrest/hamcrest-php",

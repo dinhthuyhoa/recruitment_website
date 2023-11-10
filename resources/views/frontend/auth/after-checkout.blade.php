@@ -29,7 +29,7 @@
     <style>
         .message-payment-success {
             text-align: center; 
-            margin-top: 50px;
+            margin-top: 100px;
         }
     </style>
 </head>
@@ -40,7 +40,6 @@
         <p>Thank you for choosing our services. Your payment has been processed successfully, and your registration is complete.</p>
         <p>You will receive a confirmation email shortly with further details.</p>
         
-        <a href="{{ route('home') }}">Back to Home</a>
     </div>
 
     <!--===============================================================================================-->

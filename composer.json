@@ -9,6 +9,7 @@
         "bensampo/laravel-enum": "^6.3",
         "buihuycuong/vnfaker": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
+        "illuminate/mail": "*",
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7"
