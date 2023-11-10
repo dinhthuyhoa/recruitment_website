@@ -21,8 +21,7 @@ class RegistrationSuccessful extends Mailable
     public function build()
     {
 
-        return $this->view('emails.verify-email')
-                    ->subject('Registration Successful')->with(['checkout' => $this->checkout]);
+        return $this->view('emails.verify-email')->subject('Registration Successful')->with(['checkout' => $this->checkout]);
     }
 
 }

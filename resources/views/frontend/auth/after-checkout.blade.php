@@ -39,7 +39,6 @@
         <h1>Payment and Registration Successful!</h1>
         <p>Thank you for choosing our services. Your payment has been processed successfully, and your registration is complete.</p>
         <p>You will receive a confirmation email shortly with further details.</p>
-        
     </div>
 
     <!--===============================================================================================-->

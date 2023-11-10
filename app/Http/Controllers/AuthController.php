@@ -37,7 +37,6 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-
         if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
             if (Auth::check() && Auth::user()->status == 'Pendding') {
                 Auth::logout();
