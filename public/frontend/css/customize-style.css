@@ -39,15 +39,15 @@ html {
 }
 
 #sticky-header {
-    background-color: #FFA500;
+    background-color: #c07f00;
     max-height: 82px;
     display: flex;
     align-items: center;
 }
 
-.header-area .main-header-area.sticky {
+/* .header-area .main-header-area.sticky {
     background-color: var(--primary) !important;
-}
+} */
 
 #apply_job {
     /* padding-top: 80px !important; */

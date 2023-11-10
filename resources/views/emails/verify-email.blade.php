@@ -18,7 +18,7 @@
         <div style="
                 border-top-left-radius: 30px;
                 border-top-right-radius: 30px;
-                background-image: linear-gradient(#FFA500,#fefff4);
+                background-image: linear-gradient(#c07f00,#fefff4);
                 display: flex;
                 justify-content: center;
                 color: blue;

@@ -52,7 +52,7 @@
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
                 <!-- Register -->
-                <div class="card">
+                <div class="card" style="background-color: #C07F00;">
                     <div class="card-body">
                         @if (\Session::has('success'))
                             <div class="alert alert-success alert-dismissible" role="alert">
@@ -73,9 +73,9 @@
                         <div class="app-brand justify-content-center">
                             <a href="index.html" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    <img src="{{ asset('logo-flower.png') }}" alt="" >
+                                    <img src="{{ asset('logo-flower.png') }}" alt="" style="width:50px">
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Flower</span>
+                                <span class=" demo text-white fw-bolder text-uppercase ms-1">recruitment portal</span>
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -84,18 +84,20 @@
                             method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label">Username</label>
+                                <label for="email" class="form-label text-white">Username</label>
                                 <input type="text" class="form-control" id="email" name="username"
-                                    placeholder="Enter your email or username" autofocus />
+                                    placeholder="Enter your email" autofocus />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 {{-- <div class="d-flex justify-content-between">
-                                    <label class="form-label" for="password">Password</label>
+                                    <label class="form-label text-white" for="password">Password</label>
                                     <a href="auth-forgot-password-basic.html">
                                         <small>Forgot Password?</small>
                                     </a>
                                 </div> --}}
+                                <label class="form-label text-white" for="password">Password</label>
                                 <div class="input-group input-group-merge">
+                                    
                                     <input type="password" id="password" class="form-control" name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password" />
@@ -106,7 +108,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember-me"
                                         name="remember" />
-                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                                    <label class="form-check-label text-white" for="remember-me"> Remember Me</label>
                                 </div>
                             </div>
                             <div class="mb-3">

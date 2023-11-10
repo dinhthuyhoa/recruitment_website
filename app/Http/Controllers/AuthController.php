@@ -91,11 +91,15 @@ class AuthController extends Controller
 
     if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
         $user = Auth::user();
-        // dd(Auth::user());
-        // Check if the user's role is 'user' and status is 'active'.
+
         if ($user->status == 'Active') {
             if ($request->redirect_to) {
-                return redirect($request->redirect_to);
+                if($user->role == 'recruiter'){
+                    return redirect()->route('home');
+                }
+                else{
+                    return redirect($request->redirect_to);
+                } 
             } else {
                 return redirect()->route('home');
             }
@@ -144,6 +148,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'address' => $request->address,
             'password' => Hash::make($request->password),
+            'avatar' => 'https://previews.123rf.com/images/krustovin/krustovin1801/krustovin180100057/94300911-hombre-con-corbata-icono-plano-de-hombre-de-negocios-hombre-en-traje-de-negocios-avatar-del-hombre.jpg'
         ]);
 
         if (isset($request->recruiter) && $request->recruiter != '') {

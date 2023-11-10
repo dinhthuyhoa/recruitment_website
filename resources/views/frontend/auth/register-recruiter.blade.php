@@ -68,13 +68,13 @@
             display: inline-block;
             width: 12px; 
             height: 12px; 
-            border: 2px solid #FFA500; 
+            border: 2px solid #c07f00; 
             border-radius: 50%; 
             margin-top: 15px;
         }
 
         .custom-checkbox input[type="checkbox"]:checked + .check-register:before {
-            background-color: #FFA500; 
+            background-color: #c07f00; 
         }
     </style>
 

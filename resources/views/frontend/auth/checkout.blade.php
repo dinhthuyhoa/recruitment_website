@@ -69,15 +69,15 @@
         }
 
         .pricingTable:before{
-            border-right: 2px solid #FFA500;
-            border-left: 2px solid #FFA500;
+            border-right: 2px solid #c07f00;
+            border-left: 2px solid #c07f00;
             transform: scaleY(0);
             transform-origin: 100% 0 0;
         }
 
         .pricingTable:after{
-            border-bottom: 2px solid #FFA500;
-            border-top: 2px solid #FFA500;
+            border-bottom: 2px solid #c07f00;
+            border-top: 2px solid #c07f00;
             transform: scaleX(0);
             transform-origin: 0 100% 0;
         }
@@ -91,7 +91,7 @@
         }
 
         .pricingTable .pricingTable-header{
-            background: #FFA500;
+            background: #c07f00;
             color: #fff;
             margin: -2px -2px 35px;
             padding: 30px 0;
@@ -147,16 +147,16 @@
 
         .check_out {
             width: 75% !important;
-            border: 2px #FFA500 solid;
+            border: 2px #c07f00 solid;
             background: none;
-            color: #FFA500;
+            color: #c07f00;
             
         }
 
         .check_out:hover {
             /* width: 65% !important;
-            border: 2px #FFA500 solid; */
-            background: #FFA500;
+            border: 2px #c07f00 solid; */
+            background: #c07f00;
             color: #fff;
         }
 
@@ -180,12 +180,12 @@
             width: 12px; 
             height: 12px; 
             /* margin-right: 10px;  */
-            border: 2px solid #FFA500; 
+            border: 2px solid #c07f00; 
             border-radius: 50%; 
         }
 
         .custom-checkbox input[type="checkbox"]:checked + .check-payment:before {
-            background-color: #FFA500; 
+            background-color: #c07f00; 
         }
 
         @media screen and (max-width: 990px){
