@@ -1,18 +1,16 @@
 @extends('frontend.master.master')
 @section('css')
-<<<<<<< HEAD
 <!-- Include Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 
-=======
->>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
+
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 @section('content')
-<<<<<<< HEAD
+
 
 <!-- carousel_area -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -48,8 +46,7 @@
 </div>
 
 <!-- end_carousel_area -->
-=======
->>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
+
 <!-- slider_area_start -->
 <div class="slider_area">
     <div class="single_slider  d-flex align-items-center slider_bg_1">
