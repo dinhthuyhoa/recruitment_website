@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Auth\Events\Registered;
 class AuthController extends Controller
 {
     // ======================================== ADMIN ===========================================
@@ -75,42 +75,83 @@ class AuthController extends Controller
 
         return view('frontend.auth.login', compact('redirect_to'));
     }
+    // public function submit_login_frontend(Request $request)
+    // {
+    //     $remember = ($request->remember) ? true : false;
+
+    //     $login_email = [
+    //         'email' => $request->username,
+    //         'password' => $request->password
+    //     ];
+
+    //     $login_phone = [
+    //         'phone' => $request->username,
+    //         'password' => $request->password
+    //     ];
+
+
+    //     if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
+
+    //         if (Auth::check() && Auth::user()->status == 'Pendding') {
+    //             Auth::logout();
+
+    //             if ($request->redirect_to) {
+    //                 return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+    //             } else {
+    //                 return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+    //             }
+    //         }
+
+    //         if ($request->redirect_to) {
+    //             return redirect($request->redirect_to);
+    //         } else {
+    //             return redirect()->route('home');
+    //         }
+    //     } else {
+    //         return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
+    //     }
+    // }
     public function submit_login_frontend(Request $request)
-    {
-        $remember = ($request->remember) ? true : false;
+{
+    $remember = ($request->remember) ? true : false;
 
-        $login_email = [
-            'email' => $request->username,
-            'password' => $request->password
-        ];
+    $login_email = [
+        'email' => $request->username,
+        'password' => $request->password
+    ];
 
-        $login_phone = [
-            'phone' => $request->username,
-            'password' => $request->password
-        ];
+    $login_phone = [
+        'phone' => $request->username,
+        'password' => $request->password
+    ];
 
-
-        if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
-
-            if (Auth::check() && Auth::user()->status == 'Pendding') {
-                Auth::logout();
-
-                if ($request->redirect_to) {
-                    return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
-                } else {
-                    return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
-                }
-            }
-
+    if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
+        $user = Auth::user();
+        // dd(Auth::user());
+        // Check if the user's role is 'user' and status is 'active'.
+        if ($user->status == 'Active') {
             if ($request->redirect_to) {
                 return redirect($request->redirect_to);
             } else {
                 return redirect()->route('home');
             }
+        } elseif ($user->status == 'Pendding') {
+            Auth::logout();
+
+            if ($request->redirect_to) {
+                return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+            } else {
+                return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+            }
         } else {
+            Auth::logout();
             return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
         }
+    } else {
+        return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
     }
+}
+
 
     public function register_frontend()
     {
@@ -147,30 +188,27 @@ class AuthController extends Controller
                 'role' => UserRole::Recruiter,
                 'status' => 'Pending',
             ]);
-        
-            dd($new_user);  // Ghi log thông tin của $new_user
-            // echo(UserRole::Recruiter);
-        
-            return redirect()->route('login')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
+            session(['user_id' => $new_user['id']]);
+            return redirect()->route('register.checkout')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
         }
         
-        // else {
-        //     $login_email = [
-        //         'email' => $request->phone,
-        //         'password' => $request->password,
-        //     ];
+        else {
+            $login_email = [
+                'email' => $request->phone,
+                'password' => $request->password,
+            ];
     
-        //     $login_phone = [
-        //         'phone' => $request->phone,
-        //         'password' => $request->password
-        //     ];
+            $login_phone = [
+                'phone' => $request->phone,
+                'password' => $request->password
+            ];
     
     
-        //     if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
-        //         return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
-        //     } else {
-        //         return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
-        //     }
-        // }
+            if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
+                return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
+            } else {
+                return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
+            }
+        }
     }
 }

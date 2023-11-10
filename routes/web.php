@@ -4,6 +4,7 @@ use App\Events\ChatEvent;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -13,7 +14,8 @@ use App\Http\Controllers\ReactController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,13 +41,38 @@ Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profil
 // Ckeditor
 Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.upload');
 
+// Verification Email
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware(['auth'])->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
 // Frontend Auth
 Route::get('/login', [AuthController::class, 'login_frontend'])->name('login');
 Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'register_frontend'])->name('register');
 Route::get('/register/recruiter', [AuthController::class, 'register_recruiter_frontend'])->name('register.recruiter');
+Route::get('/register/checkout', [CheckoutController::class, 'package_checkout_frontend'])->name('register.checkout');
+
+Route::post('/vnpay-payment', [CheckoutController::class, 'vnpay_payment'])->name('vnpay.payment');
+Route::get('/vnpay-payment/callback', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay.callback');
+
 Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
-// Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
+
+// the Terms of Service
+Route::get('/terms-of-service', [HomeController::class, 'terms_of_servive'])->name('terms_of_service');
 
 // Frontend Apply
 Route::post('/job-apply/apply', [ApplyController::class, 'candidate_apply'])->name('job_apply.apply');

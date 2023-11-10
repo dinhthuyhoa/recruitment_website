@@ -55,7 +55,30 @@
         .input100:focus+.focus-input100+.symbol-input100 {
             color: #d7a50c;
         }
+
+        .check-register {
+            font-size: 14px;
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            display: none; 
+        }
+
+        .custom-checkbox input[type="checkbox"] + .check-register:before {
+            content: "";
+            display: inline-block;
+            width: 12px; 
+            height: 12px; 
+            border: 2px solid #FFA500; 
+            border-radius: 50%; 
+            margin-top: 15px;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked + .check-register:before {
+            background-color: #FFA500; 
+        }
     </style>
+
 </head>
 
 <body>
@@ -133,8 +156,15 @@
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
-                        <input type="checkbox" name="recruiter" value="1">
+                    </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="Check Register">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="recruiter" value="1">
+                            <span class="check-register">&nbsp; I agree to
+                                <a href="{{route('terms_of_service')}}">the Terms of Service</a>
+                                 of the Job Portal.</span>
+                        </label>
                     </div>
 
                     <div class="container-login100-form-btn">
@@ -155,8 +185,11 @@
                             {{ __('auth.become-a-candidate') }}
                         </a>
                     </div>
+            
             </div>
+
             </form>
+
         </div>
     </div>
     </div>

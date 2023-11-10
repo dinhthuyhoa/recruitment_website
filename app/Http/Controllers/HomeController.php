@@ -45,4 +45,8 @@ class HomeController extends Controller
     {
         return view('frontend.pages.contact');
     }
+
+    public function terms_of_servive(){
+        return view('frontend.pages.terms_of_servive');
+    }
 }
