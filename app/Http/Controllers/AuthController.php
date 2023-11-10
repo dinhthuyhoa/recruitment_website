@@ -7,7 +7,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+<<<<<<< HEAD
 use Illuminate\Auth\Events\Registered;
+=======
+
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
 class AuthController extends Controller
 {
     // ======================================== ADMIN ===========================================
@@ -75,6 +79,7 @@ class AuthController extends Controller
 
         return view('frontend.auth.login', compact('redirect_to'));
     }
+<<<<<<< HEAD
     // public function submit_login_frontend(Request $request)
     // {
     //     $remember = ($request->remember) ? true : false;
@@ -130,11 +135,41 @@ class AuthController extends Controller
         // dd(Auth::user());
         // Check if the user's role is 'user' and status is 'active'.
         if ($user->status == 'Active') {
+=======
+    public function submit_login_frontend(Request $request)
+    {
+        $remember = ($request->remember) ? true : false;
+
+        $login_email = [
+            'email' => $request->username,
+            'password' => $request->password
+        ];
+
+        $login_phone = [
+            'phone' => $request->username,
+            'password' => $request->password
+        ];
+
+
+        if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
+
+            if (Auth::check() && Auth::user()->status == 'Pendding') {
+                Auth::logout();
+
+                if ($request->redirect_to) {
+                    return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                } else {
+                    return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                }
+            }
+
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
             if ($request->redirect_to) {
                 return redirect($request->redirect_to);
             } else {
                 return redirect()->route('home');
             }
+<<<<<<< HEAD
         } elseif ($user->status == 'Pendding') {
             Auth::logout();
 
@@ -152,6 +187,12 @@ class AuthController extends Controller
     }
 }
 
+=======
+        } else {
+            return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
+        }
+    }
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
 
     public function register_frontend()
     {
@@ -188,6 +229,7 @@ class AuthController extends Controller
                 'role' => UserRole::Recruiter,
                 'status' => 'Pending',
             ]);
+<<<<<<< HEAD
             session(['user_id' => $new_user['id']]);
             return redirect()->route('register.checkout')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
         }
@@ -210,5 +252,32 @@ class AuthController extends Controller
                 return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
             }
         }
+=======
+        
+            dd($new_user);  // Ghi log thông tin của $new_user
+            // echo(UserRole::Recruiter);
+        
+            return redirect()->route('login')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
+        }
+        
+        // else {
+        //     $login_email = [
+        //         'email' => $request->phone,
+        //         'password' => $request->password,
+        //     ];
+    
+        //     $login_phone = [
+        //         'phone' => $request->phone,
+        //         'password' => $request->password
+        //     ];
+    
+    
+        //     if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
+        //         return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
+        //     } else {
+        //         return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
+        //     }
+        // }
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
     }
 }

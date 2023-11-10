@@ -4,7 +4,9 @@ use App\Events\ChatEvent;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\CheckoutController;
+
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -14,8 +16,10 @@ use App\Http\Controllers\ReactController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +62,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-
 // Frontend Auth
 Route::get('/login', [AuthController::class, 'login_frontend'])->name('login');
 Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('login.submit');
@@ -73,6 +76,10 @@ Route::post('/register', [AuthController::class, 'submit_register_frontend'])->n
 
 // the Terms of Service
 Route::get('/terms-of-service', [HomeController::class, 'terms_of_servive'])->name('terms_of_service');
+
+Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
+// Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
+
 
 // Frontend Apply
 Route::post('/job-apply/apply', [ApplyController::class, 'candidate_apply'])->name('job_apply.apply');

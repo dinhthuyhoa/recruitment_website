@@ -55,6 +55,7 @@
         .input100:focus+.focus-input100+.symbol-input100 {
             color: #d7a50c;
         }
+<<<<<<< HEAD
 
         .check-register {
             font-size: 14px;
@@ -79,6 +80,9 @@
         }
     </style>
 
+=======
+    </style>
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
 </head>
 
 <body>
@@ -156,6 +160,7 @@
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
+<<<<<<< HEAD
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Check Register">
@@ -165,6 +170,10 @@
                                 <a href="{{route('terms_of_service')}}">the Terms of Service</a>
                                  of the Job Portal.</span>
                         </label>
+=======
+                        <input type="checkbox" name="recruiter" value="1">
+
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
                     </div>
 
                     <div class="container-login100-form-btn">
@@ -185,11 +194,16 @@
                             {{ __('auth.become-a-candidate') }}
                         </a>
                     </div>
+<<<<<<< HEAD
             
             </div>
 
             </form>
 
+=======
+            </div>
+            </form>
+>>>>>>> 6fb1e2f5027ec71970a3eaba860b930e8dd284cd
         </div>
     </div>
     </div>
