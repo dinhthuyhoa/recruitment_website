@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-7">
                             <div class="main-menu  d-none d-lg-block">
-                                <nav>
+                                <nav class="mt-3">
                                     <ul id="navigation">
                                         <li class="{{ request()->is('/') ? 'active' : '' }}"><a
                                                 href="{{ route('home') }}">{{ __('header.home') }}</a></li>
@@ -34,7 +34,7 @@
                                     <div class="dropdown mx-4">
                                         <button class="btn btn-light bg-transparent border-0 text-light dropdown-toggle"
                                             type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
+                                            aria-haspopup="true" aria-expanded="false" style="font-weight: bold; font-size: 13px">
                                             @if (Lang::locale() == 'en')
                                                 <span class="flag-icon flag-icon-us"> </span>
                                                 English
@@ -43,7 +43,7 @@
                                                 Tiếng Việt
                                             @endif
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"style="font-weight: bold; font-size: 13px">
                                             <a class="dropdown-item" href="{!! route('settings.change-language', ['en']) !!}">
                                                 <span class="flag-icon flag-icon-us"> </span>
                                                 English
@@ -94,9 +94,11 @@
                                         </li>
                                         <!--/ User -->
                                     @else
-                                        <a
-                                            href="{{ route('login', ['url' => url()->full()]) }}">{{ __('header.login') }}</a>
+                                    <div class="login mb-1" >
+                                    <a href="{{ route('login', ['url' => url()->full()]) }}" style="font-weight: bold; font-size: 13px">{{ __('header.login') }}</a>
                                     @endif
+                                    </div>
+                                        
                                 </div>
                             </div>
                         </div>

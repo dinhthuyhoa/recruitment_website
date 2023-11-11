@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- bradcam_area  -->
-<div class="bradcam_area bradcam_bg_1">
+<!-- <div class="bradcam_area bradcam_bg_1">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!--/ bradcam_area  -->
 
 <div class="job_details_area">
@@ -31,23 +31,28 @@
                                 <img src="{{ asset('storage/' . $post->post_image) }}" alt="">
                             </div>
 
-                            <div class="jobs_conetent">
+                            <div class="jobs_conetent fw-bold">
                                 <a href="#">
                                     <h4>{{ $post->post_title }}</h4>
                                 </a>
                                 <div>
-                                    <h6><a href="{{ route('profile', $post->user_id) }}" target="_blank">{{ $post->author }}</a></h6>
+                                    <h6>
+                                        <a href="{{ route('profile', $post->user_id) }}" target="_blank">{{ $post->author }}</a>
+                                        
+                                    </h6>
                                 </div>
+                                
                                 <div class="links_locat d-flex align-items-center">
-                                    <div class="location">
-                                        <p> <i class="fa fa-map-marker"></i> {{ $post->recruitment_address }}</p>
+                                    <div class="location ">
+                                        <p class="fs-61"> <i class="fa fa-map-marker"></i> {{ $post->recruitment_address }}</p>
                                     </div>
-                                    <div class="location">
-                                        <p> <i class="fa fa-clock-o"></i> {{ $post->recruitment_job_nature }}</p>
-                                    </div>
-                                    <div class="location">
+                                    
+                                    <!-- <div class="location">
                                         <p> <i class="fa fa-eye"></i> {{ $post->post_view }}</p>
-                                    </div>
+                                    </div> -->
+                                </div>
+                                <div class="location job-nature">
+                                    <p> <i class="fa fa-clock-o"></i> {{ $post->recruitment_job_nature }}</p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +161,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="share_wrap d-flex flex-column tags_list">
+                <!-- <div class="share_wrap d-flex flex-column tags_list">
                     <span>Tag:</span>
                     <ul class="py-3">
                         @if (!is_null($post->tags))
@@ -171,7 +176,7 @@
                         <li>No tags</li>
                         @endif
                     </ul>
-                </div>
+                </div> -->
                 @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Candidate)
                 <div id="apply_job">
                     <div class="apply_job_form white-bg">

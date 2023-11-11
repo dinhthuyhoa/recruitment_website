@@ -5,7 +5,7 @@
 @section('content')
     <!-- Hoverable Table rows -->
     <div class="card">
-        <h5 class="card-header">Recruitment post list</h5>
+        <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">Recruitment post list</h5>
         <div class="table-responsive text-nowrap m-3">
             <table id="tableRecruitmentPostList" class="table table-hover" style="width: 100%">
                 <thead>
@@ -14,7 +14,7 @@
                         <th>Author</th>
                         <th>View</th>
                         <th>Status</th>
-                        <th>Date</th>
+                        <th>Date create</th>
                         <th>Last Update</th>
                         <th>Actions</th>
                     </tr>
@@ -23,29 +23,29 @@
                     @foreach ($post_list as $post)
                         <tr>
                             <td>
-                                <img src="{{ !is_null($post->post_image) ? asset('storage/' . $post->post_image) : '' }}"
-                                    alt="Avatar" class="rounded-circle me-2" width="50" height="50" />
-                                <a href="{{ route('admin.posts.recruitment.edit', $post) }}" class="fw-bold">
+                                <!-- <img src="{{ !is_null($post->post_image) ? asset('storage/' . $post->post_image) : '' }}"
+                                    alt="Avatar" class="rounded-circle me-2" width="50" height="50" /> -->
+                                <a href="{{ route('admin.posts.recruitment.edit', $post) }}" class="fw-bold fs-6">
                                     {{ $post->post_title }}
                                 </a>
                             </td>
-                            <td>
+                            <td class="fs-6">
                                 {{ $post->user->name }}
                             </td>
-                            <td><i class="fa-regular fa-eye"></i> {{ $post->post_view }} </td>
+                            <td><i class="fa-regular fa-eye fs-6"></i> {{ $post->post_view }} </td>
                             <td>
                                 @if ($post->post_status == 'pendding')
-                                    <span class="badge bg-label-warning me-1">Pendding</span>
+                                    <span class="badge bg-label-warning me-1 fs-6">Pendding</span>
                                 @elseif($post->post_status == 'publish')
-                                    <span class="badge bg-label-success me-1">Published</span>
+                                    <span class="badge bg-label-success me-1 fs-6">Published</span>
                                 @else
-                                    <span class="badge bg-label-danger me-1">Draft</span>
+                                    <span class="badge bg-label-danger me-1 fs-6">Draft</span>
                                 @endif
                             </td>
-                            <td>
+                            <td class=" fs-6">
                                 {{ date('d/m/Y', strtotime($post->post_date)) }}
                             </td>
-                            <td>
+                            <td class=" fs-6">
                                 {{ date('d/m/Y', strtotime($post->post_date_update)) }}
                             </td>
                             <td>
@@ -56,14 +56,14 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('admin.posts.recruitment.edit', $post) }}">
-                                            <i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <i class="bx bx-edit-alt me-1 fs-6"></i> Edit</a>
                                         <a class="dropdown-item" href="{{ route('posts.recruitment.details', $post) }}"
                                             target="_blank">
-                                            <i class="fa-solid fa-eye"></i> Preview</a>
-                                        <button class="dropdown-item" data-bs-toggle="modal"
+                                            <i class="fa-solid fa-eye fs-6"></i> Preview</a>
+                                        <button class="dropdown-item fs-6" data-bs-toggle="modal"
                                             data-bs-target="#modalConfirmDeletePost-{{ $post->id }}"
                                             data-id="{{ $post->id }}">
-                                            <i class="bx bx-trash me-1"></i>
+                                            <i class="bx bx-trash me-1 fs-6"></i>
                                             Delete</button>
                                     </div>
                                 </div>
@@ -181,4 +181,20 @@
             });
         });
     </script>
+    <style>
+        .dropup, .dropend, .dropdown, .dropstart {
+            text-align: center;
+        }
+        .filters th input{
+            height: 30px;
+            border: 1px #000 solid;
+            border-radius: 5px;
+        }
+
+        .dataTables_wrapper .dataTables_info {
+            padding-top: 15px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+        }
+    </style>
 @endsection

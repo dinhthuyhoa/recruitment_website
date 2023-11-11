@@ -2,15 +2,19 @@
 
 @section('content')
     <!-- bradcam_area  -->
-    <div class="bradcam_area bradcam_bg_1">
+    <div class="bradcam_area bradcam_bg_3">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
                         <h3>contact</h3>
+                        <p>
+                        A place ready to provide enthusiastic support and advice for users when <br> they encounter issues and need to contact.
+                        </p>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <!--/ bradcam_area  -->
@@ -18,6 +22,7 @@
     <section class="contact-section section_padding">
         <div class="container">
             <div class="d-none d-sm-block mb-5 pb-4">
+                
                 <div id="map" style="height: 480px;">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d491.10399956050304!2d105.76916480868296!3d10.030718788141185!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0883d2192b0f1%3A0x4c90a391d232ccce!2zVHLGsOG7nW5nIEPDtG5nIE5naOG7hyBUaMO0bmcgVGluIHbDoCBUcnV54buBbiBUaMO0bmcgKENUVSk!5e0!3m2!1svi!2s!4v1682228457481!5m2!1svi!2s"
@@ -66,31 +71,38 @@
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <button type="submit" class="button button-contactForm btn_4 boxed-btn">Send
+                            <button type="submit" class="button button-contactForm btn_4 boxed-btn" style="">Send
                                 Message</button>
                         </div>
                     </form>
                 </div>
                 <div class="col-lg-4">
                     <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-home"></i></span>
+                        <span class="contact-info__icon"><i class="ti-home text-dark"></i></span>
                         <div class="media-body">
-                            <h3>Buttonwood, California.</h3>
-                            <p>Rosemead, CA 91770</p>
+                            <h3>Block 2, 3/2 Street, Xuan Khanh Ward, Ninh Kieu District, Can Tho City, Vietnam</h3>
+                            <p class="text-white">The College of Information and Communication Technology</p>
                         </div>
                     </div>
                     <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                        <span class="contact-info__icon"><i class="ti-tablet text-dark"></i></span>
                         <div class="media-body">
-                            <h3>00 (440) 9865 562</h3>
-                            <p>Mon to Fri 9am to 6pm</p>
+                            <h3>(+84) 0292 3 734713 - 0292 3 831301</h3>
+                            <p class="text-white">Mon to Fri 9am to 6pm</p>
                         </div>
                     </div>
                     <div class="media contact-info">
-                        <span class="contact-info__icon"><i class="ti-email"></i></span>
+                        <span class="contact-info__icon"><i class="ti-printer text-dark"></i></span>
                         <div class="media-body">
-                            <h3>support@colorlib.com</h3>
-                            <p>Send us your query anytime!</p>
+                            <h3>(+84) 0292 3830841</h3>
+                            <p class="text-white">Mon to Fri 9am to 6pm</p>
+                        </div>
+                    </div>
+                    <div class="media contact-info">
+                        <span class="contact-info__icon"><i class="ti-email text-dark"></i></span>
+                        <div class="media-body">
+                            <h3>tcntt@ctu.edu.vn</h3>
+                            <p class="text-white">Send us your query anytime!</p>
                         </div>
                     </div>
                 </div>

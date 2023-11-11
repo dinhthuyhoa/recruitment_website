@@ -5,7 +5,7 @@
 @section('content')
     <!-- Hoverable Table rows -->
     <div class="card">
-        <h5 class="card-header">User list</h5>
+    <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">candidate apply list</h5>
         <div class="table-responsive text-nowrap m-3">
             <table id="tableApplyList" class="table table-hover" style="width: 100%">
                 <thead>
@@ -22,37 +22,37 @@
                     @foreach ($apply_list as $apply)
                         <tr>
                             <td>
-                                <img src="{{ !is_null($apply->post->post_image) ? asset('storage/' . $apply->post->post_image) : '' }}"
-                                    alt="Avatar" class="rounded-circle me-2" width="50" height="50" />
-                                <a href="{{ route('admin.job_apply.edit', $apply->id) }}" class="fw-bold">
+                                <!-- <img src="{{ !is_null($apply->post->post_image) ? asset('storage/' . $apply->post->post_image) : '' }}"
+                                    alt="Avatar" class="rounded-circle me-2" width="50" height="50" /> -->
+                                <a href="{{ route('admin.job_apply.edit', $apply->id) }}" class="fw-bold fs-6">
                                     {{ $apply->post->post_title }}
                                 </a>
                             </td>
-                            <td>{{ $apply->post->user->name }}</td>
-                            <td>
+                            <td class=" fs-6">{{ $apply->post->user->name }}</td>
+                            <td class=" fs-6">
                                 {{ $apply->fullname }}
                             </td>
                             <td>
                                 @if ($apply->status == 'pendding')
-                                    <span class="badge bg-label-warning me-1">Pendding</span>
+                                    <span class="badge bg-label-warning me-1  fs-6">Pendding</span>
                                 @elseif($apply->status == 'approved')
-                                    <span class="badge bg-label-success me-1">Approved</span>
+                                    <span class="badge bg-label-success me-1 fs-6">Approved</span>
                                 @else
-                                    <span class="badge bg-label-danger me-1">Faild</span>
+                                    <span class="badge bg-label-danger me-1 fs-6">Faild</span>
                                 @endif
                             </td>
-                            <td>
+                            <td class=" fs-6">
                                 {{ date('H:i d/m/Y', strtotime($apply->created_at)) }}
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow fs-6"
                                         data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                        <i class="bx bx-dots-vertical-rounded fs-6"></i>
                                     </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('admin.job_apply.edit', $apply->id) }}"><i
-                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    <div class="dropdown-menu fs-6">
+                                        <a class="dropdown-item fs-6" href="{{ route('admin.job_apply.edit', $apply->id) }}"><i
+                                                class="bx bx-edit-alt me-1 fs-6"></i> Edit</a>
                                     </div>
                                 </div>
                             </td>
@@ -133,4 +133,21 @@
             });
         });
     </script>
+
+    <style>
+        .dropup, .dropend, .dropdown, .dropstart {
+            text-align: center;
+        }
+
+        .filters th input{
+            height: 30px;
+            border: 1px #000 solid;
+            border-radius: 5px;
+        }
+        .dataTables_wrapper .dataTables_info {
+            padding-top: 15px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+        }
+    </style>
 @endsection

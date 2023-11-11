@@ -2,12 +2,13 @@
 
 @section('content')
     <!-- bradcam_area  -->
-    <div class="bradcam_area bradcam_bg_1">
+    <div class="bradcam_area bradcam_bg_2">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
                         <h3>NEWS</h3>
+                        <p>A place that provides and delivers a wealth of engaging and essential information <br> for students.</p>
                     </div>
                 </div>
             </div>
@@ -16,10 +17,40 @@
     <!--/ bradcam_area  -->
 
     <!--================Blog Area =================-->
-    <section class="blog_area section-padding">
+    <section class="blog_area section-padding job_listing_area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="recent_joblist_wrap">
+                        <div class="recent_joblist white-bg ">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h4 style="font-weight: bold;">News Listings</h4>
+                                </div>
+                                <div class="col-md-6">
+                                <aside class="single_sidebar_widget search_widget">
+                            <form action="#" id="form-search-news">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="search" class="form-control" placeholder='Search by keyword'
+                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search By Keyword'"
+                                            id="keyword" name="keyword" class="form-control"
+                                            value="{{ request()->keyword }}" style="border: 1.5px #020c26 solid">
+
+                                        <div class="input-group-append mx-2">
+                                            <button class="btn" type="submmit" form="form-search-news" style="background-color: #ffa500;"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn filter-job" type="submit"
+                                    form="form-search-news">Search</button> -->
+                            </form>
+                        </aside>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="blog_left_sidebar" id="paginated-list-news" data-current-page="1" aria-live="polite">
 
                         <div class="row" id="paginated-list" data-current-page="1" aria-live="polite">
@@ -55,48 +86,32 @@
                                     </li>
                                 @endforeach
                             @else
-                                <h3>Not found post</h3>
+                                <h3 class="mx-3">Not found post</h3>
                             @endif
 
                         </div>
+                        @if (count($posts) > 0)
+                            <nav class="pagination-container">
+                                <button class="pagination-button text-white" id="prev-button" aria-label="Previous page"
+                                    title="Previous page">
+                                    &lt;
+                                </button>
 
-                        <nav class="pagination-container">
-                            <button class="pagination-button" id="prev-button" aria-label="Previous page"
-                                title="Previous page">
-                                &lt;
-                            </button>
+                                <div id="pagination-numbers">
 
-                            <div id="pagination-numbers">
+                                </div>
 
-                            </div>
-
-                            <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
-                                &gt;
-                            </button>
-                        </nav>
+                                <button class="pagination-button text-white" id="next-button" aria-label="Next page"
+                                    title="Next page">
+                                    &gt;
+                                </button>
+                            </nav>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget search_widget">
-                            <form action="#" id="form-search-news">
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="search" class="form-control" placeholder='Search Keyword'
-                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'"
-                                            id="keyword" name="keyword" class="form-control"
-                                            value="{{ request()->keyword }}">
-
-                                        <div class="input-group-append">
-                                            <button class="btn" type="submmit" form="form-search-news"><i
-                                                    class="ti-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit"
-                                    form="form-search-news">Search</button>
-                            </form>
-                        </aside>
+                        
 
                         <aside class="single_sidebar_widget tag_cloud_widget">
                             <h4 class="widget_title">Tag Clouds</h4>

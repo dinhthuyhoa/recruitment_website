@@ -1,5 +1,5 @@
-@extends('frontend.master.master')
 
+@extends('frontend.master.master')
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -13,6 +13,7 @@
                 <div class="col-xl-12">
                     <div class="bradcam_text">
                         <h3>{{ $count_post - 1 }}+ Jobs Available</h3>
+                        <p>Where provides numerous job opportunities for students. <br>Search for desired job information, view detailed details, <br>and save favorite job postings.</p>
                     </div>
                 </div>
             </div>
@@ -24,69 +25,12 @@
     <div class="job_listing_area plus_padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="job_filter white-bg">
-                        <div class="form_inner white-bg">
-                            <h3>Filter</h3>
-                            <form action="{{ route('posts.recruitment.list') }}" id="form_filter_jobs" method="get">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="single_field">
-                                            <label for="filter_address">Location</label>
-                                            <select class="wide" name="filter_address" id="filter_address">
-                                                <option value="">All</option>
-                                                @foreach (config('63-tinh-vn') as $k => $v)
-                                                    <option value="{{ $k }}"
-                                                        {{ request()->filter_address == $k ? 'selected' : '' }}>
-                                                        {{ $v }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single_field">
-                                            <label for="filter_job_nature">Job nature</label>
-                                            <select class="wide select-tinh-tp" name="filter_job_nature"
-                                                id="filter_job_nature">
-                                                <option value="">All</option>
-                                                <option value="Full-time"
-                                                    {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>
-                                                    Full time
-                                                </option>
-                                                <option value="Part-time"
-                                                    {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>
-                                                    Part time
-                                                </option>
-                                                <option value="Freelancer"
-                                                    {{ request()->filter_job_nature == 'Freelancer' ? 'selected' : '' }}>
-                                                    Freelancer
-                                                </option>
-                                            </select>
-
-                                            <script>
-                                                $('#filter_address').select2();
-                                            </script>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="reset_btn col-12">
-                                    <button class="boxed-btn3 w-100 mb-3" form="form_filter_jobs"
-                                        type="submit">Filter</button>
-                                    <a href="{{ route('posts.recruitment.list') }}" class="boxed-btn3 w-100"
-                                        type="submit">Reset</a>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
                 <div class="col-lg-9">
                     <div class="recent_joblist_wrap">
                         <div class="recent_joblist white-bg ">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <h4>Job Listing</h4>
+                                    <h4 style="font-weight: bold;">Job Listings</h4>
 
                                     @if (isset(request()->keyword))
                                         <p>
@@ -102,9 +46,9 @@
                                             <div class="input-group">
                                                 <div class="form-outline mr-3">
                                                     <input type="search" id="keyword" name="keyword" class="form-control"
-                                                        value="{{ request()->keyword }}" />
+                                                        value="{{ request()->keyword }}" style="border: 1.5px #020c26 solid" placeholder="Search by title"/>
                                                 </div>
-                                                <button type="submit" form="form_search_job" class="btn btn-orange">
+                                                <button type="submit" form="form_search_job" class="btn" style="background-color: #ffa500;">
                                                     <i class="fas fa-search"></i>
                                                 </button>
                                             </div>
@@ -150,16 +94,16 @@
                                                     <div>
                                                         <h6> {{ $post->author }}</h6>
                                                     </div>
-                                                    <div class="links_locat d-flex align-items-center" style="gap: 28px;">
+                                                    <div class="links_locat d-flex" style="gap: 20px;">
                                                         <div class="location">
                                                             <p class="address"> <i class="fa fa-map-marker"></i>
                                                                 {{ $post->recruitment_address }}</p>
                                                         </div>
-                                                        <div class="location">
+                                                        <div class="location" style="width:150px">
                                                             <p> <i class="fa fa-clock-o"></i>
                                                                 {{ $post->recruitment_job_nature }}</p>
                                                         </div>
-                                                        <div class="location">
+                                                        <div class="location" style="width:100px">
                                                             <p> <i class="fa fa-eye"></i>
                                                                 {{ $post->post_view }}</p>
                                                         </div>
@@ -179,7 +123,7 @@
                                                         </a>
                                                     @endif
                                                     <a href="{{ route('posts.recruitment.details', $post->id) }}/#apply_job"
-                                                        class="boxed-btn3">Apply Now</a>
+                                                        class="boxed-btn3 apply-job" >Apply Now</a>
                                                 </div>
                                                 <div class="date">
                                                     <p>Deadline:
@@ -191,14 +135,14 @@
                                     </li>
                                 @endforeach
                             @else
-                                <h3>Not found post</h3>
+                                <h3 class="mx-3">Not found post!</h3>
                             @endif
 
                         </div>
 
                         @if (count($posts) > 0)
                             <nav class="pagination-container">
-                                <button class="pagination-button" id="prev-button" aria-label="Previous page"
+                                <button class="pagination-button text-white" id="prev-button" aria-label="Previous page"
                                     title="Previous page">
                                     &lt;
                                 </button>
@@ -207,12 +151,69 @@
 
                                 </div>
 
-                                <button class="pagination-button" id="next-button" aria-label="Next page"
+                                <button class="pagination-button text-white" id="next-button" aria-label="Next page"
                                     title="Next page">
                                     &gt;
                                 </button>
                             </nav>
                         @endif
+
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="job_filter white-bg">
+                        <div class="form_inner white-bg">
+                            <h3 style="font-weight: bold;">Filter</h3>
+                            <form action="{{ route('posts.recruitment.list') }}" id="form_filter_jobs" method="get">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single_field" >
+                                            <label for="filter_address" style="font-size:15px; color:#020c26">Location</label>
+                                            <select class="wide" name="filter_address" id="filter_address"style="width: 200px; border: 1px solid #020c26 !important;">
+                                                <option value="">All</option>
+                                                @foreach (config('63-tinh-vn') as $k => $v)
+                                                    <option value="{{ $k }}"
+                                                        {{ request()->filter_address == $k ? 'selected' : '' }}>
+                                                        {{ $v }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <label for="filter_job_nature" class=" mt-3" style="font-size:15px; color:#020c26">Job nature</label>
+                                            <select class="wide select-tinh-tp" name="filter_job_nature"
+                                                id="filter_job_nature">
+                                                <option value="">All</option>
+                                                <option value="Full-time"
+                                                    {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>
+                                                    Full time
+                                                </option>
+                                                <option value="Part-time"
+                                                    {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>
+                                                    Part time
+                                                </option>
+                                                <option value="Freelancer"
+                                                    {{ request()->filter_job_nature == 'Freelancer' ? 'selected' : '' }}>
+                                                    Freelancer
+                                                </option>
+                                            </select>
+
+                                            <script>
+                                                $('#filter_address').select2();
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="reset_btn col-12">
+                                    <button class="boxed-btn3 w-100 mb-3 filter-job" form="form_filter_jobs"
+                                        type="submit">Filter</button>
+                                    <a href="{{ route('posts.recruitment.list') }}" class="boxed-btn3 w-100 reset-job"
+                                        type="submit">Reset</a>
+                                </div>
+                            </form>
+                        </div>
 
                     </div>
                 </div>
