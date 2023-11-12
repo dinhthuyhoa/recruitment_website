@@ -12,8 +12,13 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>{{ $count_post - 1 }}+ Jobs Available</h3>
-                        <p>Where provides numerous job opportunities for students. <br>Search for desired job information, view detailed details, <br>and save favorite job postings.</p>
+                        <h3>{{ $count_post - 1 }} {{trans('all-jobs.title_banner_jobs')}}</h3>
+                        <p>{{trans('all-jobs.description_all_jobs_1')}}
+                        <br>
+                        {{trans('all-jobs.description_all_jobs_2')}}
+                        <br>
+                        {{trans('all-jobs.description_all_jobs_3')}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -30,7 +35,7 @@
                         <div class="recent_joblist white-bg ">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <h4 style="font-weight: bold;">Job Listings</h4>
+                                    <h4 style="font-weight: bold;">{{trans('all-jobs.job_listings')}}</h4>
 
                                     @if (isset(request()->keyword))
                                         <p>
@@ -46,7 +51,7 @@
                                             <div class="input-group">
                                                 <div class="form-outline mr-3">
                                                     <input type="search" id="keyword" name="keyword" class="form-control"
-                                                        value="{{ request()->keyword }}" style="border: 1.5px #020c26 solid" placeholder="Search by title"/>
+                                                        value="{{ request()->keyword }}" style="border: 1.5px #020c26 solid" placeholder="{{trans('all-jobs.search_jobs')}}"/>
                                                 </div>
                                                 <button type="submit" form="form_search_job" class="btn" style="background-color: #ffa500;">
                                                     <i class="fas fa-search"></i>
@@ -123,10 +128,10 @@
                                                         </a>
                                                     @endif
                                                     <a href="{{ route('posts.recruitment.details', $post->id) }}/#apply_job"
-                                                        class="boxed-btn3 apply-job" >Apply Now</a>
+                                                        class="boxed-btn3 apply-job" >{{trans('all-jobs.apply_now')}}</a>
                                                 </div>
                                                 <div class="date">
-                                                    <p>Deadline:
+                                                    <p>{{trans('all-jobs.deadline')}}
                                                         {{ $post->recruitment_deadline ? date('H:i d/m/Y', strtotime($post->recruitment_deadline)) : 'None' }}
                                                     </p>
                                                 </div>
@@ -135,7 +140,7 @@
                                     </li>
                                 @endforeach
                             @else
-                                <h3 class="mx-3">Not found post!</h3>
+                                <h3 class="mx-3">{{trans('all-jobs.not_found')}}</h3>
                             @endif
 
                         </div>
@@ -163,14 +168,14 @@
                 <div class="col-lg-3">
                     <div class="job_filter white-bg">
                         <div class="form_inner white-bg">
-                            <h3 style="font-weight: bold;">Filter</h3>
+                            <h3 style="font-weight: bold;">{{trans('all-jobs.filter')}}</h3>
                             <form action="{{ route('posts.recruitment.list') }}" id="form_filter_jobs" method="get">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="single_field" >
-                                            <label for="filter_address" style="font-size:15px; color:#020c26">Location</label>
+                                            <label for="filter_address" style="font-size:15px; color:#020c26">{{trans('all-jobs.location')}}</label>
                                             <select class="wide" name="filter_address" id="filter_address"style="width: 200px; border: 1px solid #020c26 !important;">
-                                                <option value="">All</option>
+                                                <option value="">{{trans('all-jobs.all')}}</option>
                                                 @foreach (config('63-tinh-vn') as $k => $v)
                                                     <option value="{{ $k }}"
                                                         {{ request()->filter_address == $k ? 'selected' : '' }}>
@@ -182,21 +187,21 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <label for="filter_job_nature" class=" mt-3" style="font-size:15px; color:#020c26">Job nature</label>
+                                            <label for="filter_job_nature" class=" mt-3" style="font-size:15px; color:#020c26">{{trans('all-jobs.job_nature')}}</label>
                                             <select class="wide select-tinh-tp" name="filter_job_nature"
                                                 id="filter_job_nature">
-                                                <option value="">All</option>
-                                                <option value="Full-time"
+                                                <option value="">{{trans('all-jobs.all')}}</option>
+                                                <option value="{{trans('all-jobs.full_time')}}"
                                                     {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>
-                                                    Full time
+                                                    {{trans('all-jobs.full_time')}}
                                                 </option>
-                                                <option value="Part-time"
+                                                <option value="{{trans('all-jobs.part_time')}}"
                                                     {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>
-                                                    Part time
+                                                    {{trans('all-jobs.part_time')}}
                                                 </option>
-                                                <option value="Freelancer"
+                                                <option value="{{trans('all-jobs.freelancer')}}"
                                                     {{ request()->filter_job_nature == 'Freelancer' ? 'selected' : '' }}>
-                                                    Freelancer
+                                                    {{trans('all-jobs.freelancer')}}
                                                 </option>
                                             </select>
 
@@ -208,9 +213,9 @@
                                 </div>
                                 <div class="reset_btn col-12">
                                     <button class="boxed-btn3 w-100 mb-3 filter-job" form="form_filter_jobs"
-                                        type="submit">Filter</button>
+                                        type="submit">{{trans('all-jobs.filter')}}</button>
                                     <a href="{{ route('posts.recruitment.list') }}" class="boxed-btn3 w-100 reset-job"
-                                        type="submit">Reset</a>
+                                        type="submit">{{trans('all-jobs.reset')}}</a>
                                 </div>
                             </form>
                         </div>

@@ -2,9 +2,9 @@
 
 return [
     'title' => 'Tuyển dụng',
-    'all-job' => 'All Jobs',
-    'news' => 'News',
-    'contact' => 'Contact',
-    'login' => 'Login',
-    'logout' => 'Logout',
+    'all-job' => 'Tìm việc',
+    'news' => 'Tin tức',
+    'contact' => 'Liên hệ',
+    'login' => 'Đăng nhập',
+    'logout' => 'Đăng xuất',
 ];

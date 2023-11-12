@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Login</title>
 
     <meta name="description" content="" />
 
@@ -75,7 +75,7 @@
                                 <span class="app-brand-logo demo">
                                     <img src="{{ asset('logo-flower.png') }}" alt="" style="width:50px">
                                 </span>
-                                <span class=" demo text-white fw-bolder text-uppercase ms-1">recruitment portal</span>
+                                <span class=" demo text-white fw-bolder text-uppercase ms-1">{{trans('admin-auth.recruitment_portal')}}</span>
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -84,18 +84,18 @@
                             method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label text-white">Username</label>
+                                <label for="email" class="form-label text-white">{{trans('admin-auth.email')}}</label>
                                 <input type="text" class="form-control" id="email" name="username"
-                                    placeholder="Enter your email" autofocus />
+                                    placeholder="{{trans('admin-auth.fill_email')}}" autofocus />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 {{-- <div class="d-flex justify-content-between">
-                                    <label class="form-label text-white" for="password">Password</label>
+                                    <label class="form-label text-white" for="password">{{trans('admin-auth.pass')}}</label>
                                     <a href="auth-forgot-password-basic.html">
-                                        <small>Forgot Password?</small>
+                                        <small>{{trans('admin-auth.forgot_pass')}}</small>
                                     </a>
                                 </div> --}}
-                                <label class="form-label text-white" for="password">Password</label>
+                                <label class="form-label text-white" for="password">{{trans('admin-auth.pass')}}</label>
                                 <div class="input-group input-group-merge">
                                     
                                     <input type="password" id="password" class="form-control" name="password"
@@ -108,11 +108,11 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember-me"
                                         name="remember" />
-                                    <label class="form-check-label text-white" for="remember-me"> Remember Me</label>
+                                    <label class="form-check-label text-white" for="remember-me"> {{trans('admin-auth.remember')}}</label>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                                <button class="btn btn-primary d-grid w-100" type="submit">{{trans('admin-auth.sign_in')}}</button>
                             </div>
                         </form>
                     </div>

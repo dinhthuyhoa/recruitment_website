@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">New Recruitment Post</h5>
+                <h5 class="card-header">{{trans('admin-auth.new_post')}}</h5>
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -12,16 +12,16 @@
                             width="100" id="uploadedAvatar" />
                         <div class="button-wrapper">
                             <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
+                                <span class="d-none d-sm-block">{{trans('admin-auth.upload')}}</span>
                                 <i class="bx bx-upload d-block d-sm-none"></i>
 
                             </label>
                             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                 <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
+                                <span class="d-none d-sm-block">{{trans('admin-auth.reset')}}</span>
                             </button>
 
-                            <p class="text-muted mb-0">Upload image for post</p>
+                            <p class="text-muted mb-0">{{trans('admin-auth.upload_img_post')}}</p>
                         </div>
                     </div>
                 </div>
@@ -34,54 +34,54 @@
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="title" class="form-label">Title *</label>
+                                <label for="title" class="form-label">{{trans('admin-auth.title')}} *</label>
                                 <input class="form-control" type="text" id="title" name="title" value=""
                                     autofocus required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="address" class="form-label">Address *</label>
+                                <label for="address" class="form-label">{{trans('admin-auth.location_recruitment')}} *</label>
                                 <input class="form-control" type="text" name="address" id="address" value=""
                                     required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="email" class="form-label">E-mail *</label>
+                                <label for="email" class="form-label">{{trans('admin-auth.email')}} *</label>
                                 <input class="form-control" type="email" id="email" name="email" value=""
-                                    placeholder="Enter email..." required />
+                                    placeholder="" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="phone" class="form-label">Phone *</label>
+                                <label for="phone" class="form-label">{{trans('admin-auth.phone')}} *</label>
                                 <input type="text" class="form-control" id="phone" name="phone" value=""
                                     placeholder="Phone" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="deadline" class="form-label">Deadline *</label>
+                                <label for="deadline" class="form-label">{{trans('admin-auth.deadline')}} *</label>
                                 <input class="form-control" type="date" id="deadline" name="deadline"
                                     placeholder="dd/mm/yyyy" value="" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="vacancy" class="form-label">Vacancy *</label>
+                                <label for="vacancy" class="form-label">{{trans('admin-auth.vacancy')}} *</label>
                                 <input class="form-control" type="number" min="1" id="vacancy" name="vacancy"
-                                    placeholder="10" value="" required />
+                                    placeholder="{{trans('admin-auth.vacancy_de')}}" value="" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="position" class="form-label">Position *</label>
-                                <input class="form-control" type="text" id="position" name="position" placeholder="10"
+                                <label for="position" class="form-label">{{trans('admin-auth.position')}} *</label>
+                                <input class="form-control" type="text" id="position" name="position" placeholder="{{trans('admin-auth.position_de')}}"
                                     value="" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="salary" class="form-label">Salary *</label>
+                                <label for="salary" class="form-label">{{trans('admin-auth.salary')}} *</label>
                                 <input class="form-control" type="number" id="salary" name="salary"
-                                    placeholder="10000" min="1" value="" required />
+                                    placeholder="" min="1" value="" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="experience" class="form-label">Experience *</label>
+                                <label for="experience" class="form-label">{{trans('admin-auth.experience')}} *</label>
                                 <input class="form-control" type="text" id="experience" name="experience"
-                                    placeholder="10" value="" required />
+                                    placeholder="{{trans('admin-auth.experience_de')}}" value="" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="job_nature" class="form-label">Job Nature *</label>
+                                <label for="job_nature" class="form-label">{{trans('admin-auth.job_nature')}} *</label>
                                 <input class="form-control" type="text" id="job_nature" name="job_nature"
-                                    placeholder="10" value="" required />
+                                    placeholder="{{trans('admin-auth.job_nature_de')}}" value="" required />
                             </div>
 
                             <style>
@@ -90,16 +90,16 @@
                                 }
                             </style>
                             <div class="mb-3 col-12">
-                                <label for="content" class="form-label">Content *</label>
-                                <textarea class="form-control" id="content" rows="8" placeholder="Post content" name="content"></textarea>
+                                <label for="content" class="form-label">{{trans('admin-auth.content')}} *</label>
+                                <textarea class="form-control" id="content" rows="8" placeholder="{{trans('admin-auth.content_de')}}" name="content"></textarea>
                             </div>
                         </div>
                         <div class="mt-2">
                             <button type="submit" name="submit" value="redirect" form="frmCreatePost"
-                                class="btn btn-primary me-2">Create post</button>
+                                class="btn btn-primary me-2">{{trans('admin-auth.create_post')}}</button>
                             <button type="submit" name="submit" value="continue-create" form="frmCreatePost"
-                                class="btn btn-primary me-2">Create and keep creating</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                class="btn btn-primary me-2">{{trans('admin-auth.keep_creating')}}</button>
+                            <button type="reset" class="btn btn-outline-secondary">{{trans('admin-auth.cancle')}}</button>
                         </div>
                     </form>
                 </div>

@@ -11,8 +11,8 @@
         {{-- <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
                 <i class="bx bx-search fs-4 lh-0"></i>
-                <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                    aria-label="Search..." />
+                <input type="text" class="form-control border-0 shadow-none" placeholder="{{trans('admin-auth.search')}}"
+                    aria-label="{{trans('admin-auth.search')}}" />
             </div>
         </div> --}}
         <!-- /Search -->
@@ -79,7 +79,7 @@
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}">
                                 <i class="bx bx-power-off me-2"></i>
-                                <span class="align-middle">Log Out</span>
+                                <span class="align-middle">{{trans('admin-auth.logout')}}</span>
                             </a>
                         </li>
                     </ul>

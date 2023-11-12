@@ -4,7 +4,7 @@
             <span class="app-brand-logo demo">
                 <img src="{{ asset('logo-flower.png') }}" style="width:50px">
             </span>
-            <span class=" demo text-white fw-bolder text-uppercase ms-1" style="font-size: 12px !important;">recruitment portal</span>
+            <span class=" demo text-white fw-bolder text-uppercase ms-1" style="font-size: 12px !important;">{{trans('admin-auth.recruitment_portal')}}</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -19,28 +19,28 @@
         <li class="menu-item {{ request()->is('admin') ? 'open active' : '' }}">
             <a href="{{ route('admin.dashboard') }}" class="menu-link text-white">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Welcome</div>
+                <div data-i18n="Analytics">{{trans('admin-auth.welcome')}}</div>
             </a>
         </li>
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text text-white">Manager</span>
+            <span class="menu-header-text text-white">{{trans('admin-auth.manager')}}</span>
         </li>
         @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
             <li class="menu-item {{ request()->is('admin/users*') ? 'open active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                    <div data-i18n="Users">Users</div>
+                    <div data-i18n="Users">{{trans('admin-auth.user')}}</div>
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->is('admin/users') ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}" class="menu-link text-white">
-                            <div data-i18n="User List">User List</div>
+                            <div data-i18n="User List">{{trans('admin-auth.user_list')}}</div>
                         </a>
                     </li>
                     <li class="menu-item {{ request()->is('admin/users/create') ? 'active' : '' }}">
                         <a href="{{ route('users.create') }}" class="menu-link text-white">
-                            <div data-i18n="New User">New User</div>
+                            <div data-i18n="New User">{{trans('admin-auth.new_user')}}</div>
                         </a>
                     </li>
                 </ul>
@@ -49,17 +49,17 @@
         <li class="menu-item {{ request()->is('admin/posts/recruitment*') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                 <i class="menu-icon tf-icons bx bx-library"></i>
-                <div data-i18n="Recruitment Posts">Recruitment Posts</div>
+                <div data-i18n="Recruitment Posts">{{trans('admin-auth.recruitment_posts')}}</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is('admin/posts/recruitment') ? 'active' : '' }}">
                     <a href="{{ route('admin.posts.recruitment.list') }}" class="menu-link text-white">
-                        <div data-i18n="Post list">Post list</div>
+                        <div data-i18n="Post list">{{trans('admin-auth.post_list')}}</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->is('admin/posts/recruitment/create') ? 'active' : '' }}">
                     <a href="{{ route('admin.posts.recruitment.create') }}" class="menu-link text-white">
-                        <div data-i18n="Create post">Create post</div>
+                        <div data-i18n="Create post">{{trans('admin-auth.create_post')}}</div>
                     </a>
                 </li>
             </ul>
@@ -68,17 +68,17 @@
             <li class="menu-item {{ request()->is('admin/posts/news*') ? 'open active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                     <i class="menu-icon tf-icons bx bx-news"></i>
-                    <div data-i18n="News Posts">News Posts</div>
+                    <div data-i18n="News Posts">{{trans('admin-auth.new_post')}}</div>
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->is('admin/posts/news') ? 'active' : '' }}">
                         <a href="{{ route('admin.posts.news.list') }}" class="menu-link text-white">
-                            <div data-i18n="Post list">Post list</div>
+                            <div data-i18n="Post list">{{trans('admin-auth.post_list')}}</div>
                         </a>
                     </li>
                     <li class="menu-item {{ request()->is('admin/posts/news/create') ? 'active' : '' }}">
                         <a href="{{ route('admin.posts.news.create') }}" class="menu-link text-white">
-                            <div data-i18n="Create post">Create post</div>
+                            <div data-i18n="Create post">{{trans('admin-auth.create_post')}}</div>
                         </a>
                     </li>
                 </ul>
@@ -87,12 +87,12 @@
         <li class="menu-item {{ request()->is('admin/job-apply*') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                 <i class='menu-icon bx bxs-calendar-event'></i>
-                <div data-i18n="Job Apply">Job Apply</div>
+                <div data-i18n="Job Apply">{{trans('admin-auth.job_apply')}}</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is('admin/job-apply/list') ? 'active' : '' }}">
                     <a href="{{ route('admin.job_apply.list') }}" class="menu-link text-white">
-                        <div data-i18n="Post list">Post list</div>
+                        <div data-i18n="Post list">{{trans('admin-auth.post_list')}}</div>
                     </a>
                 </li>
             </ul>

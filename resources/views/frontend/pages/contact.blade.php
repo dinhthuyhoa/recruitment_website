@@ -7,9 +7,11 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>contact</h3>
+                        <h3>{{trans('all-jobs.title_contact')}}</h3>
                         <p>
-                        A place ready to provide enthusiastic support and advice for users when <br> they encounter issues and need to contact.
+                        {{trans('all-jobs.description_contact_1')}}
+                        <br>
+                        {{trans('all-jobs.description_contact_2')}}
                         </p>
                     </div>
                 </div>
@@ -35,7 +37,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <h2 class="contact-title">Get in Touch</h2>
+                    <h2 class="contact-title">                        {{trans('all-jobs.title_contact_2')}}</h2>
                 </div>
                 <div class="col-lg-8">
                     <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
@@ -45,34 +47,35 @@
                                 <div class="form-group">
 
                                     <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder='Enter Message'></textarea>
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder="                       {{trans('all-jobs.message')}}"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control" name="name" id="name" type="text"
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'"
-                                        placeholder='Enter your name'>
+                                        placeholder="                       {{trans('all-jobs.your_name')}}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control" name="email" id="email" type="email"
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'"
-                                        placeholder='Enter email address'>
+                                        placeholder="                       {{trans('all-jobs.your_email')}}">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <input class="form-control" name="subject" id="subject" type="text"
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'"
-                                        placeholder='Enter Subject'>
+                                        placeholder="                       {{trans('all-jobs.your_subject')}}">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <button type="submit" class="button button-contactForm btn_4 boxed-btn" style="">Send
-                                Message</button>
+                            <button type="submit" class="button button-contactForm btn_4 boxed-btn" style="">
+                            {{trans('all-jobs.send_message')}}
+                        </button>
                         </div>
                     </form>
                 </div>
@@ -80,29 +83,29 @@
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-home text-dark"></i></span>
                         <div class="media-body">
-                            <h3>Block 2, 3/2 Street, Xuan Khanh Ward, Ninh Kieu District, Can Tho City, Vietnam</h3>
-                            <p class="text-white">The College of Information and Communication Technology</p>
+                            <h3>{{trans('all-jobs.ddress')}}</h3>
+                            <p class="text-white">{{trans('all-jobs.note_address')}}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-tablet text-dark"></i></span>
                         <div class="media-body">
-                            <h3>(+84) 0292 3 734713 - 0292 3 831301</h3>
-                            <p class="text-white">Mon to Fri 9am to 6pm</p>
+                            <h3>{{trans('all-jobs.number_phone')}}</h3>
+                            <p class="text-white">{{trans('all-jobs.notes')}}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-printer text-dark"></i></span>
                         <div class="media-body">
-                            <h3>(+84) 0292 3830841</h3>
-                            <p class="text-white">Mon to Fri 9am to 6pm</p>
+                            <h3>{{trans('all-jobs.fax')}}</h3>
+                            <p class="text-white">{{trans('all-jobs.notes')}}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-email text-dark"></i></span>
                         <div class="media-body">
-                            <h3>tcntt@ctu.edu.vn</h3>
-                            <p class="text-white">Send us your query anytime!</p>
+                            <h3>{{trans('all-jobs.email')}}</h3>
+                            <p class="text-white">{{trans('all-jobs.notes')}}</p>
                         </div>
                     </div>
                 </div>

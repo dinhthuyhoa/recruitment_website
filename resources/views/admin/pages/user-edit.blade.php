@@ -43,12 +43,7 @@
                                 <input class="form-control" type="text" id="fullname" name="name"
                                     value="{{ $user->name }}" autofocus />
                             </div>
-
-
-
-
-
-                            <div class="mb-3 col-md-6">
+                           <div class="mb-3 col-md-6">
                                 <label class="form-label" for="country">Role</label>
                                 <select id="country" class="select2 form-select" name="role">
                                     @foreach (\App\Enums\UserRole::toSelectArray() as $k => $role)
@@ -58,11 +53,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
-
-
-
-
 
                             <div class="mb-3 col-md-6">
                                 <label for="phone" class="form-label">Phone</label>

@@ -7,8 +7,12 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>NEWS</h3>
-                        <p>A place that provides and delivers a wealth of engaging and essential information <br> for students.</p>
+                        <h3>{{trans('all-jobs.title_banner_news')}}</h3>
+                        <p>
+                            {{trans('all-jobs.description_all_news_1')}}
+                            <br>
+                            {{trans('all-jobs.description_all_news_2')}}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -25,14 +29,14 @@
                         <div class="recent_joblist white-bg ">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <h4 style="font-weight: bold;">News Listings</h4>
+                                    <h4 style="font-weight: bold;">{{trans('all-jobs.news_listings')}}</h4>
                                 </div>
                                 <div class="col-md-6">
                                 <aside class="single_sidebar_widget search_widget">
                             <form action="#" id="form-search-news">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <input type="search" class="form-control" placeholder='Search by keyword'
+                                        <input type="search" class="form-control" placeholder="{{trans('all-jobs.search_jobs')}}"
                                             onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search By Keyword'"
                                             id="keyword" name="keyword" class="form-control"
                                             value="{{ request()->keyword }}" style="border: 1.5px #020c26 solid">
@@ -86,7 +90,7 @@
                                     </li>
                                 @endforeach
                             @else
-                                <h3 class="mx-3">Not found post</h3>
+                                <h3 class="mx-3">{{trans('all-jobs.not_found')}}</h3>
                             @endif
 
                         </div>
@@ -114,7 +118,7 @@
                         
 
                         <aside class="single_sidebar_widget tag_cloud_widget">
-                            <h4 class="widget_title">Tag Clouds</h4>
+                            <h4 class="widget_title">{{trans('all-jobs.tag')}}</h4>
                             <ul class="list">
                                 <form action="" class="d-flex flex-wrap" style="gap: 15px">
                                     @foreach ($tags as $tag)
