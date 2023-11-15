@@ -73,4 +73,54 @@ return [
     "edit_post"=> "Chỉnh sửa bài viết",
     "save_changes"=> "Lưu thay đổi",
 
+    // job-apply-list.blade.php
+    "title_candidate_list"=> "Danh sách ứng viên đăng ký",
+    "post"=> "Bài đăng",
+    "recruiter"=> "Người tuyển dụng",
+    "candidate"=> "Ứng viên",
+    "date_apply"=> "Ngày ứng tuyển",
+    "approved"=> "Đã duyệt",
+    "failed"=> "Không được nhận",
+    "view_details"=> "Xem chi tiết",
+
+    // job-apply-edit.blade.php
+    "infor_apply"=> "Thông Tin Ứng Tuyển",
+    "recruitment_info"=> "Thông Tin Tuyển Dụng",
+    "full_name"=> "Họ và Tên",
+    "gender"=> "Giới Tính",
+    "address"=> "Địa Chỉ",
+    "birthday"=> "Ngày Sinh",
+    "notes"=> "Ghi Chú",
+    "message"=> "Nội dung...",
+    "attachments"=> "Tệp Đính Kèm",
+    "view_here"=> "Xem Tại Đây",
+    "download_here"=> "Tải Về Tại Đây",
+
+    // news-posts-create.blade.php
+    "new_news" => "Bài Tin tức Mới",
+    "descriptions" => "Mô tả",
+
+    // users.blade.php
+    "role" => "Vai trò",
+    "active" => "Hoạt động",
+    "inactive" => "Ngưng hoạt động",
+    "delete_user" => "Xóa Người dùng",
+    "delete_user_confirmed" => "Bạn có chắc chắn muốn xóa người dùng này không?",
+
+    // users-created.blade.php
+    "new_user" => "Người Dùng Mới",
+    "allow_file" => "Cho phép JPG, GIF hoặc PNG. Dung lượng tối đa là 800K.",
+    "password" => "Mật khẩu",
+    "re_password" => "Nhập lại Mật khẩu",
+    "create_user" => "Tạo Người dùng",
+    "male" => "Nam",
+    "female" => "Nữ",
+
+    // user-edit.blade.php
+    "user_details" => "Chi tiết Người dùng",
+    "delete_account" => "Xóa Tài khoản",
+    "delete_account_confirm" => "Bạn có chắc chắn muốn xóa tài khoản của bạn không?",
+    "delete_account_de" => "Một khi bạn đã xóa tài khoản, không có cách nào quay lại. Hãy chắc chắn.",
+    "delete_account_yes" => "Tôi xác nhận xóa tài khoản",
+
 ];

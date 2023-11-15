@@ -21,7 +21,7 @@
             <div class="col-lg-8">
                 @if (Auth::check() && Auth::user()->is_apply($post->id))
                 <div class="d-flex bg-success text-white p-2 mb-3" style="border-radius: 10px">
-                    Bạn đã nộp hồ sơ vào bài tuyển dụng này {{ Auth::user()->apply_count($post->id) }} lần
+                    {{trans('all-jobs.notification_apply')}} {{ Auth::user()->apply_count($post->id) }} {{trans('all-jobs.count_times')}}
                 </div>
                 @endif
                 <div class="job_details_header">
@@ -70,10 +70,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
 
                 <div class="descript_wrap white-bg">
                     {!! $post->post_content !!}
@@ -136,27 +133,26 @@
                     </div>
                 </form>
                 @else
-                <a class="btn btn-info" href="{{ route('login', ['url' => url()->full()]) }}">Login to be able to
-                    comment</a>
+                <a class="btn btn-info" href="{{ route('login', ['url' => url()->full()]) }}">{{trans('all-jobs.note_logins')}}</a>
                 @endif
 
 
             </div>
             <div class="col-lg-4">
-                <div class="job_sumary">
+                <div class="job_summary">
                     <div class="summery_header">
-                        <h3>Job Summery</h3>
+                        <h3>{{trans('all-jobs.job_summery')}}</h3>
                     </div>
                     <div class="job_content">
                         <ul>
-                            <li>Published on: <span>{{ $post->post_date }}</span></li>
-                            <li>Updated on: <span>{{ $post->post_date_update }}</span></li>
-                            <li>Vacancy: <span>{{ $post->recruitment_vacancy }} Position</span></li>
-                            <li>Salary: <span>{{ $post->recruitment_salary }}</span></li>
-                            <li>Location: <span>{{ $post->recruitment_address }}</span></li>
-                            <li>Job Nature: <span>{{ $post->recruitment_job_nature }}</span></li>
-                            <li>Exprience: <span>{{ $post->recruitment_experience }}</span></li>
-                            <li>Deadline: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
+                            <li>{{trans('all-jobs.published_on')}} <span>{{ $post->post_date }}</span></li>
+                            <li>{{trans('all-jobs.updated_on')}}: <span>{{ $post->post_date_update }}</span></li>
+                            <li>{{trans('admin-auth.vacancy')}}: <span>{{ $post->recruitment_vacancy }}</span></li>
+                            <li>{{trans('admin-auth.salary')}}: <span>{{ $post->recruitment_salary }}</span></li>
+                            <li>{{trans('admin-auth.location_recruitment')}}: <span>{{ $post->recruitment_address }}</span></li>
+                            <li>{{trans('admin-auth.job_nature')}}: <span>{{ $post->recruitment_job_nature }}</span></li>
+                            <li>{{trans('admin-auth.experience')}}: <span>{{ $post->recruitment_experience }}</span></li>
+                            <li>{{trans('admin-auth.deadline')}}: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
                             </li>
                         </ul>
                     </div>
@@ -180,56 +176,56 @@
                 @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Candidate)
                 <div id="apply_job">
                     <div class="apply_job_form white-bg">
-                        <h4>Apply for the job</h4>
+                        <h4>{{trans('all-jobs.apply_for')}}</h4>
                         <form action="{{ route('job_apply.apply') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="input_field">
-                                        <label for="fullname">Full name</label>
-                                        <input type="text" placeholder="Your name" name="fullname" id="fullname" value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
+                                        <label for="fullname">{{trans('admin-auth.full_name')}}</label>
+                                        <input type="text" placeholder="{{trans('admin-auth.full_name')}}" name="fullname" id="fullname" value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="margin-bottom: 20px;">
                                     <div class="select_field">
-                                        <label for="gender">Gender</label>
+                                        <label for="gender">{{trans('admin-auth.gender')}}</label>
                                         <select name="gender" id="gender" class="w-100" style="height: 60px;" required>
                                             <option value="Male" {{ Auth::check() && Auth::user()->gender == 'Male' ? 'selected' : '' }}>
-                                                Male
+                                            {{trans('admin-auth.male')}}
                                             </option>
                                             <option value="Female" {{ Auth::check() && Auth::user()->gender == 'Female' ? 'selected' : '' }}>
-                                                Female
+                                            {{trans('admin-auth.female')}}
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input_field">
-                                        <label for="email">Email</label>
-                                        <input type="text" placeholder="Email" name="email" id="email" value="{{ Auth::check() ? Auth::user()->email : '' }}" required>
+                                        <label for="email">{{trans('admin-auth.email')}}</label>
+                                        <input type="text" placeholder="{{trans('admin-auth.email')}}" name="email" id="email" value="{{ Auth::check() ? Auth::user()->email : '' }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input_field">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" placeholder="Phone" name="phone" id="phone" value="{{ Auth::check() ? Auth::user()->phone : '' }}" required>
+                                        <label for="phone">{{trans('admin-auth.phone')}}</label>
+                                        <input type="text" placeholder="{{trans('admin-auth.phone')}}" name="phone" id="phone" value="{{ Auth::check() ? Auth::user()->phone : '' }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input_field">
-                                        <label for="address">Address</label>
-                                        <input type="text" placeholder="Your address" name="address" id="address" value="{{ Auth::check() ? Auth::user()->address : '' }}">
+                                        <label for="address">{{trans('admin-auth.address')}}</label>
+                                        <input type="text" placeholder="{{trans('admin-auth.address')}}" name="address" id="address" value="{{ Auth::check() ? Auth::user()->address : '' }}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input_field">
-                                        <label for="birthday">Birthday</label>
-                                        <input type="date" placeholder="Your address" name="birthday" id="birthday" value="{{ Auth::check() ? date('Y-m-d', strtotime(Auth::user()->birthday)) : date('Y-m-d', strtotime(now())) }}">
+                                        <label for="birthday">{{trans('admin-auth.birthday')}}</label>
+                                        <input type="date" placeholder="{{trans('admin-auth.birthday')}}" name="birthday" id="birthday" value="{{ Auth::check() ? date('Y-m-d', strtotime(Auth::user()->birthday)) : date('Y-m-d', strtotime(now())) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="">CV file</label>
+                                    <label for="">{{trans('all-jobs.cv_file')}}</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <button type="button" id="inputGroupFileAddon03"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
@@ -237,20 +233,19 @@
                                         </div>
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" name="attachment" accept=".pdf,.doc,.docx,image/*">
-                                            <label class="custom-file-label" for="inputGroupFile03">Upload CV
-                                                here</label>
+                                            <label class="custom-file-label" for="inputGroupFile03">{{trans('all-jobs.upload_cv')}}</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input_field">
-                                        <label for="">Note</label>
-                                        <textarea name="candidate_note" id="candidate_note" cols="30" rows="10" placeholder="Note"></textarea>
+                                        <label for="">{{trans('all-jobs.note')}}</label>
+                                        <textarea name="candidate_note" id="candidate_note" cols="30" rows="10" placeholder="{{trans('all-jobs.note')}}"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="submit_btn">
-                                        <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+                                        <button class="boxed-btn3 w-100" type="submit">{{trans('all-jobs.apply_now')}}</button>
                                     </div>
                                 </div>
                             </div>

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
-                <h5 class="card-header">New News Post</h5>
+                <h5 class="card-header">{{trans('admin-auth.new_news')}}</h5>
                 <!-- Account -->
                 <div class="card-body">
                     <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -12,16 +12,16 @@
                             width="100" id="uploadedAvatar" />
                         <div class="button-wrapper">
                             <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
+                                <span class="d-none d-sm-block">{{trans('admin-auth.upload')}}</span>
                                 <i class="bx bx-upload d-block d-sm-none"></i>
 
                             </label>
                             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                 <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
+                                <span class="d-none d-sm-block">{{trans('admin-auth.reset')}}</span>
                             </button>
 
-                            <p class="text-muted mb-0">Upload image for post</p>
+                            <p class="text-muted mb-0">{{trans('admin-auth.upload_img_post')}}</p>
                         </div>
                     </div>
                 </div>
@@ -34,13 +34,13 @@
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="title" class="form-label">Title *</label>
+                                <label for="title" class="form-label">{{trans('admin-auth.title')}} *</label>
                                 <input class="form-control" type="text" id="title" name="title" value=""
                                     autofocus required />
                             </div>
 
                             <div class="mb-3 col-12">
-                                <label for="description" class="form-label">Description *</label>
+                                <label for="description" class="form-label">{{trans('admin-auth.description')}} *</label>
                                 <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
 
@@ -50,16 +50,16 @@
                                 }
                             </style>
                             <div class="mb-3 col-12">
-                                <label for="content" class="form-label">Content *</label>
-                                <textarea class="form-control" id="content" rows="8" placeholder="Post content" name="content"></textarea>
+                                <label for="content" class="form-label">{{trans('admin-auth.content')}} *</label>
+                                <textarea class="form-control" id="content" rows="8" placeholder="{{trans('admin-auth.content_de')}}" name="content"></textarea>
                             </div>
                         </div>
                         <div class="mt-2">
                             <button type="submit" name="submit" value="redirect" form="frmCreateNewsPost"
-                                class="btn btn-primary me-2">Create post</button>
+                                class="btn btn-primary me-2">{{trans('admin-auth.create_post')}}</button>
                             <button type="submit" name="submit" value="continue-create" form="frmCreateNewsPost"
-                                class="btn btn-primary me-2">Create and keep creating</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                class="btn btn-primary me-2">{{trans('admin-auth.keep_creating')}}</button>
+                            <button type="reset" class="btn btn-outline-secondary">{{trans('admin-auth.cancle')}}</button>
                         </div>
                     </form>
                 </div>

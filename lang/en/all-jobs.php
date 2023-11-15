@@ -24,6 +24,19 @@ return [
 
     "reset" => "Reset",
 
+    // detail post job information
+    "notification_apply" => "You have applied to this job post",
+    "count_times" => "time(s).",
+    "note_logins" => "Login to be able to comment",
+    "job_summery" => "Job Summery",
+    "published_on" => "Published on:",
+    "updated_on" => "Updated on:",
+    "apply_for"=> "Apply for this job",
+    "cv_file" => "CV File",
+    "upload_cv" => "Upload CV here",
+    "note" => "Note",
+    "apply_now" => "Apply Now",
+
     // news
     "title_banner_news" => "NEWS",
     "description_all_news_1" => "A place that provides and delivers a wealth of engaging and essential information",

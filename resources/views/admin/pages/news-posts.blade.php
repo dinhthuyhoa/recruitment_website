@@ -5,18 +5,18 @@
 @section('content')
 <!-- Hoverable Table rows -->
 <div class="card">
-    <h5 class="card-header">News post list</h5>
+    <h5 class="card-header">{{trans('admin-auth.new_post_list')}}</h5>
     <div class="table-responsive text-nowrap m-3">
         <table id="tableNewsPostList" class="table table-hover" style="width: 100%">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>View</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Last Update</th>
-                    <th>Actions</th>
+                    <th>{{trans('admin-auth.title')}}</th>
+                    <th>{{trans('admin-auth.author')}}</th>
+                    <th>{{trans('admin-auth.view')}}</th>
+                    <th>{{trans('admin-auth.status')}}</th>
+                    <th>{{trans('admin-auth.date_created')}}</th>
+                    <th>{{trans('admin-auth.last_updated')}}</th>
+                    <th>{{trans('admin-auth.actions')}}</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
@@ -34,11 +34,11 @@
                     <td>{{ $post->post_view }}</td>
                     <td>
                         @if ($post->post_status == 'pendding')
-                        <span class="badge bg-label-warning me-1">Pendding</span>
+                        <span class="badge bg-label-warning me-1">{{trans('admin-auth.pending')}}</span>
                         @elseif($post->post_status == 'publish')
-                        <span class="badge bg-label-success me-1">Published</span>
+                        <span class="badge bg-label-success me-1">{{trans('admin-auth.publish')}}</span>
                         @else
-                        <span class="badge bg-label-danger me-1">Draft</span>
+                        <span class="badge bg-label-danger me-1">{{trans('admin-auth.draft')}}</span>
                         @endif
                     </td>
                     <td>
@@ -53,10 +53,10 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('admin.posts.news.edit', $post->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                <a class="dropdown-item" href="{{ route('admin.posts.news.edit', $post->id) }}"><i class="bx bx-edit-alt me-1"></i> {{trans('admin-auth.edit')}}</a>
                                 <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalConfirmDeletePost-{{ $post->id }}" data-id="{{ $post->id }}">
                                     <i class="bx bx-trash me-1"></i>
-                                    Delete</button>
+                                    {{trans('admin-auth.delete')}}</button>
                             </div>
                         </div>
                     </td>
@@ -66,7 +66,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">Delete post
+                                <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.confirm_delete')}}
                                     <b>{{ $post->name }}</b>
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -75,13 +75,13 @@
                                 <form id="formDelPost-{{ $post->id }}" action="{{ route('admin.posts.news.delete', $post) }}" method="post">
                                     @method('delete')
                                     @csrf
-                                    <p>Bạn có chắc muốn xóa bài viết?</p>
+                                    <p>{{trans('admin-auth.confirm_delete_post')}}</p>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button form="formDelPost-{{ $post->id }}" type="submit" class="btn btn-danger">Yes</button>
+                                <button form="formDelPost-{{ $post->id }}" type="submit" class="btn btn-danger">{{trans('admin-auth.yes')}}</button>
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                    No
+                                {{trans('admin-auth.no')}}
                                 </button>
                             </div>
                         </div>

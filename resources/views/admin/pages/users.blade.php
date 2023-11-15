@@ -10,11 +10,11 @@
             <table id="tableUserList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>{{trans('admin-auth.full_name')}}</th>
+                        <th>{{trans('admin-auth.email')}}</th>
+                        <th>{{trans('admin-auth.role')}}</th>
+                        <th>{{trans('admin-auth.status')}}</th>
+                        <th>{{trans('admin-auth.actions')}}</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -33,9 +33,9 @@
                             </td>
                             <td>
                                 @if ($user->status == 'Active')
-                                    <span class="badge bg-label-success me-1">Active</span>
+                                    <span class="badge bg-label-success me-1">{{trans('admin-auth.active')}}</span>
                                 @else
-                                    <span class="badge bg-label-danger me-1">Deactive</span>
+                                    <span class="badge bg-label-danger me-1">{{trans('admin-auth.inactive')}}</span>
                                 @endif
                             </td>
                             <td>
@@ -46,12 +46,12 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('users.edit', $user) }}"><i
-                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                class="bx bx-edit-alt me-1"></i> {{trans('admin-auth.edit')}}</a>
                                         <button class="dropdown-item" data-bs-toggle="modal"
                                             data-bs-target="#modalConfirmDeleteUser-{{ $user->id }}"
                                             data-id="{{ $user->id }}">
                                             <i class="bx bx-trash me-1"></i>
-                                            Delete</button>
+                                            {{trans('admin-auth.delete')}}</button>
                                     </div>
                                 </div>
                             </td>
@@ -62,7 +62,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenterTitle">Delete user
+                                        <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.delete_user')}}
                                             <b>{{ $user->name }}</b>
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -73,14 +73,14 @@
                                             action="{{ route('users.destroy', $user) }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <p>Muốn xóa người dùng này?</p>
+                                            <p>{{trans('admin-auth.delete_user_confirmed')}}</p>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button form="formDelUser-{{ $user->id }}" type="submit"
-                                            class="btn btn-danger">Yes</button>
+                                            class="btn btn-danger">{{trans('admin-auth.yes')}}</button>
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                            No
+                                        {{trans('admin-auth.no')}}
                                         </button>
                                     </div>
                                 </div>

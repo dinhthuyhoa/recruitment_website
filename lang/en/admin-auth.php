@@ -73,4 +73,56 @@ return [
     "edit_post"=> "Edit Post",
     "save_changes"=> "Save Changes",
 
+    // job-apply-list.blade.php
+    "title_candidate_list"=> "candidate apply list",
+    "post"=> "Post",
+    "recruiter"=> "Recruiter",
+    "candidate"=> "Candidate",
+    "date_apply"=> "Date apply",
+    "approved"=> "Approved",
+    "failed"=> "Failed",
+    "view_details"=> "View details",
+
+    // job-apply-edit.blade.php
+    "infor_apply"=> "Application Information",
+    "recruitment_info"=> "Recruitment Information",
+    "full_name"=> "Full Name",
+    "gender"=> "Gender",
+    "address"=> "Address",
+    "birthday"=> "Birthday",
+    "notes"=> "Notes",
+    "message"=> "Message...",
+    "attachments"=> "Attachments",
+    "view_here"=> "View Here",
+    "download_here"=> "Download Here",
+
+    // news-posts.blade.php
+    "new_post_list"=> "New Post List",
+
+    // news-posts-create.blade.php
+    "new_news"=> "New News",
+    "descriptions"=> "Descriptions",
+
+    // users.blade.php
+    "role"=> "Role",
+    "active"=> "Active",
+    "inactive"=> "Deactive",
+    "delete_user"=> "Delete User",
+    "delete_user_confirmed"=> "Are you sure to delete this user?",
+
+    // users-created.blade.php
+    "new_user"=> "New User",
+    "allow_file"=> "Allowed JPG, GIF or PNG. Max size of 800K.",
+    "password"=> "Password",
+    "re_password"=> "Re-Password",
+    "create_user"=> "Create User",
+    "male"=> "Male",
+    "female"=> "Female",
+
+    // user-edit.blade.php
+    "user_details"=> "User Details",
+    "delete_account"=> "Delete Account",
+    "delete_account_confirm"=> "Are you sure you want to delete your account?",
+    "delete_account_de"=> "Once you delete your account, there is no going back. Please be certain.",
+    "delete_account_yes"=> "I confirm delete account",
 ];

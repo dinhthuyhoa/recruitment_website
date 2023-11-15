@@ -24,6 +24,20 @@ return [
 
     "reset" => "Đặt lại",
 
+    // detail post job information
+    "notification_apply" => "Bạn đã nộp đơn cho bài đăng công việc này",
+    "count_times" => "lần.",
+    "note_logins" => "Đăng nhập để có thể bình luận",
+    "job_summery" => "Tóm tắt Công việc",
+    "published_on" => "Đã xuất bản vào:",
+    "updated_on" => "Đã cập nhật vào:",
+    "apply_for" => "Ứng tuyển",
+    "cv_file" => "File CV",
+    "upload_cv" => "Tải lên CV tại đây",
+    "note" => "Ghi chú",
+    "apply_now" => "Nộp đơn Ngay",
+
+
     // news
     "title_banner_news" => "TIN TỨC",
     "description_all_news_1" => "Một nơi cung cấp và chuyển tải một lượng thông tin hấp dẫn và quan trọng",

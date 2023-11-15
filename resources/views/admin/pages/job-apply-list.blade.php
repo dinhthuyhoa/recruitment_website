@@ -5,17 +5,17 @@
 @section('content')
     <!-- Hoverable Table rows -->
     <div class="card">
-    <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">candidate apply list</h5>
+    <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">{{trans('admin-auth.title_candidate_list')}}</h5>
         <div class="table-responsive text-nowrap m-3">
             <table id="tableApplyList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Post</th>
-                        <th>Recruiter</th>
-                        <th>Candidate</th>
-                        <th>Status</th>
-                        <th>Date time</th>
-                        <th>Actions</th>
+                        <th>{{trans('admin-auth.post')}}</th>
+                        <th>{{trans('admin-auth.recruiter')}}</th>
+                        <th>{{trans('admin-auth.candidate')}}</th>
+                        <th>{{trans('admin-auth.status')}}</th>
+                        <th>{{trans('admin-auth.date_apply')}}</th>
+                        <th>{{trans('admin-auth.actions')}}</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -34,11 +34,11 @@
                             </td>
                             <td>
                                 @if ($apply->status == 'pendding')
-                                    <span class="badge bg-label-warning me-1  fs-6">Pendding</span>
+                                    <span class="badge bg-label-warning me-1  fs-6">{{trans('admin-auth.pending')}}</span>
                                 @elseif($apply->status == 'approved')
-                                    <span class="badge bg-label-success me-1 fs-6">Approved</span>
+                                    <span class="badge bg-label-success me-1 fs-6">{{trans('admin-auth.approved')}}</span>
                                 @else
-                                    <span class="badge bg-label-danger me-1 fs-6">Faild</span>
+                                    <span class="badge bg-label-danger me-1 fs-6">{{trans('admin-auth.failed')}}</span>
                                 @endif
                             </td>
                             <td class=" fs-6">
@@ -52,7 +52,7 @@
                                     </button>
                                     <div class="dropdown-menu fs-6">
                                         <a class="dropdown-item fs-6" href="{{ route('admin.job_apply.edit', $apply->id) }}"><i
-                                                class="bx bx-edit-alt me-1 fs-6"></i> Edit</a>
+                                                class="bx bx-edit-alt me-1 fs-6"></i> {{trans('admin-auth.view_details')}}</a>
                                     </div>
                                 </div>
                             </td>
