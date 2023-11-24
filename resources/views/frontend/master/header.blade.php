@@ -17,9 +17,11 @@
                                     <ul id="navigation">
                                         <li class="{{ request()->is('/') ? 'active' : '' }}"><a
                                                 href="{{ route('home') }}">{{ __('header.home') }}</a></li>
-                                        <li class="{{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a
-                                                href="{{ route('posts.recruitment.list') }}">{{ __('header.all-job') }}</a>
-                                        </li>
+                                        @if (Auth::check() && Auth::user()->role != 'recruiter')
+                                            <li class="{{ request()->is('posts/recruitment/*') ? 'active' : '' }}"><a
+                                                    href="{{ route('posts.recruitment.list') }}">{{ __('header.all-job') }}</a>
+                                            </li>
+                                        @endif
                                         <li class="{{ request()->is('posts/news/*') ? 'active' : '' }}"><a
                                                 href="{{ route('posts.news.list') }}">{{ __('header.news') }}</a></li>
                                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a
@@ -62,9 +64,8 @@
                                             <a class="nav-link" href="javascript:void(0);" id="navbardrop"
                                                 data-toggle="dropdown">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt
-                                                        class="w-px-40 h-auto rounded-circle" width="40"
-                                                        height="40" />
+                                                <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt
+                                                     class="rounded-circle" width="40px" height="40px" />
                                                 </div>
                                             </a>
                                             <div class="dropdown-menu">
@@ -95,7 +96,8 @@
                                         <!--/ User -->
                                     @else
                                     <div class="login mb-1" >
-                                    <a href="{{ route('login', ['url' => url()->full()]) }}" style="font-weight: bold; font-size: 13px">{{ __('header.login') }}</a>
+                                        <!-- , ['url' => url()->full()])  -->
+                                    <a href="{{ route('login')}}" style="font-weight: bold; font-size: 13px">{{ __('header.login') }}</a>
                                     @endif
                                     </div>
                                         

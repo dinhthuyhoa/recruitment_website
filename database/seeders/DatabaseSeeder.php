@@ -134,6 +134,90 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Candidate
             ],
+            [
+                'name' => 'Dinh Thuy Hoa B1910225',
+                'email' => 'hoab1910225@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591598',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-08-16',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Nguyen Thuy An B1910221',
+                'email' => 'anb1910221@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591591',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-09-16',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Thai Nguyen Van Nhi B1910222',
+                'email' => 'nhib1910222@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591592',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-03-16',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Thai Nguyen Van Anh B1910223',
+                'email' => 'anhb1910223@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591593',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-03-16',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Le Anh B1810223',
+                'email' => 'anhb1810223@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591594',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-03-11',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Huynh Nhi B1810224',
+                'email' => 'nhib1810224@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591595',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-03-22',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
+            [
+                'name' => 'Tran Nguyen Phuong Nhi B1810225',
+                'email' => 'nhib1810225@student.ctu.edu.vn',
+                'email_verified_at' => now(),
+                'password' => Hash::make('123456'),
+                'phone' => '0839591596',
+                'status' => 'Active',
+                'gender' => 'Female',
+                'birthday' => '2001-03-23',
+                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+                'role' => UserRole::Candidate
+            ],
         ]);
 
         Post::factory($number_post)->create();

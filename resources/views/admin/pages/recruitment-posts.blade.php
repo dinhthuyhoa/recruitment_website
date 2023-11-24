@@ -4,6 +4,7 @@
 
 @section('content')
     <!-- Hoverable Table rows -->
+
     <div class="card">
         <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">{{trans('admin-auth.recruitment_post_list')}}</h5>
         <div class="table-responsive text-nowrap m-3">
@@ -105,6 +106,7 @@
         </div>
     </div>
     <!--/ Hoverable Table rows -->
+
 @endsection
 
 @section('js')
@@ -197,4 +199,6 @@
             padding-left: 10px;
         }
     </style>
+
+
 @endsection

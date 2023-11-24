@@ -10,9 +10,12 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationSuccessful;
+use Faker\Generator;
+
 
 class CheckoutController extends Controller
 {
+
     public function package_checkout_frontend(){
         $packages = [
             ['name' => '3 - Month Package', 'price' => 1500000, 'timeout' => 3],
@@ -81,46 +84,63 @@ class CheckoutController extends Controller
         $returnData = array('code' => '00'
             , 'message' => 'success'
             , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
+            // if (isset($_POST['redirect'])) {
+            //     header('Location: ' . $vnp_Url);
+            //     die();
+            // } else {
+            //     echo json_encode($returnData);
+            // }
+            // dd($returnData['message']);
+        if (isset($_POST['redirect']) && $returnData['message'] == 'success'){
+            header('Location: ' . $vnp_Url);
+            die();
+        } else {
+            echo json_encode($returnData);
+        }
     }    
     public function vnpay_payment_callback(Request $request)
-    {
-        $data = $request->all();
-        $dateTime = Carbon::createFromFormat('YmdHis', $data['vnp_PayDate']);
-        $formattedTime = $dateTime->format('Y-m-d H:i:s');
+{
+    $faker = app(Generator::class);
 
-        $timeoutInfo = $this->extractTimeoutInfo($data['vnp_OrderInfo']);
+    $data = $request->all();
+    $dateTime = Carbon::createFromFormat('YmdHis', $data['vnp_PayDate']);
+    $formattedTime = $dateTime->format('Y-m-d H:i:s');
 
-        $valueCheckout = $data['vnp_Amount']/100;
-        if ($timeoutInfo) {
-            $timeout = $timeoutInfo['timeout'];
-            $checkoutExpiredTime = $dateTime->addMonths($timeout);
-            $user = User::find(session('user_id'));
+    $timeoutInfo = $this->extractTimeoutInfo($data['vnp_OrderInfo']);
 
-            $checkout = Checkout::create([
-                'user_id' => $user['id'],
-                'checkout_type' => $data['vnp_OrderInfo'],
-                'checkout_date' => $formattedTime,
-                'checkout_expired_time' => $checkoutExpiredTime,
-                'value_checkout' => $valueCheckout,
-                'checkout_status' => 'Paid'
+    $valueCheckout = $data['vnp_Amount'] / 100;
+    if ($timeoutInfo) {
+        $timeout = $timeoutInfo['timeout'];
+        $checkoutExpiredTime = $dateTime->addMonths($timeout);
+        $user = User::find(session('user_id'));
+
+        $checkout = Checkout::create([
+            'user_id' => $user['id'],
+            'checkout_type' => $data['vnp_OrderInfo'],
+            'checkout_date' => $formattedTime,
+            'checkout_expired_time' => $checkoutExpiredTime,
+            'value_checkout' => $valueCheckout,
+            'checkout_status' => 'Paid',
+        ]);
+
+        if ($user) {
+            $user->update([
+                'status' => 'Active',
+                'avatar' => 'https://mir-s3-cdn-cf.behance.net/user/276/d87edf482640497.5e306b1f7af1c.jpg',
             ]);
-    
-            if ($user) {
-                $user->update(['status' => 'Active']);
-                Mail::to($user['email'])->send(new RegistrationSuccessful($checkout));
-            }
-    
-            return view('frontend.auth.after-checkout');
-        } else {
-            return response()->json(['error' => 'Timeout information not found.']);
+            Auth::login($user);
+
+            Mail::to($user['email'])->send(new RegistrationSuccessful($checkout));
         }
+
+        // Pass the success message to the view
+        $successMessage = 'Registration Successful';
+        return view('frontend.pages.home', compact('successMessage'));
+    } else {
+        return response()->json(['error' => 'Timeout information not found.']);
     }
+}
+
     private function extractTimeoutInfo($orderInfo)
     {
         $pattern = '/(\d+) mo/';

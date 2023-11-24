@@ -8,7 +8,76 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<style>
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with a little bit of opacity */
+    }
+
+    /* Style for the modal content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 48% 75% auto; 
+        width: 20%; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the close button */
+    .close {
+        border: 1px solid #030d4e;
+        opacity: 1;
+        background-color: #030d4e;
+        padding-right: 2%;
+        padding-bottom: 2%;
+        text-align: end;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: end;
+    }
+
+    .close:hover,
+    .close:focus {
+        opacity: 1;
+        background-color: #030d4e;
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .title-message {
+        color: #030d4e;
+        padding-left: 3%;
+        padding-top: 5%;
+        font-size: 20px;
+    }
+    .message-success {
+        font-size: 14px;
+        padding: 0 1% 0 3%;
+        line-height: 1.5;
+    }
+</style>
 @endsection
+
+@if(isset($successMessage))
+    <div id="successModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">
+                &times;
+            </span>
+            <h4 class="title-message">{{trans('home.title_message')}}</h4>
+            <p class="message-success">{{trans('home.message_success')}}</p>
+        </div>
+    </div>
+@endif
+
 @section('content')
 <!-- slider_area_start -->
 <div class="slider_area">
@@ -166,4 +235,21 @@
 
 @endsection
 @section('js')
+<script>
+    // Function to open the modal
+    function openModal() {
+        $('#successModal').show();
+        setTimeout(function () {
+                closeModal();
+            }, 15000);
+    }
+
+    function closeModal() {
+        $('#successModal').hide();
+    }
+
+    $(document).ready(function () {
+        openModal();
+    });
+</script>
 @endsection

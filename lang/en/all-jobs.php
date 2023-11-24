@@ -30,7 +30,7 @@ return [
     "note_logins" => "Login to be able to comment",
     "job_summery" => "Job Summery",
     "published_on" => "Published on:",
-    "updated_on" => "Updated on:",
+    "updated_on" => "Updated on",
     "apply_for"=> "Apply for this job",
     "cv_file" => "CV File",
     "upload_cv" => "Upload CV here",

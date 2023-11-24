@@ -2,7 +2,8 @@
 return [
     "recruitment_portal"=> "recruitment portal",
     "email"=> "Email",
-    "fill_email"=> "Enter your email",
+    "info_login"=>"Email or Phone Number",
+    "fill_email"=> "Enter your email or phone number",
     "pass"=> "Password",
     "forgot_pass"=> "Forgot Password?",
     "remember" => "Remember Me",
@@ -101,7 +102,7 @@ return [
 
     // news-posts-create.blade.php
     "new_news"=> "New News",
-    "descriptions"=> "Descriptions",
+    "description"=> "Descriptions",
 
     // users.blade.php
     "role"=> "Role",
@@ -125,4 +126,16 @@ return [
     "delete_account_confirm"=> "Are you sure you want to delete your account?",
     "delete_account_de"=> "Once you delete your account, there is no going back. Please be certain.",
     "delete_account_yes"=> "I confirm delete account",
+
+    "message_image_upload"=>"Please upload your image!",
+    "button_close"=>"Close",
+    "message_unfill_field"=>"Please fill all fields!",
+
+    "full_time"=> "Full time",
+    "part_time"=> "Part time",
+    "freelancer"=> "Freelancer",
+
+    "title_message_success"=> "Notification",
+    "create_successful" => "Post created successfully!",
+    "update_successful" => "Post updated successfully!",
 ];

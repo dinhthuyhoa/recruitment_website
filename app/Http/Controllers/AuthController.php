@@ -7,7 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 class AuthController extends Controller
 {
     // ======================================== ADMIN ===========================================
@@ -53,7 +55,8 @@ class AuthController extends Controller
             }
             return redirect()->route('admin.dashboard');
         } else {
-            return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
+            $message_error = "Tài khoản hoặc mật khẩu sai!";
+            return view('admin.auth.login', compact('message_error'));
         }
     }
 
@@ -91,7 +94,6 @@ class AuthController extends Controller
 
     if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
         $user = Auth::user();
-
         if ($user->status == 'Active') {
             if ($request->redirect_to) {
                 if($user->role == 'recruiter'){
@@ -117,7 +119,8 @@ class AuthController extends Controller
             return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
         }
     } else {
-        return back()->with('error', 'Tài khoản hoặc mật khẩu sai!');
+        $message_error = "Tài khoản hoặc mật khẩu sai!";
+        return view('frontend.auth.login', compact('message_error'));
     }
 }
     public function register_frontend()
@@ -138,21 +141,51 @@ class AuthController extends Controller
 
     public function submit_register_frontend(Request $request)
     {
-        if ($request->password != $request->password_verify) {
-            return back()->with('error', 'Mật khẩu xác nhận không trùng khớp !!!');
-        }
-
-        $new_user = User::create([
-            'name' => $request->fullname,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' => $request->address,
-            'password' => Hash::make($request->password),
-            'avatar' => 'https://previews.123rf.com/images/krustovin/krustovin1801/krustovin180100057/94300911-hombre-con-corbata-icono-plano-de-hombre-de-negocios-hombre-en-traje-de-negocios-avatar-del-hombre.jpg'
-        ]);
-
         if (isset($request->recruiter) && $request->recruiter != '') {
-            $new_user->update([
+            $validator = \Validator::make($request->all(), [
+                'fullname' => 'required|string|max:255',
+                'phone' => 'required|string|max:20',
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore(auth()->user()), 
+                ],
+                'address' => 'required|string|max:255',
+                'password' => 'required|string|min:6',
+                'password_verify' => 'required|string|same:password',
+            ]);
+
+            $existingPhone = User::where('phone', $request->phone)->first();
+            $existingEmail = User::where('email', $request->email)->first();
+        
+            if ($existingPhone && $existingEmail) {
+                // Both phone and email exist
+                $errorMessagePhone = 'Số điện thoại đã tồn tại trong hệ thống!';
+                $errorMessageMail = 'Email đã tồn tại trong hệ thống!';
+                return view('frontend.auth.register-recruiter', compact('errorMessagePhone', 'errorMessageMail'));
+            }
+            
+            if ($existingPhone) {
+                // Phone exists
+                $errorMessagePhone = 'Số điện thoại đã tồn tại trong hệ thống!';
+                return view('frontend.auth.register-recruiter', compact('errorMessagePhone'));
+            }
+            
+            if ($existingEmail) {
+                // Email exists
+                $errorMessageMail = 'Email đã tồn tại trong hệ thống!';
+                return view('frontend.auth.register-recruiter', compact('errorMessageMail'));
+            }
+
+            $new_user = User::create([
+                'name' => $request->fullname,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+                'avatar' => 'https://previews.123rf.com/images/krustovin/krustovin1801/krustovin180100057/94300911-hombre-con-corbata-icono-plano-de-hombre-de-negocios-hombre-en-traje-de-negocios-avatar-del-hombre.jpg',
                 'role' => UserRole::Recruiter,
                 'status' => 'Pending',
             ]);
@@ -160,23 +193,23 @@ class AuthController extends Controller
             return redirect()->route('register.checkout')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
         }
         
-        else {
-            $login_email = [
-                'email' => $request->phone,
-                'password' => $request->password,
-            ];
+        // else {
+        //     $login_email = [
+        //         'email' => $request->phone,
+        //         'password' => $request->password,
+        //     ];
     
-            $login_phone = [
-                'phone' => $request->phone,
-                'password' => $request->password
-            ];
+        //     $login_phone = [
+        //         'phone' => $request->phone,
+        //         'password' => $request->password
+        //     ];
     
     
-            if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
-                return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
-            } else {
-                return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
-            }
-        }
+        //     if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
+        //         return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
+        //     } else {
+        //         return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
+        //     }
+        // }
     }
 }

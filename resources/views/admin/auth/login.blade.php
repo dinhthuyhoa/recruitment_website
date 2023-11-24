@@ -80,11 +80,16 @@
                         </div>
                         <!-- /Logo -->
 
+                        @if(isset($message_error))
+                            <div id="errorAlert" class="alert alert-danger">
+                                <p>{{trans('auth.message_error')}}</p>
+                            </div>
+                        @endif
                         <form id="formAuthentication" class="mb-3" action="{{ route('admin.login.submit') }}"
                             method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="email" class="form-label text-white">{{trans('admin-auth.email')}}</label>
+                                <label for="email" class="form-label text-white">{{trans('admin-auth.info_login')}}</label>
                                 <input type="text" class="form-control" id="email" name="username"
                                     placeholder="{{trans('admin-auth.fill_email')}}" autofocus />
                             </div>

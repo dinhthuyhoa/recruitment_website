@@ -30,7 +30,7 @@ return [
     "note_logins" => "Đăng nhập để có thể bình luận",
     "job_summery" => "Tóm tắt Công việc",
     "published_on" => "Đã xuất bản vào:",
-    "updated_on" => "Đã cập nhật vào:",
+    "updated_on" => "Đã cập nhật vào",
     "apply_for" => "Ứng tuyển",
     "cv_file" => "File CV",
     "upload_cv" => "Tải lên CV tại đây",

@@ -76,9 +76,18 @@
         .custom-checkbox input[type="checkbox"]:checked + .check-register:before {
             background-color: #c07f00; 
         }
+
+        .wrap-login100 {
+            width: 900px !important;
+        }
+
+        .login100-form {
+            width: 390px !important;
+        }
     </style>
 
 </head>
+
 
 <body>
 
@@ -96,7 +105,10 @@
                         {{ __('auth.register') }}
                         <span class="d-block text-secondary fs-24 m-t-10">- {{ __('auth.recruiter') }} -</span>
                     </span>
-                    <input type="hidden" name="redirect_to" value="{{ request()->redirect_to }}">
+
+
+
+                    <!-- <input type="hidden" name="redirect_to" value="{{ request()->redirect_to }}"> -->
                     @if (\Session::has('success'))
                         <div class="alert alert-success alert-dismissible" role="alert">
                             {!! \Session::get('success') !!}
@@ -125,20 +137,33 @@
                             <i class="fa fa-location-dot" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Valid Phone is required: phone number">
-                        <input class="input100" type="text" name="phone" placeholder="{{ __('auth.phone') }}">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <div class="wrap-input100 validate-input" data-validate="Valid Email is required: email address">
-                        <input class="input100" type="text" name="email" placeholder="{{ __('auth.email') }}">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
-                    </div>
+                    @if(isset($errorMessagePhone))
+                        <div id="errorAlertPhone" class="alert alert-danger">
+                            <p>{{trans('auth.message_phone_exists')}}</p>
+                        </div>
+                    @endif
+                        <div class="wrap-input100 validate-input" data-validate="Valid Phone is required: phone number">
+                            <input class="input100" type="text" name="phone" placeholder="{{ __('auth.phone') }}">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                    @if(isset($errorMessageMail))
+                        <div id="errorAlertEmail" class="alert alert-danger">
+                            <p>{{trans('auth.message_email_exists')}}</p>
+                        </div>
+                    @endif
+                        <div class="wrap-input100 validate-input" data-validate="Valid Email is required: email address">
+                            <input class="input100" type="text" name="email" placeholder="{{ __('auth.email') }}">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                    
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="password"
@@ -155,11 +180,21 @@
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Check Register">
                         <label class="custom-checkbox">
-                            <input type="checkbox" name="recruiter" value="1">
+                            <input type="checkbox" name="recruiter" value="1" required>
                             <span class="check-register">&nbsp; I agree to
                                 <a href="{{route('terms_of_service')}}">the Terms of Service</a>
                                  of the Job Portal.</span>
@@ -179,12 +214,12 @@
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
-                    <div class="text-center p-t-10">
+                    <!-- <div class="text-center p-t-10">
                         <a class="txt2" href="{{ route('register') }}">
                             <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
                             {{ __('auth.become-a-candidate') }}
                         </a>
-                    </div>
+                    </div> -->
             
             </div>
 
@@ -211,6 +246,15 @@
         $('.js-tilt').tilt({
             scale: 1.1
         })
+    </script>
+    <script>
+        // Hide the alert after 5 seconds
+        setTimeout(function() {
+            $('#errorAlertPhone').fadeOut('slow');
+        }, 5000);
+        setTimeout(function() {
+            $('#errorAlertEmail').fadeOut('slow');
+        }, 6000);
     </script>
     <!--===============================================================================================-->
     <script src="{{ asset('frontend/login/js/main.js') }}"></script>

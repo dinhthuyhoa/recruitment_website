@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>{{ $count_post - 1 }} {{trans('all-jobs.title_banner_jobs')}}</h3>
+                        <h3>{{ $count_post }} {{trans('all-jobs.title_banner_jobs')}}</h3>
                         <p>{{trans('all-jobs.description_all_jobs_1')}}
                         <br>
                         {{trans('all-jobs.description_all_jobs_2')}}
@@ -145,7 +145,7 @@
 
                         </div>
 
-                        @if (count($posts) > 0)
+                        @if (count($posts) > 5)
                             <nav class="pagination-container">
                                 <button class="pagination-button text-white" id="prev-button" aria-label="Previous page"
                                     title="Previous page">
@@ -191,15 +191,15 @@
                                             <select class="wide select-tinh-tp" name="filter_job_nature"
                                                 id="filter_job_nature">
                                                 <option value="">{{trans('all-jobs.all')}}</option>
-                                                <option value="{{trans('all-jobs.full_time')}}"
+                                                <option value="Full time"
                                                     {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>
                                                     {{trans('all-jobs.full_time')}}
                                                 </option>
-                                                <option value="{{trans('all-jobs.part_time')}}"
+                                                <option value="Part time"
                                                     {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>
                                                     {{trans('all-jobs.part_time')}}
                                                 </option>
-                                                <option value="{{trans('all-jobs.freelancer')}}"
+                                                <option value="Freelancer"
                                                     {{ request()->filter_job_nature == 'Freelancer' ? 'selected' : '' }}>
                                                     {{trans('all-jobs.freelancer')}}
                                                 </option>

@@ -83,7 +83,7 @@
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-home text-dark"></i></span>
                         <div class="media-body">
-                            <h3>{{trans('all-jobs.ddress')}}</h3>
+                            <h3>{{trans('all-jobs.address')}}</h3>
                             <p class="text-white">{{trans('all-jobs.note_address')}}</p>
                         </div>
                     </div>

@@ -51,10 +51,10 @@
                                 <i class="bx bx-upload d-block d-sm-none"></i>
 
                             </label>
-                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                            <!-- <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                 <i class="bx bx-reset d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">{{ __('profile.reset') }}</span>
-                            </button>
+                            </button> -->
                         </div>
                     @endif
                 </div>
@@ -64,7 +64,7 @@
             <div class="col-sm-9">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#home">{{ __('profile.profile') }}</a></li>
-                    @if (Auth::check() && Auth::user()->id == $user->id)
+                    @if (Auth::check() && Auth::user()->id == $user->id && Auth::user()->role != 'recruiter')
                         <li><a data-toggle="tab" href="#post-favorite">{{ __('profile.post-favorite') }}</a></li>
                     @endif
                 </ul>
@@ -96,6 +96,7 @@
                                             <input class="form-control" type="text" id="fullname" name="name"
                                                 value="{{ $user->name }}" autofocus />
                                         </div>
+                                        @if(Auth::user()->role != 'recruiter')
                                         <div class="mb-3 col-md-6">
                                             <label for="gender" class="form-label">{{ __('profile.gender') }}</label>
                                             <select id="gender" name="gender" class="select2 form-select">
@@ -107,16 +108,18 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label for="address" class="form-label">{{ __('profile.address') }}</label>
-                                            <input type="text" class="form-control" id="address" name="address"
-                                                value="{{ $user->address }}" placeholder="{{ __('profile.address') }}" />
-                                        </div>
-                                        <div class="mb-3 col-md-6">
                                             <label for="birthday" class="form-label">{{ __('profile.birthday') }}</label>
                                             <input class="form-control" type="date" id="birthday" name="birthday"
                                                 placeholder="dd/mm/yyyy"
                                                 value={{ date('Y-m-d', strtotime($user->birthday)) }} />
                                         </div>
+                                        @endif
+                                        <div class="mb-3 col-md-6">
+                                            <label for="address" class="form-label">{{ __('profile.address') }}</label>
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                value="{{ $user->address }}" placeholder="{{ __('profile.address') }}" />
+                                        </div>
+                                        
                                     </div>
                                     <div class="mt-2">
                                         <button type="submit" form="form-update-profile"
@@ -151,6 +154,7 @@
                                         <p>{{ date('d/m/Y', strtotime($user->birthday)) }}</p>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-2">
                                         <label>{{ __('profile.birthday') }}</label>

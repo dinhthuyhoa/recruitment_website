@@ -1,12 +1,44 @@
 @extends('admin.master.master')
 
 @section('content')
+
+
+@if(session('successMessage'))
+    <div id="successModalPost" class="modal" style="display: none;">
+        <div class="modal-content modal-content-post">
+            <span class="close" onclick="closeModal()">
+                &times;
+            </span>
+            <h4 class="title-message">{{trans('admin-auth.title_message_success')}}</h4>
+            <p class="message-success">{{trans('admin-auth.create_successful')}}</p>
+        </div>
+    </div>
+    @php
+        session()->forget('successMessage');
+    @endphp
+@endif
+@if(session('successMessageUpdate'))
+    <div id="successModalPostUpdate" class="modal" style="display: none;">
+        <div class="modal-content modal-content-post">
+            <span class="close" onclick="closeModalUpdate()">
+                &times;
+            </span>
+            <h4 class="title-message">{{trans('admin-auth.title_message_success')}}</h4>
+            <p class="message-success">{{trans('admin-auth.update_successful')}}</p>
+        </div>
+    </div>
+    @php
+        session()->forget('successMessageUpdate');
+    @endphp
+@endif
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <form id="frmUpdateCruitmentPost" method="POST"
                     action="{{ route('admin.posts.recruitment.update', $post->id) }}" enctype="multipart/form-data"
-                    onsubmit="return checkSubmit()">
+                    onsubmit="return checkSubmit(); openModalUpdate();">
                     @csrf
                     <h5 class="card-header">{{trans('admin-auth.edit_post')}}</h5>
                     <!-- Account -->
@@ -46,6 +78,7 @@
                                     </select>
                                 </div>
                             @endif
+
                         </div>
                     </div>
                     <hr class="my-0" />
@@ -99,10 +132,24 @@
                                 <input class="form-control" type="text" id="experience" name="experience"
                                     placeholder="1 year" value="{{ $post->recruitment_experience }}" required />
                             </div>
-                            <div class="mb-3 col-md-6">
+                            <!-- <div class="mb-3 col-md-6">
                                 <label for="job_nature" class="form-label">{{trans('admin-auth.job_nature')}} *</label>
                                 <input class="form-control" type="text" id="job_nature" name="job_nature"
                                     placeholder="Full-time" value="{{ $post->recruitment_job_nature }}" required />
+                            </div> -->
+                            <div class="mb-3 col-md-6">
+                                <label for="job_nature" class="form-label">{{trans('admin-auth.job_nature')}} *</label>
+                                <select class="form-select" id="job_nature" name="job_nature" required>
+                                    <option value="Full-time" {{ $post->recruitment_job_nature == 'Full-time' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.full_time')}}
+                                    </option>
+                                    <option value="Part-time" {{ $post->recruitment_job_nature == 'Part-time' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.part_time')}}
+                                    </option>
+                                    <option value="Freelancer" {{ $post->recruitment_job_nature == 'Freelancer' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.freelancer')}}
+                                    </option>
+                                </select>
                             </div>
 
                             <style>
@@ -149,7 +196,103 @@
     <script src="https://unpkg.com/inputmask@4.0.4/dist/inputmask/dependencyLibs/inputmask.dependencyLib.js"></script>
     <script src="https://unpkg.com/inputmask@4.0.4/dist/inputmask/inputmask.js"></script>
     <script src="https://unpkg.com/inputmask@4.0.4/dist/inputmask/inputmask.date.extensions.js"></script>
+
     <script>
         Inputmask().mask("input");
+    </script>
+    <style>
+        .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black with a little bit of opacity */
+        }
+
+        /* Style for the modal content */
+        .modal-content-post {
+            background-color: #fefefe;
+            margin: 30% 75% auto; 
+            width: 20%; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for the close button */
+        .close {
+            border: 1px solid #030d4e;
+            opacity: 1;
+            background-color: #030d4e;
+            padding-right: 2%;
+            padding-bottom: 2%;
+            text-align: end;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: end;
+        }
+
+        .close:hover,
+        .close:focus {
+            opacity: 1;
+            background-color: #030d4e;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .title-message {
+            color: #030d4e;
+            padding-left: 3%;
+            padding-top: 5%;
+            font-size: 20px;
+        }
+        .message-success {
+            font-size: 14px;
+            padding: 0 1% 0 3%;
+            line-height: 1.5;
+        }
+    </style>
+
+    <script>
+        // Function to open the modal
+        function openModal() {
+            $('#successModalPost').show();
+            setTimeout(function () {
+                    closeModal();
+                }, 15000);
+        }
+
+        function closeModal() {
+            $('#successModalPost').hide();
+
+        }
+
+        $(document).ready(function () {
+            openModal();
+        });
+
+    </script>
+        <script>
+        // Function to open the modal
+        function openModalUpdate() {
+            $('#successModalPostUpdate').show();            
+            setTimeout(function () {
+                closeModalUpdate();
+                }, 15000);
+        }
+
+        function closeModalUpdate() {
+            $('#successModalPostUpdate').hide();
+
+        }
+
+        $(document).ready(function () {
+                openModalUpdate();
+        });
+
     </script>
 @endsection

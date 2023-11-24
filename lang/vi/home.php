@@ -29,5 +29,7 @@ return [
     "description_overview_2" => "Cao đẳng Công nghệ Thông tin và Truyền thông hợp tác với nhiều công ty phần mềm để đào tạo sinh viên về kỹ năng chuyên ngành và phát triển sản phẩm phần mềm. Trường cũng tham gia vào nhiều hợp tác với nhiều tỉnh và thành phố tại Việt Nam, cả trong các sáng kiến chuyển đổi số và trong nghiên cứu và phát triển sản phẩm phần mềm. Ngoài ra, Cao đẳng Công nghệ Thông tin và Truyền thông đã ký kết hơn 50 Biên bản ghi nhớ (MoU) với các công ty, cả trong và ngoài nước. Hàng năm, trường đánh giá và đánh giá các MoU đã ký để phát triển kế hoạch cụ thể, nâng cao mối quan hệ hợp tác với đối tác.",
     "description_overview_3" => "Công việc xây dựng cầu nối hiệu quả này giữa trường đại học và doanh nghiệp đóng góp vào việc nâng cao thương hiệu của trường. Qua những hoạt động này, trường nhận được sự tài trợ đáng kể từ các công ty, từ học bổng cho sinh viên đến trang thiết bị nghiên cứu.",
 
-    "partner" => "| Một số đối tác nổi bật"
+    "partner" => "| Một số đối tác nổi bật",
+    "title_message" => "Đăng ký thành công",
+    "message_success" => "Vui lòng kiểm tra hộp thư Gmail của bạn để xem thông tin đăng ký chi tiết!"
 ];

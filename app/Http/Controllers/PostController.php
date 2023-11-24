@@ -331,8 +331,22 @@ class PostController extends Controller
     }
     public function admin_recruitment_post_store(Request $request)
     {
-
-
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'address' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'deadline' => 'required|date',
+            'vacancy' => 'required|numeric',
+            'salary' => 'required',
+            'position' => 'required',
+            'experience' => 'required',
+            'job_nature' => 'required',
+            // 'avatar' => 'nullable|image|mimes:jpg,png,gif,jpeg,svg,mp4|max:2048',
+        ]);
+    
+        $file_name = null;
         if ($request->hasFile('avatar')) {
             $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
             $file = $request->file('avatar');
@@ -352,6 +366,10 @@ class PostController extends Controller
                 // $filename = $file->store('media');
                 $file_name = Storage::put('/post', $file);
             }
+        }
+        else {
+            $message_image = "Chưa tải ảnh lên";
+            return view('admin.pages.recruitment-posts-create', compact($message_image));
         }
 
         $post_new = Post::create([
@@ -412,9 +430,18 @@ class PostController extends Controller
         ]);
 
         if ($request->submit == 'redirect') {
-            return redirect()->route('admin.posts.recruitment.edit', $post_new->id)->with('success', 'Tạo thành công bài viết mới!');
+            session()->put('successMessage', 'Tạo thành công bài viết mới!');
+
+            if (session()->has('successMessage')) {
+                $successMessage = session('successMessage');
+
+                $post = Post::find($post_new->id);
+                $post->getInforRecruitment();
+                return view('admin.pages.recruitment-posts-edit', compact('post', 'successMessage'));
+            }
+
         } else {
-            return back()->with('success', 'Tạo thành công bài viết mới!');
+            return back()->with('successMessage', 'Tạo thành công bài viết mới!');
         }
     }
     public function admin_recruitment_post_edit($id)
@@ -424,18 +451,20 @@ class PostController extends Controller
         }
         $post = Post::find($id);
         $post->getInforRecruitment();
+        
         return view('admin.pages.recruitment-posts-edit', compact('post'));
     }
 
     public function admin_recruitment_post_update(Request $request, $id)
     {
+
         $post_status = 'pendding';
         if ($request->post_status)
             $post_status = $request->post_status;
 
         $post_update = Post::whereId($id);
 
-        $post_update->update(
+        $post_update_result = $post_update->update(
             [
                 'post_title' => $request->title,
                 'post_content' => $request->content,
@@ -444,6 +473,15 @@ class PostController extends Controller
                 'post_date_update' => Carbon::now()
             ]
         );
+
+        if ($post_update_result) {
+            if (session()->has('successMessage')) {
+                // session()->forget('successMessage');
+                dd('1');
+            }
+
+            session()->put('successMessageUpdate', 'Cập nhật thành công bài viết mới!');
+        }
 
         if ($request->hasFile('avatar')) {
             $allowedfileExtension = ['jpg', 'png', 'gif', 'png', 'jpeg', 'svg', 'mp4'];
@@ -483,7 +521,7 @@ class PostController extends Controller
         $this->update_post_meta($id, 'experience', $request->experience);
         $this->update_post_meta($id, 'job-nature', $request->job_nature);
 
-        return back()->with('success', 'cập nhật thành công!');
+        return redirect()->route('admin.posts.recruitment.edit', $id);
     }
 
     public function admin_recruitment_post_delete($id){

@@ -108,7 +108,7 @@ p {
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
-  color: #7A838B;
+  /* color: #7A838B; */
   margin-bottom: 13px;
   font-family: "Roboto", sans-serif;
 }
@@ -3387,6 +3387,7 @@ h3 {
 /* line 64, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
 .job_listing_area .job_lists .single_jobs .jobs_left .jobs_conetent .links_locat .location {
   margin-right: 50px;
+  width: 150px;
 }
 
 @media (max-width: 767px) {
@@ -5887,9 +5888,7 @@ h6 {
 
 /* line 14, ../../Arafath/CL/December/235. Job board/HTML/scss/_blog.scss */
 .blog_area a:hover, .blog_area a :hover {
-  background: -webkit-linear-gradient(131deg, #00D363 0%, #00D363 99%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #c07f00;
   text-decoration: none;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -6375,6 +6374,7 @@ h6 {
 
 /* line 529, ../../Arafath/CL/December/235. Job board/HTML/scss/_blog.scss */
 .blog_details {
+  background-color: #e0e1e6;
   padding: 30px 0 20px 10px;
   box-shadow: 0px 10px 20px 0px rgba(221, 221, 221, 0.3);
 }
@@ -6466,8 +6466,8 @@ h6 {
   bottom: -10px;
   left: 10px;
   display: block;
-  color: #fff;
-  background-color: #00D363;
+  color: #030d4e;
+  background-color: #c1c2ca;
   padding: 8px 15px;
   border-radius: 5px;
 }
@@ -6485,7 +6485,7 @@ h6 {
 .blog_item_img .blog_item_date h3 {
   font-size: 22px;
   font-weight: 600;
-  color: #fff;
+  color: #030d4e;
   margin-bottom: 0;
   line-height: 1.2;
 }
@@ -6501,7 +6501,7 @@ h6 {
 .blog_item_img .blog_item_date p {
   font-size: 18px;
   margin-bottom: 0;
-  color: #fff;
+  color: #030d4e;
 }
 
 @media (min-width: 768px) {

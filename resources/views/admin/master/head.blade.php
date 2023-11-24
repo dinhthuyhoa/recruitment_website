@@ -46,6 +46,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css">
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 {{-- Data Table --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>

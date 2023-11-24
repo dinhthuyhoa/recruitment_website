@@ -63,6 +63,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Frontend Auth
+
 Route::get('/login', [AuthController::class, 'login_frontend'])->name('login');
 Route::post('/login', [AuthController::class, 'submit_login_frontend'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'register_frontend'])->name('register');
@@ -77,7 +78,7 @@ Route::post('/register', [AuthController::class, 'submit_register_frontend'])->n
 // the Terms of Service
 Route::get('/terms-of-service', [HomeController::class, 'terms_of_servive'])->name('terms_of_service');
 
-Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
+// Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
 // Route::post('/register', [AuthController::class, 'submit_register_frontend'])->name('register.submit');
 
 

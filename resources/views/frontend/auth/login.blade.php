@@ -52,6 +52,13 @@
         input {
             font-family: math !important;
         }
+        .wrap-login100 {
+            width: 900px !important;
+        }
+
+        .login100-form {
+            width: 390px !important;
+        }
     </style>
 </head>
 
@@ -69,7 +76,7 @@
                     <span class="login100-form-title">
                         {{ __('auth.login') }}
                     </span>
-                    <input type="hidden" name="redirect_to" value="{{ $redirect_to }}">
+
                     @if (\Session::has('success'))
                     <div class="alert alert-success alert-dismissible" role="alert">
                         {!! \Session::get('success') !!}
@@ -82,13 +89,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+
+                    @if(isset($message_error))
+                        <div id="errorAlert" class="alert alert-danger">
+                            <p>{{trans('auth.message_error')}}</p>
+                        </div>
+                    @endif
                     <div class="wrap-input100 validate-input" data-validate="Valid username is required: email or phone">
-                        <input class="input100" type="text" name="username" placeholder="{{ __('auth.username') }}">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </span>
-                    </div>
+                            <input class="input100" type="text" name="username" placeholder="{{ __('auth.username') }}">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </span>
+                        </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="password" placeholder="{{ __('auth.password') }}">
@@ -109,7 +122,7 @@
                     </div>
 
                     <div class="text-center p-t-30">
-                        <a class="txt2" href="{{ route('register') }}">
+                        <a class="txt2" href="{{ route('register.recruiter') }}">
                             {{ __('auth.create-your-account') }}
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
@@ -133,6 +146,12 @@
         $('.js-tilt').tilt({
             scale: 1.1
         })
+    </script>
+    <script>
+        // Hide the alert after 5 seconds
+        setTimeout(function() {
+            $('#errorAlert').fadeOut('slow');
+        }, 5000);
     </script>
     <!--===============================================================================================-->
     <script src="{{ asset('frontend/login/js/main.js') }}"></script>

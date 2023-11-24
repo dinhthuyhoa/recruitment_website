@@ -29,5 +29,8 @@ return [
     "description_overview_2" => "The College of Information and Communication Technology collaborates with numerous software companies to train students in specialized skills and develop software products. The school also engages in extensive collaboration with many provinces and cities in Vietnam, both in the digital transformation initiatives and in research and development of software products. In addition to hundreds of Memoranda of Understanding (MoUs) signed at the university level in Can Tho, The College of Information and Communication Technology has signed MoUs with over 50 companies, both domestic and international. Annually, the school reviews and evaluates the signed MoUs to develop specific plans, further enhancing collaborative relationships with partners.",
     "description_overview_3" => "This efficient bridge-building between the university and the business sector contributes to elevating the university's brand. Through these activities, the school receives substantial sponsorship from companies, ranging from scholarships for students to research equipment.",
 
-    "partner" => "| Some prominent partners"
+    "partner" => "| Some prominent partners",
+
+    "title_message" => "Registration Successful",
+    "message_success" => "Please check your gmail inbox for more detailed registration information!"
 ];

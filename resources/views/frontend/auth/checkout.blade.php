@@ -170,11 +170,11 @@
             font-size: 14px;
         }
 
-        .custom-checkbox input[type="checkbox"] {
+        .custom-radio input[type="radio"] {
             display: none; 
         }
 
-        .custom-checkbox input[type="checkbox"] + .check-payment:before {
+        .custom-radio input[type="radio"] + .check-payment:before {
             content: "";
             display: inline-block;
             width: 12px; 
@@ -184,7 +184,7 @@
             border-radius: 50%; 
         }
 
-        .custom-checkbox input[type="checkbox"]:checked + .check-payment:before {
+        .custom-radio input[type="radio"]:checked + .check-payment:before {
             background-color: #c07f00; 
         }
 
@@ -219,8 +219,8 @@
                                     <li>Notify candidates of results.</li>
                                 </ul>
                                 <div class="wrap-input100 validate-input" data-validate="Payment">
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="selected_package" value="{{ json_encode($package) }}">
+                                    <label class="custom-radio">
+                                        <input type="radio" name="selected_package" value="{{ json_encode($package) }}">
                                         <span class="check-payment">&nbsp; I agree to make the payment</span>
                                     </label>
                                 </div>

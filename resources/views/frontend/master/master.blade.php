@@ -47,7 +47,7 @@
     @include('frontend.master.js')
     @yield('js')
 
-    <div id="page_loading_wrap" style="background-image: url({{ asset('frontend/img/loading.gif') }})"></div>
+    <div id="page_loading_wrap" style="background-image: url('{{ asset('frontend/img/loading.gif') }}')"></div>
     <script>
         $(document).ready(function() {
             $('#page_loading_wrap').remove();

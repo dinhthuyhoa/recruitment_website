@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('checkout_expired_time')->default(Carbon::now());
             $table->integer('value_checkout')->default(0);
             $table->string('checkout_status')->default('Paid');
-            $table->dropTimestamps();
+            // $table->dropTimestamps();
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')

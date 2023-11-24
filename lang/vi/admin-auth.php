@@ -1,12 +1,14 @@
 <?php
 return [
     "recruitment_portal"=> "Cổng tuyển dụng",
+    "info_login"=>"Email hoặc Số điện thoại",
     "email"=> "Email",
-    "fill_email"=> "Nhập địa chỉ email của bạn",
+    "fill_email"=> "Nhập email hoặc số điện thoại của bạn",
     "pass"=> "Mật khẩu",
     "forgot_pass"=> "Quên mật khẩu?",
     "remember" => "Ghi nhớ tôi",
     "sign_in"=> "Đăng nhập",
+
 
     // menu.blade.php
     "welcome"=> "Xin chào",
@@ -68,6 +70,9 @@ return [
     "create_post"=> "Tạo Bài Đăng",
     "keep_creating"=> "Tạo và Tiếp tục tạo",
     "cancle"=>"Hủy",
+
+    // news-posts.blade.php
+    "new_post_list"=> "Danh sách bài đăng tin tức",
     
     //  recruitment-posts-edit.blade.php
     "edit_post"=> "Chỉnh sửa bài viết",
@@ -98,7 +103,7 @@ return [
 
     // news-posts-create.blade.php
     "new_news" => "Bài Tin tức Mới",
-    "descriptions" => "Mô tả",
+    "description" => "Mô tả",
 
     // users.blade.php
     "role" => "Vai trò",
@@ -123,4 +128,15 @@ return [
     "delete_account_de" => "Một khi bạn đã xóa tài khoản, không có cách nào quay lại. Hãy chắc chắn.",
     "delete_account_yes" => "Tôi xác nhận xóa tài khoản",
 
+    "message_image_upload"=>"Vui lòng tải ảnh lên!",
+    "button_close"=>"Đóng",
+    "message_unfill_field"=>"Vui lòng điền đầy đủ các trường thông tin!",
+
+    "full_time"=> "Toàn thời gian",
+    "part_time"=> "Bán thời gian",
+    "freelancer"=> "Làm tự do",
+
+    "title_message_success"=> "Thông báo",
+    "create_successful" => "Bài viết được tạo thành công!",
+    "update_successful" => "Bài viết đã được cập nhật thành công!"
 ];
