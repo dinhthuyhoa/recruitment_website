@@ -1,6 +1,34 @@
 @extends('admin.master.master')
 
 @section('content')
+@if(session('successMessage'))
+    <div id="successModalPost" class="modal" style="display: none;">
+        <div class="modal-content modal-content-post">
+            <span class="close" onclick="closeModal()">
+                &times;
+            </span>
+            <h4 class="title-message">{{trans('admin-auth.title_message_success')}}</h4>
+            <p class="message-success">{{trans('admin-auth.create_successful')}}</p>
+        </div>
+    </div>
+    @php
+        session()->forget('successMessage');
+    @endphp
+@endif
+@if(session('successMessageUpdate'))
+    <div id="successModalPostUpdate" class="modal" style="display: none;">
+        <div class="modal-content modal-content-post">
+            <span class="close" onclick="closeModalUpdate()">
+                &times;
+            </span>
+            <h4 class="title-message">{{trans('admin-auth.title_message_success')}}</h4>
+            <p class="message-success">{{trans('admin-auth.update_successful')}}</p>
+        </div>
+    </div>
+    @php
+        session()->forget('successMessageUpdate');
+    @endphp
+@endif
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -9,8 +37,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-sm-center gap-4">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img src="{{ asset('storage/' . $post->news_image) }}" alt="user-avatar" class="d-block rounded"
-                                height="100" width="100" id="uploadedAvatar" />
+                        <img src="{{ asset('storage/' . $post->post_image) }}" alt="user-avatar"
+                                    class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                             <div class="button-wrapper">
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                     <span class="d-none d-sm-block">{{trans('admin-auth.upload')}}</span>
@@ -61,7 +89,7 @@
 
                             <div class="mb-3 col-12">
                                 <label for="title" class="form-label">{{trans('admin-auth.description')}} *</label>
-                                <textarea class="form-control" id="description" name="description" required>{{ $post->post_description }}</textarea>
+                                <textarea class="form-control" id="description" name="description" >{!! $post->post_description !!}</textarea>
                             </div>
 
                             <style>
@@ -109,5 +137,100 @@
     <script src="https://unpkg.com/inputmask@4.0.4/dist/inputmask/inputmask.date.extensions.js"></script>
     <script>
         Inputmask().mask("input");
+    </script>
+    <style>
+        .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black with a little bit of opacity */
+        }
+
+        /* Style for the modal content */
+        .modal-content-post {
+            background-color: #fefefe;
+            margin: 30% 75% auto; 
+            width: 20%; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for the close button */
+        .close {
+            border: 1px solid #030d4e;
+            opacity: 1;
+            background-color: #030d4e;
+            padding-right: 2%;
+            padding-bottom: 2%;
+            text-align: end;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: end;
+        }
+
+        .close:hover,
+        .close:focus {
+            opacity: 1;
+            background-color: #030d4e;
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .title-message {
+            color: #030d4e;
+            padding-left: 3%;
+            padding-top: 5%;
+            font-size: 20px;
+        }
+        .message-success {
+            font-size: 14px;
+            padding: 0 1% 0 3%;
+            line-height: 1.5;
+        }
+    </style>
+
+    <script>
+        // Function to open the modal
+        function openModal() {
+            $('#successModalPost').show();
+            setTimeout(function () {
+                    closeModal();
+                }, 15000);
+        }
+
+        function closeModal() {
+            $('#successModalPost').hide();
+
+        }
+
+        $(document).ready(function () {
+            openModal();
+        });
+
+    </script>
+        <script>
+        // Function to open the modal
+        function openModalUpdate() {
+            $('#successModalPostUpdate').show();            
+            setTimeout(function () {
+                closeModalUpdate();
+                }, 15000);
+        }
+
+        function closeModalUpdate() {
+            $('#successModalPostUpdate').hide();
+
+        }
+
+        $(document).ready(function () {
+                openModalUpdate();
+        });
+
     </script>
 @endsection

@@ -1,4 +1,32 @@
 @extends('admin.master.master')
+@section('css')
+    <style>
+        .alert-message {
+            width: 20%;
+            margin-left: 35%;
+            padding: 75%;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #c07f00;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1;
+            margin-top: 40%;
+        }
+
+        #closeAlert, #closeAlertInfo {
+            background-color: white;
+            color: #020c26;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+@endsection
 
 @section('content')
     <div class="row">
@@ -23,6 +51,10 @@
 
                             <p class="text-muted mb-0">{{trans('admin-auth.upload_img_post')}}</p>
                         </div>
+                        <div id="alertMessage" class="alert-message border rounded-3">
+                            <span>{{trans('admin-auth.message_image_upload')}}</span>
+                            <!-- <button id="closeAlert" class="border rounded-3 ms-3">{{trans('admin-auth.button_close')}}</button> -->
+                        </div>
                     </div>
                 </div>
                 <hr class="my-0" />
@@ -30,18 +62,22 @@
                     <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.store') }}"
                         enctype="multipart/form-data" onsubmit="return checkSubmit()">
                         @csrf
+                        <div id="alertMessageInfo" class="alert-message border rounded-3">
+                            <span>{{trans('admin-auth.message_unfill_field')}}</span>
+                            <!-- <button id="closeAlertInfo" class="border rounded-3 ms-3">{{trans('admin-auth.button_close')}}</button> -->
+                        </div>
                         <input type="file" id="upload" class="account-file-input" hidden
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="title" class="form-label">{{trans('admin-auth.title')}} *</label>
                                 <input class="form-control" type="text" id="title" name="title" value=""
-                                    autofocus required />
+                                    autofocus  />
                             </div>
 
                             <div class="mb-3 col-12">
                                 <label for="description" class="form-label">{{trans('admin-auth.description')}} *</label>
-                                <textarea class="form-control" id="description" name="description" required></textarea>
+                                <textarea class="form-control" id="description" rows="8" placeholder="{{trans('admin-auth.description')}}" name="description"></textarea>
                             </div>
 
                             <style>
@@ -91,5 +127,54 @@
     <script src="https://unpkg.com/inputmask@4.0.4/dist/inputmask/inputmask.date.extensions.js"></script>
     <script>
         Inputmask().mask("input");
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            $("#frmCreateNewsPost").submit(function (event) {
+                if (!validateFormNews()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateFormNews() {
+                var avatarValue = $("#upload").val();
+
+                var title = $("#title").val();
+                var content = $("#content").val();
+                var description = $("#description").val();
+
+                if (!avatarValue) {
+                    $("#alertMessage").fadeIn();
+
+                    setTimeout(function () {
+                        $("#alertMessage").fadeOut();
+                    }, 10000);
+                    // $("#closeAlert").click(function () {
+                    //     $("#alertMessage").fadeOut();
+                    // });
+                    event.preventDefault();
+                    return false;
+                }
+
+                if (!title || !content || !description) {
+
+                    $("#alertMessageInfo").fadeIn();
+
+                    setTimeout(function () {
+                        $("#alertMessageInfo").fadeOut();
+                    }, 10000);
+
+                    // $("#closeAlertInfo").click(function () {
+                    //     $("#alertMessageInfo").fadeOut();
+                    // });
+                    return false;
+                }
+
+                return true;
+            }
+        });
+
+
     </script>
 @endsection

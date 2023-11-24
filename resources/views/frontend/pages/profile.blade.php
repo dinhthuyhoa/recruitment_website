@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -29,8 +30,8 @@
         </div> 
     </div>
     <!--/ bradcam_area  -->
-    <hr>
-    <div class="container bootstrap snippet my-5 py-5">
+
+    <div class="container bootstrap snippet" >
         <div class="row py-5">
             <div class="col-sm-10">
                 <h1>{{ $user->name }}</h1>
@@ -64,7 +65,7 @@
             <div class="col-sm-9">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#home">{{ __('profile.profile') }}</a></li>
-                    @if (Auth::check() && Auth::user()->id == $user->id && Auth::user()->role != 'recruiter')
+                    @if (Auth::check() && Auth::user()->id == $user->id && Auth::user()->role == 'candidate')
                         <li><a data-toggle="tab" href="#post-favorite">{{ __('profile.post-favorite') }}</a></li>
                     @endif
                 </ul>
@@ -183,7 +184,7 @@
                         @endif
 
                     </div>
-                    @if (Auth::check() && Auth::user()->id == $user->id)
+                    @if (Auth::check() && Auth::user()->id == $user->id )
                         <!--/tab-pane-->
                         <div class="tab-pane" id="post-favorite">
                             <div class="job_listing_area plus_padding">

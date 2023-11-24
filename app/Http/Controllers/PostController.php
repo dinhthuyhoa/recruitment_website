@@ -547,6 +547,7 @@ class PostController extends Controller
     }
     public function admin_news_post_store(Request $request)
     {
+        // dd($request->description);
         if (Auth::user()->role == UserRole::Administrator) {
             $post_status = 'publish';
         } else {
@@ -587,7 +588,18 @@ class PostController extends Controller
         ]);
 
         if ($request->submit == 'redirect') {
-            return redirect()->route('admin.posts.news.edit', $post_new->id)->with('success', 'Tạo thành công bài viết mới!');
+            session()->put('successMessage', 'Tạo thành công bài viết mới!');
+
+            if (session()->has('successMessage')) {
+                $successMessage = session('successMessage');
+
+                $post = Post::find($post_new->id);
+                $post->getInforRecruitment();
+
+                return view('admin.pages.news-posts-edit', compact('post', 'successMessage'));
+            }
+
+            // return redirect()->route('admin.posts.news.edit', $post_new->id)->with('success', 'Tạo thành công bài viết mới!');
         } else {
             return back()->with('success', 'Tạo thành công bài viết mới!');
         }
@@ -607,7 +619,7 @@ class PostController extends Controller
 
             $post_status = $request->post_status;
 
-            $post_update->update(
+            $post_update_result = $post_update->update(
                 [
                     'post_title' => $request->title,
                     'post_description' => $request->description,
@@ -616,8 +628,16 @@ class PostController extends Controller
                     'post_status' => $post_status,
                 ]
             );
+            if ($post_update_result) {
+                if (session()->has('successMessage')) {
+                    // session()->forget('successMessage');
+                    dd('1');
+                }
+    
+                session()->put('successMessageUpdate', 'Cập nhật thành công bài viết mới!');
+            }
         } else {
-            $post_update->update(
+            $post_update_result = $post_update->update(
                 [
                     'post_title' => $request->title,
                     'post_description' => $request->description,
@@ -625,6 +645,14 @@ class PostController extends Controller
                     'post_date_update' => Carbon::now()
                 ]
             );
+            if ($post_update_result) {
+                if (session()->has('successMessage')) {
+                    // session()->forget('successMessage');
+                    dd('1');
+                }
+    
+                session()->put('successMessageUpdate', 'Cập nhật thành công bài viết mới!');
+            }
         }
 
         if ($request->hasFile('avatar')) {
@@ -656,8 +684,8 @@ class PostController extends Controller
                 );
             }
         }
-
-        return back()->with('success', 'cập nhật thành công!');
+        return redirect()->route('admin.posts.news.edit', $id);
+        // return view('admin.pages.news-posts-edit', $id);
     }
 
     public function admin_news_post_delete($id){
