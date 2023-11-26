@@ -1,5 +1,5 @@
 
-function change_favotire(post_id, user_id, element) {
+function change_favorite(post_id, user_id, element) {
     $.ajax({
         type: "POST",
         url: '/change-post-favorite',

@@ -122,7 +122,7 @@
                         <div class="jobs_right">
                             <div class="apply_now">
                                 @if (Auth::check())
-                                <a class="heart_mark" href="javascript:void(0);" onclick="change_favotire({{ $post->id }},{{ Auth::user()->id }}, this)">
+                                <a class="heart_mark" href="javascript:void(0);" onclick="change_favorite({{ $post->id }},{{ Auth::user()->id }}, this)">
                                     @if (Auth::user()->is_post_favorite($post->id))
                                     <i class="fa fa-heart"></i>
                                     @else

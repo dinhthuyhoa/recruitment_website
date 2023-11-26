@@ -70,7 +70,7 @@
                                             </a>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('profile', Auth::user()->id) }}">
+                                                    href="{{ route('profile.user', Auth::user()->id) }}">
                                                     <div class="d-flex">
                                                         <div class="flex-shrink-0 me-3">
                                                             <div class="avatar avatar-online">

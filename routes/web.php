@@ -39,9 +39,14 @@ Route::post('/change-post-favorite', [PostFavoriteController::class, 'change_pos
 Route::post('/reactions', [ReactController::class, 'reactions'])->name('reactions');
 
 // User Profile
+Route::get('/profile-user/{id}', [ProfileController::class, 'showEducationInfo'])->name('profile.user');
 Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
 Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-
+Route::post('/profile-user/save-edu/{id}', [ProfileController::class, 'saveEdu'])->name('save.edu');
+Route::post('/profile-user/save-work/{id}', [ProfileController::class, 'saveWork'])->name('save.work');
+Route::post('/profile-user/save-volun/{id}', [ProfileController::class, 'saveVolun'])->name('save.volun');
+Route::post('/profile-user/save-skill/{id}', [ProfileController::class, 'saveSkill'])->name('save.skill');
+Route::post('/profile-user/save-hobby/{id}', [ProfileController::class, 'saveHobby'])->name('save.hobby');
 // Ckeditor
 Route::post('image-upload', [HomeController::class, 'storeImage'])->name('image.upload');
 

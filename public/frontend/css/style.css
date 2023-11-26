@@ -1627,7 +1627,7 @@ h3 {
 
 /* line 138, ../../Arafath/CL/December/235. Job board/HTML/scss/_slider.scss */
 .nice-select::after {
-  content: "\f0d7";
+  content: "";
   display: block;
   pointer-events: none;
   position: absolute;
@@ -3277,19 +3277,19 @@ h3 {
 
 /* line 1, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
 .job_listing_area {
-  background: #c07f00;
+  /* background: #eaeaea52; */
   padding-bottom: 80px;
 }
 
 /* line 4, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
 .job_listing_area.plus_padding {
-  padding-top: 100px;
+  padding-top: 10px;
 }
 
 @media (max-width: 767px) {
   /* line 4, ../../Arafath/CL/December/235. Job board/HTML/scss/_job_list.scss */
   .job_listing_area.plus_padding {
-    padding-top: 60px;
+    padding-top: 10px;
   }
 }
 
