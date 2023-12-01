@@ -142,18 +142,17 @@ class ApplyController extends Controller
                 'candidate_name' => $apply->fullname,
                 'message' => $request->message,
             ];
-
-            if (!filter_var($apply->email, FILTER_VALIDATE_EMAIL)) {
-                $to = null; // Invalid email format
-            } else {
-                $to = $apply->email;
-            }
-
-            sendMail($to, null, 'Information on application results', $body, 'confirmApply');
-
+    
+            $to = $apply->email;
+    
+            Mail::send('emails.confirmApply', $body, function ($message) use ($to) {
+                $message->to($to)
+                    ->subject('Information on application results');
+            });
+    
             return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
         }
-
+    
         if ($apply_status_old != $request->apply_status && $request->apply_status == 'failed') {
             $body = [
                 'result' => 'Trượt ứng tuyển',
@@ -161,20 +160,21 @@ class ApplyController extends Controller
                 'message' => $request->message,
                 'recruiter' => $post->user ? $post->user : '',
             ];
-
-            if (!filter_var($apply->email, FILTER_VALIDATE_EMAIL)) {
-                $to = ''; // Invalid email format
-            } else {
-                $to = $apply->email;
+    
+            $to = $apply->email;
+    
+            if ($post->user) {
+                $to .= ',' . $post->user->email;
             }
-
-            $to .= $post->user->email;
-
-            sendMail($to, null, 'Information on application results', $body, 'confirmApply');
-
+    
+            Mail::send('emails.confirmApply', $body, function ($message) use ($to) {
+                $message->to($to)
+                    ->subject('Information on application results');
+            });
+    
             return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
         }
-
+    
         return back()->with('success', 'Cập nhật trạng thái thành công');
     }
 }

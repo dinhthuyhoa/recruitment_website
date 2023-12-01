@@ -32,10 +32,38 @@
                                     <td>{{ $apply->post->recruitment_vacancy }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{trans('admin-auth.salary')}}:</td>
-                                    <td>{{ number_format($apply->post->recruitment_salary, 0, '.', ',') }} VND
-                                </td>
+                                    <td>{{ trans('admin-auth.salary') }}:</td>
+                                    <td>
+                                        @php
+                                            $selectedSalary = $apply->post->recruitment_salary;
+                                            $formattedSalary = '';
+
+                                            switch ($selectedSalary) {
+                                                case '1000000-3000000':
+                                                    $formattedSalary = '1,000,000 - 3,000,000 VND';
+                                                    break;
+                                                case '3500000-5000000':
+                                                    $formattedSalary = '3,500,000 - 5,000,000 VND';
+                                                    break;
+                                                case '5500000-7000000':
+                                                    $formattedSalary = '5,500,000 - 7,000,000 VND';
+                                                    break;
+                                                case '7500000-9000000':
+                                                    $formattedSalary = '7,500,000 - 9,000,000 VND';
+                                                    break;
+                                                case '10000000+':
+                                                    $formattedSalary = trans('all-jobs.over') . ' 10,000,000 VND';
+                                                    break;
+                                                case 'negotiable':
+                                                    $formattedSalary = trans('all-jobs.negotiable');
+                                                    break;
+                                            }
+                                            @endphp
+
+                                        {{ $formattedSalary }}
+                                    </td>
                                 </tr>
+
                                 <tr>
                                     <td>{{trans('admin-auth.location_recruitment')}}:</td>
                                     <td>{{ $apply->post->recruitment_address }}</td>
@@ -66,7 +94,7 @@
                                 <p>
                                     <b>{{trans('admin-auth.user')}}:</b>
                                     <a target="_blank"
-                                        href="{{ route('users.edit', $apply->user->id) }}">{{ $apply->user->name }}</a>
+                                        href="{{ route('profile.user', $apply->user->id) }}">{{ $apply->user->name }}</a>
                                 </p>
                             @endif
                             <p><b>{{trans('admin-auth.full_name')}}:</b> {{ $apply->fullname }}</p>

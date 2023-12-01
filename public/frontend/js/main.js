@@ -236,9 +236,9 @@ $('.popup-video').magnificPopup({
 
 // blog-dtails-page
 
-if (document.getElementById('default-select')) {
-  $('select').niceSelect();
-}
+// if (document.getElementById('default-select')) {
+//   $('select').niceSelect();
+// }
 
   //about-pro-active
 $('.details_active').owlCarousel({
@@ -319,9 +319,9 @@ mailChimp();
             $("#search_input_box").slideToggle();
             $("#search_input").focus();
         });
-        $(document).ready(function() {
-          $('select').niceSelect();
-        });
+        // $(document).ready(function() {
+        //   $('select').niceSelect();
+        // });
 
 
       //   $('#datepicker').datepicker({

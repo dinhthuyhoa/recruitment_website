@@ -20,37 +20,37 @@
 
 <!--================Blog Area =================-->
 <section class="blog_area single-post-area section-padding">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 posts-list">
                 <div class="single-post">
-                    <div class="feature-img">
+                    <div class="blog_details p-5">
+                    <div class="feature-img d-flex justify-content-center mb-5">
                         <img class="img-fluid" src="{{ asset('storage/' . $post->post_image) }}" alt="">
                     </div>
-                    <div class="blog_details">
                         <h2>{{ $post->post_title }}</h2>
                         <ul class="blog-info-link mt-3 mb-4">
                             <li><span><i class="fa fa-user"></i> {{ $post->author }}</span></li>
                             <li><span><i class="fa fa-comments"></i> {{ count($post->comments) }}
-                                    Comments</span></li>
-                            <li><span><i class="fa fa-eye"></i> {{ $post->post_view }} View</span></li>
+                            {{trans('comment.comment')}}</span></li>
+                            <li><span><i class="fa fa-eye"></i> {{ $post->post_view }} {{trans('comment.view')}}</span></li>
                         </ul>
 
                         <p>{!! $post->post_content !!}</p>
 
                     </div>
                 </div>
-                <div class="navigation-top">
+                <div class="navigation-top px-5 d-flex align-items-center justify-content-between">
                     <div class="d-sm-flex justify-content-between text-center">
                         <div class="d-flex justify-content-between">
                             <strong>
                                 <span id="post-info-count-reactions">
                                     {{ count($post->reacts()) }}
-                                </span> reactions
+                                </span> {{trans('comment.reaction')}}
                             </strong>
                         </div>
                     </div>
-                    <hr>
+                    <!-- <hr> -->
                     <div class="box-emoji-react">
                         <div class="box-reations">
 
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="blog-author">
+                <!-- <div class="blog-author">
                     <div class="media align-items-center">
                         <img src="{{ asset('storage/' . $post->user->avatar) }}" alt="">
                         <div class="media-body">
@@ -84,19 +84,19 @@
                             <p>{{ $post->post_description }}</p>
                         </div>
                     </div>
-                </div>
-                <div class="comments-area">
-                    <h4>{{ count($post->comments) }} Comments</h4>
+                </div> -->
+                <div class="comments-area px-5">
+                    <strong>{{ count($post->comments) }} {{trans('comment.comment')}}</strong>
                     <div class="comment-list">
-                        <hr>
                         @include('frontend.pages.news_comment_replies', [
                         'comments' => $post->comments,
                         'post_id' => $post->id,
                         'post_user_id' => $post->user_id,
                         ])
                         <hr />
-                        <h4>Add comment</h4>
+                        
                         @if (Auth::check())
+                        <h4>{{trans('comment.add_comment')}}</h4>
                         <form method="post" action="{{ route('comment.add') }}">
                             @csrf
                             <div class="form-group">
@@ -108,32 +108,17 @@
                             </div>
                         </form>
                         @else
-                        <a class="btn btn-info" href="{{ route('login', ['url' => url()->full()]) }}">Login to be
-                            able to
-                            comment</a>
+                        <a class="btn d-flex align-items-center justify-content-center" href="{{ route('login', ['url' => url()->full()]) }}">{{trans('comment.login_to_comments')}}</a>
                         @endif
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
-                    <aside class="single_sidebar_widget search_widget">
-                        <form action="{{ route('posts.news.list') }}" id="form-search-news">
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <input type="search" class="form-control" placeholder='Search Keyword' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'" id="keyword" name="keyword" class="form-control" value="{{ request()->keyword }}">
 
-                                    <div class="input-group-append">
-                                        <button class="btn" type="submmit" form="form-search-news"><i class="ti-search"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit" form="form-search-news">Search</button>
-                        </form>
-                    </aside>
 
                     <aside class="single_sidebar_widget tag_cloud_widget">
-                        <h4 class="widget_title">Tag Clouds</h4>
+                        <h4 class="widget_title">{{trans('all-jobs.tag')}}</h4>
                         <ul class="list">
                             <form action="{{ route('posts.news.list') }}" class="d-flex flex-wrap" style="gap: 15px">
                                 @foreach ($post->tags as $tag)

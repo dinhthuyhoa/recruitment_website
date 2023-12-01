@@ -22,25 +22,16 @@
     <!--/ bradcam_area  -->
     <!-- ================ contact section start ================= -->
     <section class="contact-section section_padding">
-        <div class="container">
-            <div class="d-none d-sm-block mb-5 pb-4">
-                
-                <div id="map" style="height: 480px;">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d491.10399956050304!2d105.76916480868296!3d10.030718788141185!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0883d2192b0f1%3A0x4c90a391d232ccce!2zVHLGsOG7nW5nIEPDtG5nIE5naOG7hyBUaMO0bmcgVGluIHbDoCBUcnV54buBbiBUaMO0bmcgKENUVSk!5e0!3m2!1svi!2s!4v1682228457481!5m2!1svi!2s"
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-
-            </div>
+        <div class="container-fluid">
+            
 
 
-            <div class="row">
+            <div class="row p-5 form-contact-row">
                 <div class="col-12">
                     <h2 class="contact-title">                        {{trans('all-jobs.title_contact_2')}}</h2>
                 </div>
                 <div class="col-lg-8">
-                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
+                    <!-- <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
                         novalidate="novalidate">
                         <div class="row">
                             <div class="col-12">
@@ -77,35 +68,45 @@
                             {{trans('all-jobs.send_message')}}
                         </button>
                         </div>
-                    </form>
+                    </form> -->
+                    <div class="d-none d-sm-block mb-0 pb-4">
+                
+                <div id="map" style="height: 480px;">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d491.10399956050304!2d105.76916480868296!3d10.030718788141185!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0883d2192b0f1%3A0x4c90a391d232ccce!2zVHLGsOG7nW5nIEPDtG5nIE5naOG7hyBUaMO0bmcgVGluIHbDoCBUcnV54buBbiBUaMO0bmcgKENUVSk!5e0!3m2!1svi!2s!4v1682228457481!5m2!1svi!2s"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+            </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-home text-dark"></i></span>
                         <div class="media-body">
                             <h3>{{trans('all-jobs.address')}}</h3>
-                            <p class="text-white">{{trans('all-jobs.note_address')}}</p>
+                            <p class=" ">{{trans('all-jobs.note_address')}}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-tablet text-dark"></i></span>
                         <div class="media-body">
                             <h3>{{trans('all-jobs.number_phone')}}</h3>
-                            <p class="text-white">{{trans('all-jobs.notes')}}</p>
+                            <p class=" ">{{trans('all-jobs.notes')}}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-printer text-dark"></i></span>
                         <div class="media-body">
                             <h3>{{trans('all-jobs.fax')}}</h3>
-                            <p class="text-white">{{trans('all-jobs.notes')}}</p>
+                            <p class=" ">{{trans('all-jobs.notes')}}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-email text-dark"></i></span>
                         <div class="media-body">
                             <h3>{{trans('all-jobs.email')}}</h3>
-                            <p class="text-white">{{trans('all-jobs.notes')}}</p>
+                            <p class=" ">{{trans('all-jobs.notes')}}</p>
                         </div>
                     </div>
                 </div>

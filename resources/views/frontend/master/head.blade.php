@@ -23,6 +23,7 @@
 
 <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.css') }}">
 
+
 <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
 {{-- <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}"> --}}
 

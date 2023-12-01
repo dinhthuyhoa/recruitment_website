@@ -24,4 +24,9 @@ class EducationUser extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function education()
+{
+    return $this->hasOne(EducationUser::class);
+}
+
 }

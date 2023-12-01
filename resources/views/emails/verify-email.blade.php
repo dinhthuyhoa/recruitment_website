@@ -65,7 +65,7 @@
                             <p>Thời gian bắt đầu sử dụng gói: {{$checkout['checkout_date']}}</p>
                             <p>Thời gian hết hạn sử dụng gói: {{$checkout['checkout_expired_time']}}</p>
                             @endif
-                            <p>Đăng nhập vào hệ thống quản trị của nhà tuyển dụng: <a href="http://127.0.0.1:8000/admin/login">Tại đây</a></p>
+                            <p>Đăng nhập vào hệ thống quản trị của nhà tuyển dụng: <a href="http://127.0.0.1:8000/admin/login" class="text-decoration-none">Tại đây</a></p>
                         </div>
                     </td>
                 </tr>

@@ -13,6 +13,7 @@ use App\Models\PostMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class ProfileController extends Controller
 {
     public function index($id, Request $request)
@@ -95,10 +96,14 @@ class ProfileController extends Controller
 
             return false;
         });
-
+        
+        $successMessageEdu = 'Cập nhật thành công thông tin trình độ học vấn!';
+        session()->put('successMessageEdu', $successMessageEdu);
+        dd($successMessageEdu);
         return view('frontend.pages.profile-user', [
             'user' => $user,
-            'posts' => $posts
+            'posts' => $posts,
+            'successMessageEdu' => $successMessageEdu,
         ]);
     }
 
@@ -130,13 +135,15 @@ class ProfileController extends Controller
         if ($educationInfo) {
             // dd('1');
             $educationInfo->update($educationData);
-            $successMessage = 'Cập nhật thành công thông tin trình độ học vấn!';
+            $successMessageEdu = 'Cập nhật thành công thông tin trình độ học vấn!';
         } else {
             $educationInfo = EducationUser::create($educationData);
-            $successMessage = 'Tạo thành công thông tin trình độ học vấn mới!';
+            $successMessageEdu = 'Tạo thành công thông tin trình độ học vấn mới!';
         }
+        session()->put('successMessageEdu', $successMessageEdu);
+        // dd(session('successMessageEdu'));
 
-        return redirect()->route('profile.user', $id);
+        return redirect()->route('profile.user', $id)->with('successMessageEdu', $successMessageEdu);
 
 
         // return redirect()->back()->with('success', 'Thông tin học vấn đã được cập nhật.');
@@ -272,8 +279,9 @@ class ProfileController extends Controller
     public function showEducationInfo($id)
     {
         $user = User::find($id);
+        // dd($user);
         $posts = Post::all();
-        
+
         $postMetas = [];
         $posts = $posts->filter(function ($post) use ($user, &$postMetas) {
         
@@ -300,13 +308,14 @@ class ProfileController extends Controller
         
             return false;
         });
-// dd($postMetas);
-        
-        $educationInfo = EducationUser::where('user_id', $user->id)->first();
-        $workInfo = WorkExperience::where('user_id', $user->id)->first();
-        $volunInfo = VolunteerActivity::where('user_id', $user->id)->first();
-        $skillInfo = Skill::where('user_id', $user->id)->first();
-        $hobbyInfo = Hobby::where('user_id', $user->id)->first();
+
+
+        $educationInfo = $user ? EducationUser::where('user_id', $user->id)->first() : null;
+        // dd($educationInfo);
+        $workInfo = $user ? WorkExperience::where('user_id', $user->id)->first() : null;
+        $volunInfo = $user ? VolunteerActivity::where('user_id', $user->id)->first() : null;
+        $skillInfo = $user ? Skill::where('user_id', $user->id)->first() : null;
+        $hobbyInfo = $user ? Hobby::where('user_id', $user->id)->first() : null;
         return view('frontend.pages.profile-user', [
             'user' => $user,
             'posts' => $posts,

@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Administrator',
                 'email' => 'admin@gmail.com',
                 'email_verified_at' => now(),
-                'password' => Hash::make('admin'),
+                'password' => Hash::make('admin1'),
                 'phone' => 'admin',
                 'status' => 'Active',
                 'gender' => 'Male',

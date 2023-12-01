@@ -106,15 +106,32 @@
                                     placeholder="{{trans('admin-auth.vacancy_de')}}" value=""  />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="position" class="form-label">{{trans('admin-auth.position')}} *</label>
-                                <input class="form-control" type="text" id="position" name="position" placeholder="{{trans('admin-auth.position_de')}}"
-                                    value=""  />
+                                <label for="position" class="form-label">{{ trans('admin-auth.position') }} *</label>
+                                <select class="form-select" id="position" name="position" required>
+                                    <option value="intern">{{ trans('admin-auth.intern') }}</option>
+                                    <option value="fresher">{{ trans('admin-auth.fresher') }}</option>
+                                    <option value="junior">{{ trans('admin-auth.junior') }}</option>
+                                    <option value="senior">{{ trans('admin-auth.senior') }}</option>
+                                </select>
                             </div>
-                            <div class="mb-3 col-md-6">
+
+                            <!-- <div class="mb-3 col-md-6">
                                 <label for="salary" class="form-label">{{trans('admin-auth.salary')}} *</label>
                                 <input class="form-control" type="number" id="salary" name="salary"
                                     placeholder="" min="1" value=""  />
+                            </div> -->
+                            <div class="mb-3 col-md-6">
+                                <label for="salary" class="form-label">{{ trans('admin-auth.salary') }} (VND) *</label>
+                                <select class="form-select" id="salary" name="salary">
+                                    <option value="1000000-3000000">1,000,000 - 3,000,000</option>
+                                    <option value="3500000-5000000">3,500,000 - 5,000,000</option>
+                                    <option value="5500000-7000000">5,500,000 - 7,000,000</option>
+                                    <option value="7500000-9000000">7,500,000 - 9,000,000</option>
+                                    <option value="10000000+">{{ trans('all-jobs.over') }} 10,000,000</option>
+                                    <option value="negotiable">{{trans('all-jobs.negotiable')}}</option>
+                                </select>
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="experience" class="form-label">{{trans('admin-auth.experience')}} *</label>
                                 <input class="form-control" type="text" id="experience" name="experience"

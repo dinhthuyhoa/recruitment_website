@@ -59,5 +59,8 @@ return [
     "number_phone" => "(+84) 0292 3 734713 - 0292 3 831301",
     "notes" => "Mon to Fri 9am to 6pm",
     "fax" => "(+84) 0292 3830841",
-    "email" => "tcntt@ctu.edu.vn"
+    "email" => "tcntt@ctu.edu.vn",
+
+    "over" => "Over",
+    "negotiable" => "Negotiable"
 ];

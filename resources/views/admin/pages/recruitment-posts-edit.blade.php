@@ -118,15 +118,39 @@
                                     placeholder="10" value="{{ $post->recruitment_vacancy }}" required />
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="position" class="form-label">{{trans('admin-auth.position')}} *</label>
-                                <input class="form-control" type="text" id="position" name="position"
-                                    placeholder="PHP Developer" value="{{ $post->recruitment_position }}" required />
+                                <label for="position" class="form-label">{{ trans('admin-auth.position') }} *</label>
+                                <select class="form-select" id="position" name="position" required>
+                                    <option value="intern" {{ $post->recruitment_position  === 'intern' ? 'selected' : '' }}>
+                                        {{ trans('admin-auth.intern') }}
+                                    </option>
+                                    <option value="fresher" {{ $post->recruitment_position  === 'fresher' ? 'selected' : '' }}>
+                                        {{ trans('admin-auth.fresher') }}
+                                    </option>
+                                    <option value="junior" {{ $post->recruitment_position  === 'junior' ? 'selected' : '' }}>
+                                        {{ trans('admin-auth.junior') }}
+                                    </option>
+                                    <option value="senior" {{ $post->recruitment_position  === 'senior' ? 'selected' : '' }}>
+                                        {{ trans('admin-auth.senior') }}
+                                    </option>
+                                </select>
                             </div>
+
+
                             <div class="mb-3 col-md-6">
-                                <label for="salary" class="form-label">{{trans('admin-auth.salary')}} *</label>
-                                <input class="form-control" type="text" id="salary" name="salary"
-                                    value="{{ $post->recruitment_salary }}" required />
+                                <label for="salary" class="form-label">{{ trans('admin-auth.salary') }} (VND) *</label>
+                                <select class="form-select" id="salary" name="salary" required>
+                                    <option value="1000000-3000000" {{ $post->recruitment_salary === '1000000-3000000' ? 'selected' : '' }}>1,000,000 - 3,000,000</option>
+                                    <option value="3500000-5000000" {{ $post->recruitment_salary === '3500000-5000000' ? 'selected' : '' }}>3,500,000 - 5,000,000</option>
+                                    <option value="5500000-7000000" {{ $post->recruitment_salary === '5500000-7000000' ? 'selected' : '' }}>5,500,000 - 7,000,000</option>
+                                    <option value="7500000-9000000" {{ $post->recruitment_salary === '7500000-9000000' ? 'selected' : '' }}>7,500,000 - 9,000,000</option>
+                                    <option value="10000000+" {{ $post->recruitment_salary === '10000000+' ? 'selected' : '' }}>
+                                        {{ trans('all-jobs.over') }} 10,000,000
+                                    </option>
+
+                                    <option value="negotiable" {{ $post->recruitment_salary === 'negotiable' ? 'selected' : '' }}>{{trans('all-jobs.negotiable')}}</option>
+                                </select>
                             </div>
+
                             <div class="mb-3 col-md-6">
                                 <label for="experience" class="form-label">{{trans('admin-auth.experience')}} *</label>
                                 <input class="form-control" type="text" id="experience" name="experience"

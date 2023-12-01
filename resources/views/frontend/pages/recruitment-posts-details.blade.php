@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- bradcam_area  -->
-<!-- <div class="bradcam_area bradcam_bg_1">
+<div class="bradcam_area bradcam_bg_1">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -12,13 +12,13 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 <!--/ bradcam_area  -->
 
-<div class="job_details_area">
-    <div class="container">
+<div class="job_details_area blog_area single-post-area section-padding">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-7 posts-list px-5 mx-3">
                 @if (Auth::check() && Auth::user()->is_apply($post->id))
                 <div class="d-flex bg-success text-white p-2 mb-3" style="border-radius: 10px">
                     {{trans('all-jobs.notification_apply')}} {{ Auth::user()->apply_count($post->id) }} {{trans('all-jobs.count_times')}}
@@ -37,7 +37,7 @@
                                 </a>
                                 <div>
                                     <h6>
-                                        <a href="{{ route('profile', $post->user_id) }}" target="_blank">{{ $post->author }}</a>
+                                        <a href="{{ route('profile.user', $post->user_id) }}" target="_blank">{{ $post->author }}</a>
                                         
                                     </h6>
                                 </div>
@@ -74,20 +74,17 @@
 
                 <div class="descript_wrap white-bg">
                     {!! $post->post_content !!}
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <strong>
-                            <span id="post-info-count-reactions">
-                                {{ count($post->reacts()) }}
-                            </span> reactions
-                        </strong>
-                        <strong>
-                            <span id="post-info-count-comments">
-                                {{ count($post->comments) }}
-                            </span> comment
-                        </strong>
+                    <div class="navigation-top mt-5 px-5 d-flex align-items-center justify-content-between">
+                    <div class="d-sm-flex justify-content-between text-center">
+                        <div class="d-flex justify-content-between">
+                            <strong>
+                                <span id="post-info-count-reactions">
+                                    {{ count($post->reacts()) }}
+                                </span> {{trans('comment.reaction')}}
+                            </strong>
+                        </div>
                     </div>
-                    <hr>
+                    <!-- <hr> -->
                     <div class="box-emoji-react">
                         <div class="box-reations">
 
@@ -111,69 +108,120 @@
                         </div>
                     </div>
                 </div>
-                <hr />
-                <h4>Comments</h4>
-                <hr>
-                @include('frontend.pages.comment_replies', [
-                'comments' => $post->comments,
-                'post_id' => $post->id,
-                'post_user_id' => $post->user_id,
-                ])
-                <hr />
-                <h4>Add comment</h4>
-                @if (Auth::check())
-                <form method="post" action="{{ route('comment.add') }}">
-                    @csrf
-                    <div class="form-group">
-                        <textarea type="text" name="comment_body" class="form-control"></textarea>
-                        <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                <!-- <div class="blog-author">
+                    <div class="media align-items-center">
+                        <img src="{{ asset('storage/' . $post->user->avatar) }}" alt="">
+                        <div class="media-body">
+                            <a href="#">
+                                <h4><a href="{{ route('profile', $post->user_id) }}" target="_blank">{{ $post->author }}</a></h4>
+                            </a>
+                            <p>{{ $post->post_description }}</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-warning" value="Add Comment" />
+                </div> -->
+                <div class="comments-area px-5">
+                    <strong>{{ count($post->comments) }} {{trans('comment.comment')}}</strong>
+                    <div class="comment-list">
+                        @include('frontend.pages.news_comment_replies', [
+                        'comments' => $post->comments,
+                        'post_id' => $post->id,
+                        'post_user_id' => $post->user_id,
+                        ])
+                        <hr />
+                        
+                        @if (Auth::check())
+                        <h4>{{trans('comment.add_comment')}}</h4>
+                        <form method="post" action="{{ route('comment.add') }}">
+                            @csrf
+                            <div class="form-group">
+                                <textarea type="text" name="comment_body" class="form-control"></textarea>
+                                <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-warning" value="Add Comment" />
+                            </div>
+                        </form>
+                        @else
+                        <a class="btn d-flex align-items-center justify-content-center" href="{{ route('login', ['url' => url()->full()]) }}">{{trans('comment.login_to_comments')}}</a>
+                        @endif
                     </div>
-                </form>
-                @else
-                <a class="btn btn-info" href="{{ route('login', ['url' => url()->full()]) }}">{{trans('all-jobs.note_logins')}}</a>
-                @endif
+                </div>
 
 
             </div>
-            <div class="col-lg-4">
+            </div>
+            @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Candidate)
+            <div class="col-lg-4 p-5 white-bg me-5 h-100">
                 <div class="job_summary">
                     <div class="summery_header">
-                        <h3>{{trans('all-jobs.job_summery')}}</h3>
+                        <h3 class="mt-4">{{trans('all-jobs.job_summery')}}</h3>
                     </div>
                     <div class="job_content">
                         <ul>
-                            <li>{{trans('all-jobs.published_on')}} <span>{{ $post->post_date }}</span></li>
-                            <li>{{trans('all-jobs.updated_on')}}: <span>{{ $post->post_date_update }}</span></li>
-                            <li>{{trans('admin-auth.vacancy')}}: <span>{{ $post->recruitment_vacancy }}</span></li>
-                            <li>{{trans('admin-auth.salary')}}: <span>{{ $post->recruitment_salary }}</span></li>
-                            <li>{{trans('admin-auth.location_recruitment')}}: <span>{{ $post->recruitment_address }}</span></li>
-                            <li>{{trans('admin-auth.job_nature')}}: <span>{{ $post->recruitment_job_nature }}</span></li>
-                            <li>{{trans('admin-auth.experience')}}: <span>{{ $post->recruitment_experience }}</span></li>
-                            <li>{{trans('admin-auth.deadline')}}: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
-                            </li>
+                            <div class="d-flex justify-content-between">
+                                <li>{{trans('all-jobs.published_on')}} </li>
+                                <span>{{ $post->post_date }}</span>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
+                                <li class="text-success">{{trans('all-jobs.updated_on')}}: </li>
+                                <span class="text-success">{{ $post->post_date_update }}</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <li>{{ trans('admin-auth.position') }}: </li>
+                                <span>{{ ucfirst(trans_choice('admin-auth.' . strtolower($post->recruitment_position), 1)) }}</span>
+                            </div>
+
+                            
+                            <div class="d-flex justify-content-between">
+                                <li>{{trans('admin-auth.vacancy')}}: </li>
+                                <span>{{ $post->recruitment_vacancy }} {{trans('admin-auth.slot')}}</span>
+                            </div>
+                             
+                            @php
+                                $formattedSalary = str_replace('negotiable', '0', $post->recruitment_salary);
+                                $formattedSalary = str_replace('-', ' - ', $formattedSalary);
+                                $formattedSalaryParts = explode(' - ', $formattedSalary);
+
+                                $formattedSalaryParts = array_map(
+                                    fn ($part) => $part == '0' ? trans('all-jobs.negotiable') : ($part === '10000000' ? trans('all-jobs.over') . ' 10,000,000' : number_format((float) $part, 0, ',', '.')),
+                                    $formattedSalaryParts
+                                );
+
+                                $formattedSalary = implode(' - ', $formattedSalaryParts);
+                            @endphp
+
+                            <div class="d-flex justify-content-between">
+                                <li>{{ trans('admin-auth.salary') }}: </li>
+                                <span>{{ $formattedSalary }} VND</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <li>{{trans('admin-auth.location_recruitment')}}: </li>
+                                <span>{{ $post->recruitment_address }}</span>
+                            </div>
+                             
+                            <div class="d-flex justify-content-between">
+                                <li>{{ trans('admin-auth.job_nature') }}: </li>
+                                <span>{{ trans('admin-auth.' . $post->recruitment_job_nature) }}</span>
+                            </div>
+
+
+                            <div class="d-flex justify-content-between">
+                                <li>{{trans('admin-auth.experience')}}: </li>
+                                <span>{{ $post->recruitment_experience }}</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <li>{{trans('admin-auth.deadline')}}: </li>
+                                <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
+                            </div>
+
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="share_wrap d-flex flex-column tags_list">
-                    <span>Tag:</span>
-                    <ul class="py-3">
-                        @if (!is_null($post->tags))
-                        <form action="{{ route('posts.news.list') }}" class="d-flex flex-wrap" style="gap: 15px">
-                            @foreach ($post->tags as $tag)
-                            <button class="btn btn-secondary" type="submit" name="tag" value="{{ $tag->tag_key }}">
-                                {{ $tag->tag_name }}
-                            </button>
-                            @endforeach
-                        </form>
-                        @else
-                        <li>No tags</li>
-                        @endif
-                    </ul>
-                </div> -->
-                @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Candidate)
+                
                 <div id="apply_job">
                     <div class="apply_job_form white-bg">
                         <h4>{{trans('all-jobs.apply_for')}}</h4>
@@ -252,8 +300,30 @@
                         </form>
                     </div>
                 </div>
-                @endif
+
             </div>
+            @else 
+                <div class="col-lg-4 p-5 white-bg me-5 h-100" >
+                    <div class="job_summary">
+                        <div class="summery_header">
+                            <h3 class="mt-4">{{trans('all-jobs.job_summery')}}</h3>
+                        </div>
+                        <div class="job_content">
+                            <ul>
+                                <li>{{trans('all-jobs.published_on')}} <span>{{ $post->post_date }}</span></li>
+                                <li>{{trans('all-jobs.updated_on')}}: <span>{{ $post->post_date_update }}</span></li>
+                                <li>{{trans('admin-auth.vacancy')}}: <span>{{ $post->recruitment_vacancy }}</span></li>
+                                <li>{{trans('admin-auth.salary')}}: <span>{{ $post->recruitment_salary }} VND</span></li>
+                                <li>{{trans('admin-auth.location_recruitment')}}: <span>{{ $post->recruitment_address }}</span></li>
+                                <li>{{trans('admin-auth.job_nature')}}: <span>{{ $post->recruitment_job_nature }}</span></li>
+                                <li>{{trans('admin-auth.experience')}}: <span>{{ $post->recruitment_experience }}</span></li>
+                                <li>{{trans('admin-auth.deadline')}}: <span>{{ date('H:i d/m/Y', strtotime($post->recruitment_deadline)) }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>
@@ -288,15 +358,17 @@
 <script>
     $(document).ready(function() {
         $('.box-reations input[type=radio]').on('click', function() {
-            const valEmoji = $(this).val()
+            const valEmoji = $(this).val();
+            const postID = $(this).data('post-id');
             $.ajax({
                 type: "POST",
                 url: '/reactions',
                 dataType: 'json',
                 data: {
-                    'type_id': $(this).data('post-id'),
+                    'type_id': postID,
                     'react_type': 'post',
                     'emoji': valEmoji,
+                    '_token': '{{ csrf_token() }}',
                 },
                 success: function(data) {
                     $('#post-info-count-reactions').html(data.countReact)
@@ -324,4 +396,17 @@
         })
     })
 </script>
+<script>
+    $(document).ready(function(){
+        // Lắng nghe sự kiện khi người dùng chọn một tệp
+        $('#inputGroupFile03').change(function(){
+            // Lấy tên của tệp được chọn
+            var fileName = $(this).val().split("\\").pop();
+            
+            // Cập nhật nội dung của label
+            $(this).next('.custom-file-label').html(fileName);
+        });
+    });
+</script>
+
 @endsection

@@ -53,6 +53,14 @@
                                 <p class="text-muted mb-0">{{trans('admin-auth.upload_img_post')}}</p>
                             </div>
                         </div>
+                       
+                    </div>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.update', $post->id) }}"
+                        enctype="multipart/form-data" onsubmit="return checkSubmit()">
+                        @csrf
                         @if (Auth::check() &&
                                 (Auth::user()->role == \App\Enums\UserRole::Administrator ||
                                     Auth::user()->role == \App\Enums\UserRole::SubAdmin))
@@ -71,13 +79,6 @@
                                 </select>
                             </div>
                         @endif
-                    </div>
-                </div>
-                <hr class="my-0" />
-                <div class="card-body">
-                    <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.update', $post->id) }}"
-                        enctype="multipart/form-data" onsubmit="return checkSubmit()">
-                        @csrf
                         <input type="file" id="upload" class="account-file-input" hidden
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">

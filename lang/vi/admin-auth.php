@@ -53,7 +53,7 @@ return [
     "upload"=> "Tải ảnh lên",
     "reset"=> "Đặt lại",
     "upload_img_post"=> "Tải ảnh cho bài đăng!",
-    "location_recruitment"=> "Địa điểm Tuyển dụng",
+    "location_recruitment"=> "Địa điểm tuyển dụng",
     "phone" => "Điện thoại",
     "deadline"=> "Hạn chót",
     "vacancy"=> "Số lượng cần tuyển",
@@ -136,7 +136,18 @@ return [
     "part_time"=> "Bán thời gian",
     "freelancer"=> "Làm tự do",
 
+    "Full-time"=> "Toàn thời gian",
+    "Part-time"=> "Bán thời gian",
+    "Freelancer"=> "Làm tự do",
+
     "title_message_success"=> "Thông báo",
     "create_successful" => "Bài viết được tạo thành công!",
-    "update_successful" => "Bài viết đã được cập nhật thành công!"
+    "update_successful" => "Bài viết đã được cập nhật thành công!",
+
+    "intern" => "Thực tập sinh",
+    "fresher" => "Fresher",
+    "junior" => "Junior",
+    "senior" => "Senior",
+
+    "slot" => "Vị trí",
 ];

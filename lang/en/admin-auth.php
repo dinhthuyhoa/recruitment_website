@@ -135,7 +135,18 @@ return [
     "part_time"=> "Part time",
     "freelancer"=> "Freelancer",
 
+    "Full-time"=> "Full time",
+    "Part-time"=> "Part time",
+    "Freelancer"=> "Freelancer",
+
     "title_message_success"=> "Notification",
     "create_successful" => "Post created successfully!",
     "update_successful" => "Post updated successfully!",
+
+    "intern" => "Intern",
+    "fresher" => "Fresher",
+    "junior" => "Junior",
+    "senior" => "Senior",
+
+    "slot" => "Slot",
 ];

@@ -85,6 +85,7 @@ class PostController extends Controller
         $text = preg_replace("/( |!||#|$|%|')/", '', $text);
         $text = preg_replace("/(̀|́|̉|$|>)/", '', $text);
         $text = preg_replace("'<[\/\!]*?[^<>]*?>'si", "", $text);
+        
         $text = strtolower($text);
         return $text;
     }
@@ -177,6 +178,7 @@ class PostController extends Controller
             ['post_status', 'publish']
         ])->get();
 
+        // dd($all_posts);
         $count_post = count($all_posts);
 
         $tags = Tag::where('tag_category', 'post-recruiment')->orderBy('tag_name')->get();
@@ -256,6 +258,7 @@ class PostController extends Controller
         if ($request->has('filter_job_nature') && $request->get('filter_job_nature') != null) {
             $query = $this->stripVN(strtolower($request->get('filter_job_nature')));
             $all_posts = $all_posts->filter(function ($post) use ($query) {
+                
                 if (Str::contains($this->stripVN(strtolower($post->recruitment_job_nature)), $query)) {
                     return true;
                 }
@@ -263,6 +266,32 @@ class PostController extends Controller
             });
 
         }
+
+        if ($request->has('filter_position') && $request->get('filter_position') != null) {
+            $query = $this->stripVN(strtolower($request->get('filter_position')));
+            // dd($query);
+        
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (stripos($post->recruitment_position, $query) !== false) {
+                    return true;
+                }
+                return false;
+            });
+
+        }
+        
+        
+        if ($request->has('filter_salary') && $request->get('filter_salary') != null) {
+            $query = $this->stripVN(strtolower($request->get('filter_salary')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                if (stripos($post->recruitment_salary, $query) !== false) {
+                    return true;
+                }
+                return false;
+                
+            });
+        }
+        
 
         if ($request->has('tag') && $request->get('tag') != null) {
             $tag = $request->get('tag');
@@ -278,6 +307,19 @@ class PostController extends Controller
             'count_post' => $count_post
         ]);
     }
+
+private function formatSalary($salary)
+{
+    $formattedSalary = str_replace('negotiable', '0', $salary);
+    $formattedSalary = str_replace('-', ' - ', $formattedSalary);
+    $formattedSalaryParts = explode(' - ', $formattedSalary);
+    $formattedSalaryParts = array_map(
+        fn ($part) => $part == '0' ? 'Thỏa thuận' : ($part === '10000000' ? trans('all-jobs.over') . ' 10,000,000' : number_format((float) $part, 0, ',', '.')),
+        $formattedSalaryParts
+    );
+    $formattedSalary = implode(' - ', $formattedSalaryParts);
+    return $formattedSalary;
+}
 
     public function recruitment_post_details($id, Request $request)
     {
@@ -618,7 +660,6 @@ class PostController extends Controller
         if (isset($request->post_status) && (Auth::user()->role == UserRole::Administrator || $request->post_status != 'publish')) {
 
             $post_status = $request->post_status;
-
             $post_update_result = $post_update->update(
                 [
                     'post_title' => $request->title,
@@ -637,11 +678,13 @@ class PostController extends Controller
                 session()->put('successMessageUpdate', 'Cập nhật thành công bài viết mới!');
             }
         } else {
+            
             $post_update_result = $post_update->update(
                 [
                     'post_title' => $request->title,
                     'post_description' => $request->description,
                     'post_content' => $request->content,
+                    'post_status' => $request->post_status,
                     'post_date_update' => Carbon::now()
                 ]
             );

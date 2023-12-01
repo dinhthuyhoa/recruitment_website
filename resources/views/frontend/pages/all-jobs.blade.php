@@ -25,12 +25,10 @@
         </div>
     </div>
     <!--/ bradcam_area  -->
-
-    <!-- job_listing_area_start  -->
     <div class="job_listing_area plus_padding">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-8 job-list">
                     <div class="recent_joblist_wrap">
                         <div class="recent_joblist white-bg ">
                             <div class="row align-items-center">
@@ -147,7 +145,7 @@
 
                         @if (count($posts) > 5)
                             <nav class="pagination-container">
-                                <button class="pagination-button text-white" id="prev-button" aria-label="Previous page"
+                                <button class="pagination-button text-black" id="prev-button" aria-label="Previous page"
                                     title="Previous page">
                                     &lt;
                                 </button>
@@ -156,7 +154,7 @@
 
                                 </div>
 
-                                <button class="pagination-button text-white" id="next-button" aria-label="Next page"
+                                <button class="pagination-button text-black" id="next-button" aria-label="Next page"
                                     title="Next page">
                                     &gt;
                                 </button>
@@ -173,8 +171,9 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="single_field" >
-                                            <label for="filter_address" style="font-size:15px; color:#020c26">{{trans('all-jobs.location')}}</label>
-                                            <select class="wide" name="filter_address" id="filter_address"style="width: 200px; border: 1px solid #020c26 !important;">
+                                            <strong style="font-size:18px; color:#020c26">{{trans('all-jobs.location')}}</strong>
+                                            <div class="sel_location">
+                                            <select class="form-select w-100 my-2" aria-label="Default select example" name="filter_address" id="filter_address"style="border: 1px solid #020c26 !important;">
                                                 <option value="">{{trans('all-jobs.all')}}</option>
                                                 @foreach (config('63-tinh-vn') as $k => $v)
                                                     <option value="{{ $k }}"
@@ -183,19 +182,20 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="single_field">
-                                            <label for="filter_job_nature" class=" mt-3" style="font-size:15px; color:#020c26">{{trans('all-jobs.job_nature')}}</label>
-                                            <select class="wide select-tinh-tp" name="filter_job_nature"
+                                            <strong class=" mt-3" style="font-size:18px; color:#020c26">{{trans('all-jobs.job_nature')}}</strong>
+                                            <select class="wide form-select w-100 select-tinh-tp my-2" name="filter_job_nature"
                                                 id="filter_job_nature">
                                                 <option value="">{{trans('all-jobs.all')}}</option>
-                                                <option value="Full time"
+                                                <option value="Full-time"
                                                     {{ request()->filter_job_nature == 'Full-time' ? 'selected' : '' }}>
                                                     {{trans('all-jobs.full_time')}}
                                                 </option>
-                                                <option value="Part time"
+                                                <option value="Part-time"
                                                     {{ request()->filter_job_nature == 'Part-time' ? 'selected' : '' }}>
                                                     {{trans('all-jobs.part_time')}}
                                                 </option>
@@ -205,14 +205,54 @@
                                                 </option>
                                             </select>
 
-                                            <script>
+                                            <!-- <script>
                                                 $('#filter_address').select2();
-                                            </script>
+                                            </script> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <strong class=" mt-3" style="font-size:18px; color:#020c26">{{ trans('admin-auth.position') }}</strong>
+                                            <select class="wide form-select w-100 select-tinh-tp my-2" name="filter_position" id="filter_position">
+                                                <option value="">{{trans('all-jobs.all')}}</option>
+                                                <option value="intern" {{ request()->filter_position == 'intern' ? 'selected' : '' }}>{{trans('admin-auth.intern')}}</option>
+                                                <option value="fresher" {{ request()->filter_position == 'fresher' ? 'selected' : '' }}>{{trans('admin-auth.fresher')}}</option>
+                                                <option value="junior" {{ request()->filter_position == 'junior' ? 'selected' : '' }}>{{trans('admin-auth.junior')}}</option>
+                                                <option value="senior" {{ request()->filter_position == 'senior' ? 'selected' : '' }}>{{trans('admin-auth.senior')}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <strong class=" mt-3" style="font-size:18px; color:#020c26">{{ trans('admin-auth.salary') }} (VND)</strong>
+                                            <select class="wide form-select w-100 select-tinh-tp my-2" name="filter_salary" id="filter_salary">
+                                                <option value="">{{trans('all-jobs.all')}}</option>
+                                                <option value="1000000-3000000" {{ request()->filter_salary == '1000000-3000000' ? 'selected' : '' }}>
+                                                    1,000,000 - 3,000,000
+                                                </option>
+                                                <option value="3500000-5000000" {{ request()->filter_salary == '3500000-5000000' ? 'selected' : '' }}>
+                                                    3,500,000 - 5,000,000
+                                                </option>
+                                                <option value="5500000-7000000" {{ request()->filter_salary == '5500000-7000000' ? 'selected' : '' }}>
+                                                    5,500,000 - 7,000,000
+                                                </option>
+                                                <option value="7500000-9000000" {{ request()->filter_salary == '7500000-9000000' ? 'selected' : '' }}>
+                                                    7,500,000 - 9,000,000
+                                                </option>
+                                                <option value="10000000+" {{ request()->filter_salary == '10000000+' ? 'selected' : '' }}>
+                                                    Over 10,000,000
+                                                </option>
+                                                <option value="negotiable" {{ request()->filter_salary == 'negotiable' ? 'selected' : '' }}>
+                                                    {{trans('all-jobs.negotiable')}}
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="reset_btn col-12">
-                                    <button class="boxed-btn3 w-100 mb-3 filter-job" form="form_filter_jobs"
+                                    <button class="boxed-btn3 w-100 my-3 filter-job" form="form_filter_jobs"
                                         type="submit">{{trans('all-jobs.filter')}}</button>
                                     <a href="{{ route('posts.recruitment.list') }}" class="boxed-btn3 w-100 reset-job"
                                         type="submit">{{trans('all-jobs.reset')}}</a>
@@ -225,6 +265,8 @@
             </div>
         </div>
     </div>
+
+    
     <!-- job_listing_area_end  -->
 
     <div class="inner-left preview" id="demo">
