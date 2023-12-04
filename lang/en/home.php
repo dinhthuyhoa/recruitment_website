@@ -6,7 +6,7 @@ return [
     "find_now" => "Find Now",
 
     "big_upgrade" => "| Big Upgrade",
-    "description_big_upgrade_1" => "We are harnessing the power of information technology to build a robust bridge between <br>the student community and businesses. Our system not only facilitates students in easily searching and connecting with job opportunities that align with their skills and interests but also provides comprehensive solutions for the challenges that businesses encounter in the recruitment process.",
+    "description_big_upgrade_1" => "We are harnessing the power of information technology to build a robust bridge between the student community and businesses. Our system not only facilitates students in easily searching and connecting with job opportunities that align with their skills and interests but also provides comprehensive solutions for the challenges that businesses encounter in the recruitment process.",
     "description_big_upgrade_2" => "Simultaneously, businesses can benefit from accessing a diverse and high-quality pool of candidates, thanks to the intelligent interaction capabilities on our platform. In this way, we are supporting not only the job search process but also the development and optimization of human resources for enterprises, creating a win-win environment for both students and businesses.",
 
     "new_feature" => "| New Feature. A Fresh Experience!",

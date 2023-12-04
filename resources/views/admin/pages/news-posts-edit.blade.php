@@ -82,10 +82,25 @@
                         <input type="file" id="upload" class="account-file-input" hidden
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-12">
                                 <label for="title" class="form-label">{{trans('admin-auth.title')}} *</label>
                                 <input class="form-control" type="text" id="title" name="title"
                                     value="{{ $post->post_title }}" autofocus required />
+                            </div>
+
+                            <div class="mb-3 col-md-12">
+                                <label for="event_category" class="form-label">{{trans('admin-auth.category')}} *</label>
+                                <select class="form-select" id="event_category" name="event_category" required>
+                                    <option value="Su-kien" {{ $post->post_category === 'Su-kien' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.su_kien')}}
+                                    </option>
+                                    <option value="Hoc-bong" {{ $post->post_category === 'Hoc-bong' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.hoc_bong')}}
+                                    </option>
+                                    <option value="Cuoc-thi" {{ $post->post_category === 'Cuoc-thi' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.cuoc_thi')}}
+                                    </option>
+                                </select>
                             </div>
 
                             <div class="mb-3 col-12">

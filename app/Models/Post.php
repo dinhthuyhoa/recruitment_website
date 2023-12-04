@@ -22,6 +22,7 @@ class Post extends Model
         'post_status',
         'post_type',
         'post_image',
+        'post_category',
     ];
 
     public function getMeta($key)
@@ -39,9 +40,16 @@ class Post extends Model
         $this->recruitment_phone = $this->getMeta('phone');
         $this->recruitment_position = $this->getMeta('position');
         $this->recruitment_experience = $this->getMeta('experience');
+        $this->post_category = $this->getMeta('post_category');
+
         $this->recruitment_deadline = $this->getMeta('deadline');
         $this->post_date = date('d/m/Y', strtotime($this->post_date));
         $this->post_date_update = date('d/m/Y', strtotime($this->post_date_update));
+    }
+
+    public function getCategory(){
+        $this->post_category = $this->getMeta('post_category');
+
     }
 
     public function tags()

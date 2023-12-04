@@ -123,6 +123,18 @@ class PostController extends Controller
             });
 
         }
+        if ($request->has('post_category') && $request->get('post_category') != null) {
+            // dd(1);
+            $query = $this->stripVN(strtolower($request->get('post_category')));
+            $all_posts = $all_posts->filter(function ($post) use ($query) {
+                // dd($query);
+                if (Str::contains($this->stripVN(strtolower($post->post_category)), $query)) {
+                    return true;
+                }
+                return false;
+            });
+
+        }
 
         if ($request->has('tag') && $request->get('tag') != null) {
             $tag = $request->get('tag');
@@ -419,6 +431,7 @@ private function formatSalary($salary)
             'post_title' => $request->title,
             'post_content' => $request->content,
             'post_status' => 'pendding',
+            'post_date' => Carbon::now(),
             'post_type' => PostCategory::Recruitment,
             'post_image' => $file_name
         ]);
@@ -493,7 +506,6 @@ private function formatSalary($salary)
         }
         $post = Post::find($id);
         $post->getInforRecruitment();
-        
         return view('admin.pages.recruitment-posts-edit', compact('post'));
     }
 
@@ -511,6 +523,7 @@ private function formatSalary($salary)
                 'post_title' => $request->title,
                 'post_content' => $request->content,
                 'post_status' => $post_status,
+                'post_date_update' => Carbon::now(),
                 'post_type' => PostCategory::Recruitment,
                 'post_date_update' => Carbon::now()
             ]
@@ -625,8 +638,16 @@ private function formatSalary($salary)
             'post_description' => $request->description,
             'post_content' => $request->content,
             'post_status' => $post_status,
+            'post_date' => Carbon::now(),
             'post_type' => PostCategory::News,
             'post_image' => $file_name
+        ]);
+        PostMeta::insert([
+        [
+            'post_id' => $post_new->id,
+            'key' => 'post_category',
+            'value' => $request->event_category
+        ]
         ]);
 
         if ($request->submit == 'redirect') {
@@ -650,7 +671,7 @@ private function formatSalary($salary)
     {
         $post = Post::find($id);
         $post->news_image = $post->post_image;
-
+        $post->getCategory();
         return view('admin.pages.news-posts-edit', ['post' => $post]);
     }
 
@@ -727,6 +748,7 @@ private function formatSalary($salary)
                 );
             }
         }
+        $this->update_post_meta($id, 'post_category', $request->event_category);
         return redirect()->route('admin.posts.news.edit', $id);
         // return view('admin.pages.news-posts-edit', $id);
     }

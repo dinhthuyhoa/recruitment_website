@@ -89,9 +89,11 @@
                         <h5 class="wow fadeInLeft" > {{trans('home.title_banner')}}</h5>
                         <h3 class="wow fadeInLeft" >{{trans('home.description_banner_1')}}</h3>
                         <p class="wow fadeInLeft" style="font-size: 24px;">{{trans('home.description_banner_2')}}</p>
+                        @if (Auth::check() && Auth::user()->role == 'candidate')
                         <div class="sldier_btn wow fadeInLeft" >
                             <a href="{{route('posts.recruitment.list')}}" class="boxed-btn3" style="background-color: #c07f00; border: 1px solid #c07f00">{{trans('home.find_now')}}</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -113,7 +115,7 @@
                         {{trans('home.description_big_upgrade_1')}}
                         </p>
                         <p class="wow fadeInLeft" style="font-size: 14px;">
-                        {{trans('home.description_big_upgrade_1')}}
+                        {{trans('home.description_big_upgrade_2')}}
                         </p>
                     </div>
                 </div>

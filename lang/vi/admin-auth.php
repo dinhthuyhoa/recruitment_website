@@ -150,4 +150,8 @@ return [
     "senior" => "Senior",
 
     "slot" => "Vị trí",
+    "category" => "Loại tin tức",
+    "su_kien" => "Sự kiện",
+    "hoc_bong" => "Học bổng",
+    "cuoc_thi" => "Cuộc thi",
 ];

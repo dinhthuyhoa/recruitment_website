@@ -270,6 +270,7 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        
         PostTag::factory($number_post)->create();
 
         foreach (Post::all() as $k => $v) {

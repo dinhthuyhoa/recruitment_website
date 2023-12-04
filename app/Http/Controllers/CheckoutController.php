@@ -158,7 +158,8 @@ class CheckoutController extends Controller
             }
 
             $successMessage = 'Registration Successful';
-            return view('frontend.pages.home', compact('successMessage'));
+            // return view('frontend.pages.home', compact('successMessage'));
+            return redirect()->route('profile.user', $user['id']);
         } else {
             return response()->json(['error' => 'Timeout information not found.']);
         }

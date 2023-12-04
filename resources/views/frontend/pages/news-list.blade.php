@@ -114,7 +114,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2">
+                <!-- <div class="col-lg-2">
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget tag_cloud_widget">
                             <h4 class="widget_title">{{trans('all-jobs.tag')}}</h4>
@@ -137,7 +137,38 @@
                             </ul>
                         </aside>
                     </div>
+                </div> -->
+                <div class="col-lg-2">
+                    <div class="job_filter white-bg">
+                        <div class="form_inner white-bg">
+                            <h3 style="font-weight: bold;">{{ trans('admin-auth.category') }}</h3>
+                            <form action="{{ route('posts.news.list') }}" id="form_filter_news" method="get">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <button class="btn btn-orange-checked w-100 my-1 bg-secondary" type="submit" name="post_category" value="Su-kien">
+                                                <i class="fa-solid fa-calendar-days"></i>
+                                                <p class="my-1">{{trans('admin-auth.su_kien')}}</p>
+                                                
+                                            </button>
+                                            <button class="btn btn-orange-checked w-100 my-1 bg-warning bg-gradient" type="submit" name="post_category" value="Hoc-bong">
+                                                <i class="fa-solid fa-hands-holding-circle"></i>
+                                                <p class="my-1">{{trans('admin-auth.hoc_bong')}}</p>
+                                                
+                                            </button>
+                                            <button class="btn btn-orange-checked w-100 my-1" type="submit" name="post_category" value="Cuoc-thi">
+                                                <i class="fa-solid fa-cubes"></i>
+                                                <p class="my-1">{{trans('admin-auth.cuoc_thi')}}</p>
+                                                
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>

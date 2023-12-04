@@ -910,6 +910,27 @@ section {
 @endsection
 
 @section('js')
+<script>
+    document.getElementById('upload').addEventListener('change', function (e) {
+        // Get the selected file
+        var file = e.target.files[0];
+
+        // Validate if a file is selected
+        if (file) {
+            // Create a FileReader to read the file
+            var reader = new FileReader();
+
+            // Set a callback function to execute when the file is loaded
+            reader.onload = function (e) {
+                // Update the src attribute of the image to display the selected image
+                document.getElementById('uploadedAvatar').src = e.target.result;
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>

@@ -149,4 +149,8 @@ return [
     "senior" => "Senior",
 
     "slot" => "Slot",
+    "category" => "Category",
+    "su_kien" => "Event",
+    "hoc_bong" => "Scholarship",
+    "cuoc_thi" => "Competition",
 ];
