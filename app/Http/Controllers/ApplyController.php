@@ -17,27 +17,27 @@ class ApplyController extends Controller
 {
     public function __construct()
     {
-        function sendMail($to = null, $subject, $title, $body, $view)
-        {
-            $mailData = [
-                'view' => $view,
-                'subject' => $subject ? $subject : env('APP_NAME'),
-                'title' => $title,
-                'body' => $body,
-            ];
+        // function sendMail($to = null, $subject, $title, $body, $view)
+        // {
+        //     $mailData = [
+        //         'view' => $view,
+        //         'subject' => $subject ? $subject : env('APP_NAME'),
+        //         'title' => $title,
+        //         'body' => $body,
+        //     ];
 
-            if ($to != null) {
-                $to .= ',' . env('MAIL_LIST_CONFIRM');
-            } else {
-                $to = env('MAIL_LIST_CONFIRM');
-            }
+        //     if ($to != null) {
+        //         $to .= ',' . env('MAIL_LIST_CONFIRM');
+        //     } else {
+        //         $to = env('MAIL_LIST_CONFIRM');
+        //     }
 
-            $list_send_mail = explode(',', $to);
+        //     $list_send_mail = explode(',', $to);
 
-            foreach ($list_send_mail as $email) {
-                Mail::to($email)->send(new SendMail($mailData));
-            }
-        }
+        //     foreach ($list_send_mail as $email) {
+        //         Mail::to($email)->send(new SendMail($mailData));
+        //     }
+        // }
     }
 
     public function list()
@@ -144,11 +144,12 @@ class ApplyController extends Controller
             ];
     
             $to = $apply->email;
-    
-            Mail::send('emails.confirmApply', $body, function ($message) use ($to) {
-                $message->to($to)
-                    ->subject('Information on application results');
-            });
+    // dd($body);
+            Mail::to($to)->send(new SendMail($body));
+            // Mail::send('emails.confirmApply', $body, function ($message) use ($to) {
+            //     $message->to($to)
+            //         ->subject('Information on application results');
+            // });
     
             return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
         }

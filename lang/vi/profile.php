@@ -41,6 +41,7 @@ return [
 
     'skill_modal_title' => 'Kỹ Năng',
     'skill_name' => 'Tên Kỹ Năng',
+    'skill_description' => 'Mô tả cấp độ kỹ năng',
     'level' => 'Cấp Độ',
     'average' => 'Trung bình',
     'good' => 'Khá',

@@ -16,6 +16,24 @@ use Faker\Generator;
 class CheckoutController extends Controller
 {
 
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
     public function package_checkout_frontend(){
         $packages = [
             ['name' => '3 - Month Package', 'price' => 1500000, 'timeout' => 3],
@@ -24,6 +42,131 @@ class CheckoutController extends Controller
         ];
         return view('frontend.auth.checkout', compact('packages'));
     }
+
+    public function momo_payment(Request $request) {
+        
+        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+        
+        $selectedPackageJson = $request->input('selected_package');
+        $selectedPackage = json_decode($selectedPackageJson, true);
+
+        $package_name = $selectedPackage['name'];
+        $package_timeout = $selectedPackage['timeout'];
+
+        // $amount = $selectedPackage['price'];
+
+        $partnerCode = "MOMOBKUN20180529";
+        $accessKey = "klm05TvNBzhg7h7j";
+        $secretKey = "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa";
+        
+        $orderInfo = 'Payment for ' . $package_name .'-'. $package_timeout . ' mo';
+        $amount = (string) $selectedPackage['price'];
+        // dd($amount);
+        $orderId = time() ."";
+        $returnUrl = route('momo.callback');
+        $notifyurl = "http://127.0.0.1:8000/";
+        // Lưu ý: link notifyUrl không phải là dạng localhost
+        $bankCode = "SML";
+        
+        $requestId = time() . "";
+        $requestType = "payWithMoMoATM";
+        $extraData = "";
+        //before sign HMAC SHA256 signature
+        $rawHashArr =  array(
+                    'partnerCode' => $partnerCode,
+                    'accessKey' => $accessKey,
+                    'requestId' => $requestId,
+                    'amount' => $amount,
+                    'orderId' => $orderId,
+                    'orderInfo' => $orderInfo,
+                    'bankCode' => $bankCode,
+                    'returnUrl' => $returnUrl,
+                    'notifyUrl' => $notifyurl,
+                    'extraData' => $extraData,
+                    'requestType' => $requestType
+                    );
+        // echo $serectkey;die;
+        $rawHash = "partnerCode=".$partnerCode."&accessKey=".$accessKey."&requestId=".$requestId."&bankCode=".$bankCode."&amount=".$amount."&orderId=".$orderId."&orderInfo=".$orderInfo."&returnUrl=".$returnUrl."&notifyUrl=".$notifyurl."&extraData=".$extraData."&requestType=".$requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+        $data =  array('partnerCode' => $partnerCode,
+                    'accessKey' => $accessKey,
+                    'requestId' => $requestId,
+                    'amount' => $amount,
+                    'orderId' => $orderId,
+                    'orderInfo' => $orderInfo,
+                    'returnUrl' => $returnUrl,
+                    'bankCode' => $bankCode,
+                    'notifyUrl' => $notifyurl,
+                    'extraData' => $extraData,
+                    'requestType' => $requestType,
+                    'signature' => $signature);
+        $result = $this->execPostRequest($endpoint, json_encode($data));
+        $jsonResult = json_decode($result,true);  // decode json
+// dd($jsonResult);
+        error_log( print_r( $jsonResult, true ) );
+        redirect()->to($jsonResult['payUrl']);
+        if (isset($_POST['redirect']) && $jsonResult['message'] == 'Success'){
+            header('Location: ' . $jsonResult['payUrl']);
+            die();
+        } else {
+                    // dd($jsonResult);
+            echo json_encode($jsonResult);
+        }
+
+        
+        // header('Location: '.$jsonResult['payUrl']);
+        
+    }
+    public function momo_payment_callback(Request $request)
+{
+    $returnUrl = $request->all();
+    // $jsonResult = json_decode($request->getContent(), true);
+    // Check if the payment was successful
+    if ($returnUrl['errorCode'] == 0) {
+        // Extract necessary information from Momo response
+        $dateTime = Carbon::now();
+        $formattedTime = $dateTime->format('Y-m-d H:i:s');
+
+        // Assuming Momo provides orderInfo in a format like 'Payment for {package_name}-{package_timeout} mo'
+        $timeoutInfo = $this->extractTimeoutInfo($returnUrl['orderInfo']);
+        // dd($timeoutInfo);
+        $valueCheckout = $returnUrl['amount'];
+
+        if ($timeoutInfo) {
+            $timeout = $timeoutInfo['timeout'];
+            $checkoutExpiredTime = $dateTime->addMonths($timeout);
+            $user = User::find(session('user_id'));
+            // dd($user);
+            $checkout = Checkout::create([
+                'user_id' => $user['id'],
+                'checkout_type' => $returnUrl['orderInfo'],
+                'checkout_date' => $formattedTime,
+                'checkout_expired_time' => $checkoutExpiredTime,
+                'value_checkout' => $valueCheckout,
+                'checkout_status' => 'Paid',
+            ]);
+
+            if ($user) {
+                $user->update([
+                    'status' => 'Active',
+                    'avatar' => 'https://mir-s3-cdn-cf.behance.net/user/276/d87edf482640497.5e306b1f7af1c.jpg',
+                ]);
+                Auth::login($user);
+
+                Mail::to($user['email'])->send(new \App\Mail\RegistrationSuccessful($checkout));
+            }
+
+            $successMessage = 'Registration Successful';
+            return view('frontend.pages.home', compact('successMessage'));
+        } else {
+            return response()->json(['error' => 'Timeout information not found.']);
+        }
+    } else {
+        return response()->json(['error' => 'Payment failed.']);
+    }
+}
+    
     
     public function vnpay_payment(Request $request) {
         $vnp_Url = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';

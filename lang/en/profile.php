@@ -41,6 +41,7 @@ return [
 
     'skill_modal_title' => 'Skills',
     'skill_name' => 'Skill Name',
+    'skill_description' => 'Skill Description',
     'level' => 'Level',
     'average' => 'Average',
     'good' => 'Good',

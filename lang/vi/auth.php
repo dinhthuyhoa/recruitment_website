@@ -20,6 +20,7 @@ return [
     'message_phone_exists' => 'Số điện thoại đã tồn tại trong hệ thống!',
     'message_email_exists' => 'Địa chỉ email đã tồn tại trong hệ thống!',
     'message_error' => 'Số điện thoại/Email hoặc mật khẩu không đúng!',
+    'message_phone_email' => 'Số điện thoại/Email hoặc mật khẩu đã tồn tại trong hệ thống!',
     // 'message_email_error' => 'Địa chỉ email không tồn tại trong hệ thống!',
     // 'message_password_error' => 'Mật khẩu tài khoản không đúng!'
 ];

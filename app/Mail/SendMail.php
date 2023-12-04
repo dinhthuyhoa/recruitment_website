@@ -12,16 +12,16 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mailData;
+    public $body;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mailData)
+    public function __construct($body)
     {
-        $this->mailData = $mailData;
+        $this->body = $body;
     }
 
     /**
@@ -31,7 +31,9 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->mailData['subject'])
-            ->view('emails.' . $this->mailData['view']);
+        // dd($this->body);
+        // return $this->subject($this->body['subject'])
+        //     ->view('emails.' . $this->body['view']);
+        return $this->view('emails.confirmApply')->subject('Message Apply')->with(['body' => $this->body]);
     }
 }

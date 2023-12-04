@@ -196,7 +196,7 @@
 
 <body>
 
-    <form class="form_payment" action="{{ route('vnpay.payment') }}" method="post">
+    <form class="form_payment" action="{{ route('momo.payment') }}" method="post">
         <div class="demo">
             <div class="container">
                 <div class="row">

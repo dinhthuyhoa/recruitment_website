@@ -75,6 +75,9 @@ Route::get('/register', [AuthController::class, 'register_frontend'])->name('reg
 Route::get('/register/recruiter', [AuthController::class, 'register_recruiter_frontend'])->name('register.recruiter');
 Route::get('/register/checkout', [CheckoutController::class, 'package_checkout_frontend'])->name('register.checkout');
 
+Route::post('/momo-payment', [CheckoutController::class, 'momo_payment'])->name('momo.payment');
+Route::get('/momo-payment/callback', [CheckoutController::class, 'momo_payment_callback'])->name('momo.callback');
+
 Route::post('/vnpay-payment', [CheckoutController::class, 'vnpay_payment'])->name('vnpay.payment');
 Route::get('/vnpay-payment/callback', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay.callback');
 
