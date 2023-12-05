@@ -132,7 +132,8 @@ class CheckoutController extends Controller
         $timeoutInfo = $this->extractTimeoutInfo($returnUrl['orderInfo']);
         // dd($timeoutInfo);
         $valueCheckout = $returnUrl['amount'];
-
+        // $user = User::find(session('user_id'));
+        // dd($user);
         if ($timeoutInfo) {
             $timeout = $timeoutInfo['timeout'];
             $checkoutExpiredTime = $dateTime->addMonths($timeout);

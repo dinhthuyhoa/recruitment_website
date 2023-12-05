@@ -63,7 +63,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return back();
+        return redirect()->route('home');
     }
 
     // ======================================== FRONTEND ===========================================
@@ -94,6 +94,7 @@ class AuthController extends Controller
 
     if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
         $user = Auth::user();
+        // dd($user->status);
         if ($user->status == 'Active') {
             if ($request->redirect_to) {
                 if($user->role == 'recruiter'){
@@ -106,13 +107,18 @@ class AuthController extends Controller
                 return redirect()->route('home');
             }
 
-        } elseif ($user->status == 'Pendding') {
-            Auth::logout();
-
+        } elseif ($user->status == 'Pending') {
+            // Auth::logout();
+            session(['user_id' => $user->id]);
             if ($request->redirect_to) {
-                return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                // return redirect($request->redirect_to)->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                return redirect($request->redirect_to)->route('register.checkout');
+
             } else {
-                return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
+                // dd(3);
+                return redirect($request->redirect_to)->route('register.checkout');
+
+                // return redirect()->route('home')->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
             }
         } else {
             Auth::logout();
