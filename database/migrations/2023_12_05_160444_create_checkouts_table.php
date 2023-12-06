@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('checkout_id')->nullable();
+            $table->unsignedBigInteger('package_payment_id')->nullable();
             $table->string('checkout_type');
             $table->longText('post_content')->nullable();
             $table->date('checkout_date')->default(Carbon::now());
@@ -25,10 +25,10 @@ return new class extends Migration
             $table->integer('value_checkout')->default(0);
             $table->string('checkout_status')->default('Paid');
             // $table->dropTimestamps();
+            $table->foreign('package_payment_id')->references('id')->on('package_payments');
             $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->references('id')->on('users');
+
         });
     }
 
@@ -40,6 +40,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('checkout');
+        Schema::dropIfExists('checkouts');
     }
 };

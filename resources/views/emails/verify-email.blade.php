@@ -62,8 +62,9 @@
 
                             @if ($checkout['checkout_type'] != '')
                             <p>{!! $checkout['checkout_type'] !!}</p>
-                            <p>Thời gian bắt đầu sử dụng gói: {{$checkout['checkout_date']}}</p>
-                            <p>Thời gian hết hạn sử dụng gói: {{$checkout['checkout_expired_time']}}</p>
+                            <p>Thời gian bắt đầu sử dụng gói: <?php echo date('d/m/Y H:i:s', strtotime($checkout['checkout_date'])); ?></p>
+                            <p>Thời gian hết hạn sử dụng gói: <?php echo date('d/m/Y H:i:s', strtotime($checkout['checkout_expired_time'])); ?></p>
+
                             @endif
                             <p>Đăng nhập vào hệ thống quản trị của nhà tuyển dụng: <a href="http://127.0.0.1:8000/admin/login" class="text-decoration-none">Tại đây</a></p>
                         </div>

@@ -46,6 +46,48 @@
                 </ul>
             </li>
         @endif
+        @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
+            <li class="menu-item {{ request()->is('admin/payment-management*') ? 'open active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
+                    <!-- <i class="menu-icon tf-icons bx bx-dock-top"></i> -->
+                    <i class="fa-regular fa-credit-card menu-icon tf-icons"></i>
+                    <div data-i18n="Payment management">{{trans('admin-auth.payment_management')}}</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('admin/payment-management') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payment_management.list') }}" class="menu-link text-white">
+                            <div data-i18n="Payment List">{{trans('admin-auth.payment_management_list')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('admin/payment-management/create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payment_management.create') }}" class="menu-link text-white">
+                            <div data-i18n="New Payment">{{trans('admin-auth.new_payment')}}</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
+        @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
+            <li class="menu-item {{ request()->is('admin/payment-package-management*') ? 'open active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
+                    <!-- <i class="menu-icon tf-icons bx bx-dock-top"></i> -->
+                    <i class="fa-regular fa-credit-card menu-icon tf-icons"></i>
+                    <div data-i18n="Payment Package management">{{trans('admin-auth.payment_package_management')}}</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('admin/payment-package-management') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payment_package.list') }}" class="menu-link text-white">
+                            <div data-i18n="Payment List">{{trans('admin-auth.payment_package_list')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('admin/payment-package-management/create') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payment_package.create') }}" class="menu-link text-white">
+                            <div data-i18n="New Payment">{{trans('admin-auth.new_payment')}}</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
         <li class="menu-item {{ request()->is('admin/posts/recruitment*') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                 <i class="menu-icon tf-icons bx bx-library"></i>

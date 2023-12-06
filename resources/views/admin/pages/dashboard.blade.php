@@ -1,4 +1,4 @@
-@extends('admin.master.master');
+@extends('admin.master.master')
 @section('title','Welcome | '. __('system.title'))
 @section('content')
     <div class="d-flex justify-content-center">

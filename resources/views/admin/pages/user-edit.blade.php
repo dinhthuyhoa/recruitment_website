@@ -89,8 +89,8 @@
                                     </option>
                                     <option value="Pending" {{ $user->status == 'Pending' ? 'selected' : '' }}>{{trans('admin-auth.pending')}}</option>
 
-                                    <option value="Deactive" {{ $user->status == 'Deactive' ? 'selected' : '' }}>{{trans('admin-auth.inactive')}}
-                                    </option>
+                                    <!-- <option value="Deactive" {{ $user->status == 'Deactive' ? 'selected' : '' }}>{{trans('admin-auth.inactive')}}
+                                    </option> -->
                                 </select>
                             </div>
                         </div>
@@ -102,18 +102,18 @@
                 </div>
                 <!-- /Account -->
             </div>
-            @if (Auth::user()->role == \App\Enums\UserRole::Administrator)
+            @if (Auth::user()->role == \App\Enums\UserRole::Administrator )
                 <div class="card">
-                    <h5 class="card-header">{{trans('admin-auth.delete_account')}}</h5>
+                    <h5 class="card-header">{{trans('admin-auth.disable_account')}}</h5>
                     <div class="card-body">
                         <div class="mb-3 col-12 mb-0">
                             <div class="alert alert-warning">
-                                <h6 class="alert-heading fw-bold mb-1">{{trans('admin-auth.delete_account_confirm')}}</h6>
-                                <p class="mb-0">{{trans('admin-auth.delete_account_de')}}
+                                <h6 class="alert-heading fw-bold mb-1">{{trans('admin-auth.disable_account_confirm')}}</h6>
+                                <p class="mb-0">{{trans('admin-auth.disable_account_de')}}
                                 </p>
                             </div>
                         </div>
-                        <form id="formDelUser-{{ $user->id }}" action="{{ route('users.destroy', $user) }}"
+                        <!-- <form id="formDelUser-{{ $user->id }}" action="{{ route('users.destroy', $user) }}"
                             method="post">
                             @method('delete')
                             @csrf
@@ -124,7 +124,20 @@
                             </div>
                             <button form="formDelUser-{{ $user->id }}" type="submit"
                                 class="btn btn-danger deactivate-account">{{trans('admin-auth.delete_account')}}</button>
+                        </form> -->
+                        <form id="formDelUser-{{ $user->id }}" action="{{ route('users.disable', $user) }}" method="post">
+                            @method('patch')
+                            @csrf
+                            <input type="hidden" name="status" value="Pending"> 
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" required />
+                                <label class="form-check-label" for="accountActivation">{{ trans('admin-auth.disable_account_yes') }}</label>
+                            </div>
+                            <button form="formDelUser-{{ $user->id }}" type="submit" class="btn btn-danger deactivate-account">
+                                {{ trans('admin-auth.disable_account') }}
+                            </button>
                         </form>
+
                     </div>
                 </div>
             @endif

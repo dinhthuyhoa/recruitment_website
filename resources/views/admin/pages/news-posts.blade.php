@@ -1,4 +1,4 @@
-@extends('admin.master.master');
+@extends('admin.master.master')
 
 {{-- @section('title', __('message.admin.dashboard.title')) --}}
 

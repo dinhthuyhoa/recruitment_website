@@ -122,10 +122,10 @@ return [
 
     // user-edit.blade.php
     "user_details"=> "User Details",
-    "delete_account"=> "Delete Account",
-    "delete_account_confirm"=> "Are you sure you want to delete your account?",
-    "delete_account_de"=> "Once you delete your account, there is no going back. Please be certain.",
-    "delete_account_yes"=> "I confirm delete account",
+    "disable_account"=> "Disable Account",
+    "disable_account_confirm"=> "Are you sure you want to disable this account?",
+    "disable_account_de"=> "Be sure to disable this account. It affects the use of this account on the system.",
+    "disable_account_yes"=> "I confirm disable account",
 
     "message_image_upload"=>"Please upload your image!",
     "button_close"=>"Close",
@@ -153,4 +153,33 @@ return [
     "su_kien" => "Event",
     "hoc_bong" => "Scholarship",
     "cuoc_thi" => "Competition",
+
+    "payment_management" => "Payment",
+    "payment_management_list" => "Payment list",
+    "new_payment" => "New payment",
+
+    "checkout_type" => "Payment Package",
+    "checkout_user" => "Payer",
+    "checkout_value" => "Payment Amount",
+    "checkout_date" => "Date of Payment",
+    "checkout_expired_time" => "Expiration Date",
+    "paid" => "Paid",
+
+    "payment_package_management" => "Payment Package Management",
+    "payment_package_list" => "Payment Package List",
+    'new_package' => 'New Package',
+    'alert_message_info' => 'Please fill in all required fields.',
+    'alert_message_value' => 'Invalid value for the package. It should be a non-negative number without special characters.',
+    'title_package' => 'Title of the Package',
+    'value_package' => 'Value of the Package',
+    'package_date' => 'Package Duration',
+    'three_mo' => '3 Months',
+    'six_mo' => '6 Months',
+    'twelve_mo' => '12 Months',
+    'package_content' => 'Package Content',
+    'create_post' => 'Create Post',
+
+    'package_user' => "Package Creator",
+    'package_status' => 'Package Status',
+
 ];

@@ -142,11 +142,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     // User::whereId($id)->delete();
+    //     return redirect()
+    //         ->route('admin.users')
+    //         ->with('success', 'Đã xóa người dùng thành công');
+    // }
+    public function disable(Request $request, User $user)
     {
-        User::whereId($id)->delete();
-        return redirect()
-            ->route('admin.users')
-            ->with('success', 'Đã xóa người dùng thành công');
+        // dd(1);
+        // Validate the request data, you can customize this based on your needs
+        $request->validate([
+            'accountActivation' => 'required|accepted', // The checkbox must be checked
+            'status' => 'required|in:Pending', // Ensure the status is set to "pending"
+        ]);
+
+        // Update the user status to "pending"
+        $user->update(['status' => $request->input('status')]);
+
+        // Redirect or perform any other actions as needed
+        return redirect()->route('users.index')->with('success', 'User disabled successfully');
     }
 }

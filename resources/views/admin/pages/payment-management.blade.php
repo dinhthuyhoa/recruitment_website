@@ -1,42 +1,54 @@
 @extends('admin.master.master')
 
-@section('title','User | '. __('system.title'))
+{{-- @section('title', __('message.admin.dashboard.title')) --}}
 
 @section('content')
     <!-- Hoverable Table rows -->
+
     <div class="card">
-        <h5 class="card-header">User list</h5>
+        <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">{{trans('admin-auth.recruitment_post_list')}}</h5>
         <div class="table-responsive text-nowrap m-3">
-            <table id="tableUserList" class="table table-hover" style="width: 100%">
+            <table id="tableRecruitmentPostList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>{{trans('admin-auth.full_name')}}</th>
-                        <th>{{trans('admin-auth.email')}}</th>
-                        <th>{{trans('admin-auth.role')}}</th>
+                        <th>{{trans('admin-auth.checkout_type')}}</th>
+                        <th>{{trans('admin-auth.checkout_user')}}</th>
                         <th>{{trans('admin-auth.status')}}</th>
+                        <th>{{trans('admin-auth.checkout_value')}}</th>
+                        <th>{{trans('admin-auth.checkout_date')}}</th>
+                        <th>{{trans('admin-auth.checkout_expired_time')}}</th>
                         <th>{{trans('admin-auth.actions')}}</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($user_list as $user)
+                    @foreach ($payment_list as $payment)
                         <tr>
                             <td>
-                                <img src="{{ !is_null($user->avatar) ? asset('storage/' . $user->avatar) : asset('avatar-default.png') }}"
-                                    alt="Avatar" class="rounded-circle me-2" width="50" />
-                                <a href="{{ route('users.edit', $user) }}" class="fw-bold">
-                                    {{ $user->name }}
+                                
+                                <a href="{{ route('admin.posts.recruitment.edit', $payment) }}" class="fw-bold fs-6">
+                                    {{ $payment->checkout_type }}
                                 </a>
                             </td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                {{ \App\Enums\UserRole::getKey($user->role) }}
+                            <td class="fs-6">
+                                {{ $payment->user->name }}
                             </td>
+                            
                             <td>
-                                @if ($user->status == 'Active')
-                                    <span class="badge bg-label-success me-1">{{trans('admin-auth.active')}}</span>
-                                @else
-                                    <span class="badge bg-label-danger me-1">{{trans('admin-auth.inactive')}}</span>
+                                @if ($payment->checkout_status == 'Paid')
+                                    <span class="badge bg-label-warning me-1 fs-6">{{trans('admin-auth.paid')}}</span>
+                                @elseif($payment->checkout_status == 'Pending')
+                                    <span class="badge bg-label-success me-1 fs-6">{{trans('admin-auth.pending')}}</span>
                                 @endif
+                            </td>
+                            <td class="fs-6">
+                                {{ number_format($payment->value_checkout, 0, ',', '.') }} VND
+                            </td>
+
+                            <td class=" fs-6">
+                                {{ date('d/m/Y', strtotime($payment->checkout_date)) }}
+                            </td>
+                            <td class=" fs-6">
+                                {{ date('d/m/Y', strtotime($payment->checkout_expired_time)) }}
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -45,65 +57,31 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('users.edit', $user) }}"><i
-                                                class="bx bx-edit-alt me-1"></i> {{trans('admin-auth.edit')}}</a>
-                                        <button class="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#modalConfirmDeleteUser-{{ $user->id }}"
-                                            data-id="{{ $user->id }}">
-                                            <i class="bx bx-trash me-1"></i>
-                                            {{trans('admin-auth.delete')}}</button>
+                                        <a class="dropdown-item" href="{{ route('admin.posts.recruitment.edit', $payment) }}">
+                                            <i class="bx bx-edit-alt me-1 fs-6"></i> {{trans('admin-auth.edit')}}</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
-                        <!-- Modal confirm delete user -->
-                        <div class="modal fade" id="modalConfirmDeleteUser-{{ $user->id }}" tabindex="-1"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.delete_user')}}
-                                            <b>{{ $user->name }}</b>
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="formDelUser-{{ $user->id }}"
-                                            action="{{ route('users.destroy', $user) }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <p>{{trans('admin-auth.delete_user_confirmed')}}</p>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button form="formDelUser-{{ $user->id }}" type="submit"
-                                            class="btn btn-danger">{{trans('admin-auth.yes')}}</button>
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                        {{trans('admin-auth.no')}}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
     <!--/ Hoverable Table rows -->
+
 @endsection
 
 @section('js')
     <script>
         $(document).ready(function() {
             // Setup - add a text input to each footer cell
-            $('#tableUserList thead tr')
+            $('#tableRecruitmentPostList thead tr')
                 .clone(true)
                 .addClass('filters')
-                .appendTo('#tableUserList thead');
+                .appendTo('#tableRecruitmentPostList thead');
 
-            var table = $('#tableUserList').DataTable({
+            var table = $('#tableRecruitmentPostList').DataTable({
                 orderCellsTop: true,
                 fixedHeader: true,
                 initComplete: function() {
@@ -114,7 +92,7 @@
                         .columns()
                         .eq(0)
                         .each(function(colIdx) {
-                            if (colIdx != 4) {
+                            if (colIdx != 6) {
                                 // Set the header cell to contain the input element
                                 var cell = $('.filters th').eq(
                                     $(api.column(colIdx).header()).index()
@@ -168,4 +146,22 @@
             });
         });
     </script>
+    <style>
+        .dropup, .dropend, .dropdown, .dropstart {
+            text-align: center;
+        }
+        .filters th input{
+            height: 30px;
+            border: 1px #000 solid;
+            border-radius: 5px;
+        }
+
+        .dataTables_wrapper .dataTables_info {
+            padding-top: 15px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+        }
+    </style>
+
+
 @endsection

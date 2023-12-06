@@ -7,6 +7,7 @@ use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Enums\UserRole;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationSuccessful;
@@ -15,7 +16,21 @@ use Faker\Generator;
 
 class CheckoutController extends Controller
 {
+    public function admin_payment_management_list() {
+        if (Auth::user()->role == UserRole::Administrator) {
+            $payment_list = Checkout::all();
+        }
 
+        foreach ($payment_list as $v) {
+            $v->user = User::find($v->user_id);
+        }
+
+        return view('admin.pages.payment-management', compact('payment_list'));
+    }
+
+    public function admin_payment_management_create () {
+        return view('admin.pages.payment-create');
+    }
     public function execPostRequest($url, $data)
     {
         $ch = curl_init($url);

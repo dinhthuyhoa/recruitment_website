@@ -123,10 +123,10 @@ return [
 
     // user-edit.blade.php
     "user_details" => "Chi tiết Người dùng",
-    "delete_account" => "Xóa Tài khoản",
-    "delete_account_confirm" => "Bạn có chắc chắn muốn xóa tài khoản của bạn không?",
-    "delete_account_de" => "Một khi bạn đã xóa tài khoản, không có cách nào quay lại. Hãy chắc chắn.",
-    "delete_account_yes" => "Tôi xác nhận xóa tài khoản",
+    "disable_account" => "Vô hiệu hóa tài khoản",
+    "disable_account_confirm" => "Bạn có chắc chắn muốn vô hiệu hóa tài khoản của bạn không?",
+    "disable_account_de" => "Hãy chắc chắn việc vô hiệu hóa tài khoản này. Nó ảnh hưởng đến việc sử dụng tài khoản này trên hệ thống.",
+    "disable_account_yes" => "Tôi xác nhận vô hiệu hóa tài khoản",
 
     "message_image_upload"=>"Vui lòng tải ảnh lên!",
     "button_close"=>"Đóng",
@@ -154,4 +154,32 @@ return [
     "su_kien" => "Sự kiện",
     "hoc_bong" => "Học bổng",
     "cuoc_thi" => "Cuộc thi",
+
+    "payment_management" => "Quản lý thanh toán",
+    "payment_management_list" => "Danh sách thanh toán",
+    "new_payment" => "Tạo đơn thanh toán mới",
+
+    "checkout_type" => "Gói thanh toán",
+    "checkout_user" => "Người thanh toán",
+    "checkout_value" => "Chi phí thanh toán",
+    "checkout_date" => "Ngày thanh toán",
+    "checkout_expired_time" => "Ngày hết hạn",
+    "paid" => "Đã thanh toán",
+
+    "payment_package_management" => "Quản lý gói thanh toán",
+    "payment_package_list" => "Danh sách gói thanh toán",
+    'new_package' => 'Gói Mới',
+    'alert_message_info' => 'Vui lòng điền đầy đủ thông tin cho các trường bắt buộc.',
+    'alert_message_value' => 'Giá trị gói không hợp lệ. Nó nên là một số không âm không chứa ký tự đặc biệt.',
+    'title_package' => 'Tiêu đề Gói',
+    'value_package' => 'Giá trị Gói',
+    'package_date' => 'Thời lượng Gói',
+    'three_mo' => '3 Tháng',
+    'six_mo' => '6 Tháng',
+    'twelve_mo' => '12 Tháng',
+    'package_content' => 'Nội dung Gói',
+    'create_post' => 'Tạo Bài Viết',
+
+    'package_user' => "Người tạo gói",
+    'package_status' => 'Trạng thái gói',
 ];
