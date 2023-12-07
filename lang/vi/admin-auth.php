@@ -182,4 +182,11 @@ return [
 
     'package_user' => "Người tạo gói",
     'package_status' => 'Trạng thái gói',
+
+    
+    'company' => 'Công ty',
+    'choose_company' => 'Chọn công ty',
+    'package_payment' => 'Gói thanh toán',
+    'choose_package_payment' => 'Chọn gói thanh toán',
+    'checkout_status' => 'Trạng thái thanh toán',
 ];

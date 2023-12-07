@@ -127,15 +127,14 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/create', [PackagePaymentController::class, 'admin_payment_package_store'])->name('admin.payment_package.store');
             Route::get('/{id}/edit', [PackagePaymentController::class, 'admin_payment_package_edit'])->name('admin.payment_package.edit');
             Route::post('/{id}/edit', [PackagePaymentController::class, 'admin_payment_package_update'])->name('admin.payment_package.update');
-            // Route::delete('/{id}/delete', [PostController::class, 'admin_recruitment_post_delete'])->name('admin.posts.recruitment.delete');
         });
 
         Route::group(['prefix' => 'payment-management'], function () {
             Route::get('/', [CheckoutController::class, 'admin_payment_management_list'])->name('admin.payment_management.list');
             Route::get('/create', [CheckoutController::class, 'admin_payment_management_create'])->name('admin.payment_management.create');
-            // Route::post('/create', [PostController::class, 'admin_recruitment_post_store'])->name('admin.posts.recruitment.store');
-            // Route::get('/{id}/edit', [CheckoutController::class, 'admin_recruitment_post_edit'])->name('admin.posts.recruitment.edit');
-            // Route::post('/{id}/edit', [PostController::class, 'admin_recruitment_post_update'])->name('admin.posts.recruitment.update');
+            Route::post('/create', [CheckoutController::class, 'admin_payment_management_store'])->name('admin.payment_management.store');
+            Route::get('/{id}/edit', [CheckoutController::class, 'admin_payment_management_edit'])->name('admin.payment_management.edit');
+            Route::post('/{id}/edit', [CheckoutController::class, 'admin_payment_management_update'])->name('admin.payment_management.update');
             // Route::delete('/{id}/delete', [PostController::class, 'admin_recruitment_post_delete'])->name('admin.posts.recruitment.delete');
         });
 

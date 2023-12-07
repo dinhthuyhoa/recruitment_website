@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Enums\UserRole;
-
+use App\Models\PackagePayment;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationSuccessful;
 use Faker\Generator;
@@ -29,8 +29,93 @@ class CheckoutController extends Controller
     }
 
     public function admin_payment_management_create () {
-        return view('admin.pages.payment-create');
+        $packages = PackagePayment::where('package_status', '=', 'active')->get();
+        // dd($package);
+        $users = User::where('role', '=', 'recruiter')->get();
+        return view('admin.pages.payment-create', compact('packages', 'users'));
     }
+
+    public function admin_payment_management_store (Request $request) {
+        // dd($request);
+        $package = PackagePayment::find($request->package_payment_id);
+        // dd($package);
+        $dateTime = Carbon::now();
+        $checkoutExpiredTime = $dateTime->addMonths($package->package_date);
+        // dd($checkoutExpiredTime);
+        $checkout_new = Checkout::create([
+            'user_id' => $request->user_id,
+            'package_payment_id'=> $request->package_payment_id,
+            'checkout_type' => $package->title_package,
+            'post_content' => $package->package_content,
+            'checkout_date' => $dateTime,
+            'checkout_expired_time' => $checkoutExpiredTime,
+            'value_checkout' => $package->value_package,
+            'checkout_status' => "Paid",
+        ]);
+        if ($request->submit == 'redirect') {
+
+            session()->put('successMessage', 'Tạo thành công đơn thanh toán mới!');
+
+            if (session()->has('successMessage')) {
+                $successMessage = session('successMessage');
+                $packages = PackagePayment::where('package_status', '=', 'active')->get();
+
+                $users = User::where('role', '=', 'recruiter')->get();
+                $checkout = Checkout::find($checkout_new->id);
+                return view('admin.pages.payment-edit', compact('users', 'packages' ,'checkout', 'successMessage'));
+            }
+
+        } else {
+            return back()->with('successMessage', 'Tạo thành công bài gói thanh toán mới!');
+        }
+
+    }
+
+    public function admin_payment_management_edit ($id) {
+        $packages = PackagePayment::where('package_status', '=', 'active')->get();
+        $users = User::where('role', '=', 'recruiter')->get();
+        $checkout = Checkout::find($id);
+        // $payment = $checkout;
+        return view('admin.pages.payment-edit', compact('users', 'packages' ,'checkout'));
+    }
+
+    public function admin_payment_management_update (Request $request, $id) {
+        // dd($request);
+        $package = PackagePayment::find($request->package_payment_id);
+        // dd($package);
+        $dateTime = Carbon::now();
+        $checkoutExpiredTime = $dateTime->addMonths($package->package_date);
+        // dd($checkoutExpiredTime);
+        $checkout_new = Checkout::find($id);
+        // dd($checkout_new);
+        $checkout_new->update([
+            'user_id' => $request->user_id,
+            'package_payment_id'=> $request->package_payment_id,
+            'checkout_type' => $package->title_package,
+            'post_content' => $package->package_content,
+            'checkout_date' => $dateTime,
+            'checkout_expired_time' => $checkoutExpiredTime,
+            'value_checkout' => $package->value_package,
+            'checkout_status' => "Paid",
+        ]);
+        if ($request->submit == 'redirect') {
+
+            session()->put('successMessage', 'Update thành công đơn thanh toán mới!');
+
+            if (session()->has('successMessage')) {
+                $successMessage = session('successMessage');
+                $packages = PackagePayment::where('package_status', '=', 'active')->get();
+
+                $users = User::where('role', '=', 'recruiter')->get();
+                $checkout = Checkout::find($checkout_new->id);
+                return view('admin.pages.payment-edit', compact('users', 'packages' ,'checkout', 'successMessage'));
+            }
+
+        } else {
+            return back()->with('successMessage', 'Tạo thành công bài gói thanh toán mới!');
+        }
+    }
+
     public function execPostRequest($url, $data)
     {
         $ch = curl_init($url);

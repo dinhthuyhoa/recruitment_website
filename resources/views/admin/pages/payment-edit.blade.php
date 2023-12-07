@@ -37,7 +37,7 @@
             <!-- Account -->
             <hr class="my-0" />
             <div class="card-body">
-                <form id="frmCreatePackage" method="POST" action="{{ route('admin.payment_management.store') }}" enctype="multipart/form-data">
+                <form id="frmCreatePackage" method="POST" action="{{ route('admin.payment_management.update', $checkout->id) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="alert alert-danger" id="alertMessageInfo" style="display: none;">
                         {{ trans('admin-auth.alert_message_info') }}
@@ -47,9 +47,8 @@
                         <div class="mb-3 col-md-12">
                             <label for="user_id" class="form-label">{{ trans('admin-auth.company') }} *</label>
                             <select class="form-select" id="user_id" name="user_id" required>
-                                <option value="choose">{{ trans('admin-auth.choose_company') }}</option>
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option value="{{ $user->id }}" {{ $checkout->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -57,9 +56,8 @@
                         <div class="mb-3 col-md-12">
                             <label for="package_payment_id" class="form-label">{{ trans('admin-auth.package_payment') }} *</label>
                             <select class="form-select" id="package_payment_id" name="package_payment_id" required>
-                                <option value="choose">{{ trans('admin-auth.choose_package_payment') }}</option>
                                 @foreach($packages as $package)
-                                    <option value="{{ $package->id }}">{{ $package->title_package }}</option>
+                                    <option value="{{ $package->id }}" {{ $checkout->package_payment_id == $package->id ? 'selected' : '' }}>{{ $package->title_package }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -68,8 +66,8 @@
                         <div class="mb-3 col-md-12">
                             <label for="checkout_status" class="form-label">{{ trans('admin-auth.checkout_status') }} *</label>
                             <select class="form-select" id="checkout_status" name="checkout_status" required>
-                                <option value="Paid">{{trans('admin-auth.paid')}}</option>
-                                <option value="Pending">{{trans('admin-auth.pending')}}</option>
+                                <option value="Paid" {{ $checkout->checkout_status == "Paid" ? 'selected' : '' }}>{{trans('admin-auth.paid')}}</option>
+                                <option value="Pending" {{ $checkout->checkout_status == "Pending" ? 'selected' : '' }}>{{trans('admin-auth.pending')}}</option>
                             </select>
                         </div>
                     </div>
@@ -85,19 +83,7 @@
 </div>
 @endsection
 @section('js')
-    {{-- CK_Editor --}}
-    <script>
-        ClassicEditor.create(document.querySelector('#content'), {
-                ckfinder: {
-                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
-                },
-                mediaEmbed: {
-                    previewsInData: true
-                }
-            }).catch(error => {
-                console.log('123456');
-            });
-    </script>
+    
 
     {{-- Input mask --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -108,25 +94,5 @@
         Inputmask().mask("input");
     </script>
     
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('frmCreatePackage').addEventListener('submit', function (event) {
-            var userSelect = document.getElementById('user_id');
-            var packageSelect = document.getElementById('package_payment_id');
-            var checkoutStatusSelect = document.getElementById('checkout_status');
-
-            if (
-                userSelect.value === 'choose' ||
-                packageSelect.value === 'choose' ||
-                checkoutStatusSelect.value === ''
-            ) {
-                event.preventDefault();
-                document.getElementById('alertMessageInfo').style.display = 'block';
-            } else {
-                document.getElementById('alertMessageInfo').style.display = 'none';
-            }
-        });
-    });
-</script>
 
 @endsection

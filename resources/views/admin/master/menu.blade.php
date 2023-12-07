@@ -82,7 +82,7 @@
                     </li>
                     <li class="menu-item {{ request()->is('admin/payment-package-management/create') ? 'active' : '' }}">
                         <a href="{{ route('admin.payment_package.create') }}" class="menu-link text-white">
-                            <div data-i18n="New Payment">{{trans('admin-auth.new_payment')}}</div>
+                            <div data-i18n="New Payment">{{trans('admin-auth.new_package')}}</div>
                         </a>
                     </li>
                 </ul>

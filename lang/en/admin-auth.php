@@ -182,4 +182,9 @@ return [
     'package_user' => "Package Creator",
     'package_status' => 'Package Status',
 
+    'company' => 'Company',
+    'choose_company' => 'Choose Company',
+    'package_payment' => 'Package Payment',
+    'choose_package_payment' => 'Choose Package Payment',
+    'checkout_status' => 'Checkout Status',
 ];

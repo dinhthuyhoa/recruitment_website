@@ -6,7 +6,7 @@
     <!-- Hoverable Table rows -->
 
     <div class="card">
-        <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">{{trans('admin-auth.recruitment_post_list')}}</h5>
+        <h5 class="card-header text-uppercase fw-bold" style="color: #C07F00;">{{trans('admin-auth.payment_management_list')}}</h5>
         <div class="table-responsive text-nowrap m-3">
             <table id="tableRecruitmentPostList" class="table table-hover" style="width: 100%">
                 <thead>
@@ -25,7 +25,7 @@
                         <tr>
                             <td>
                                 
-                                <a href="{{ route('admin.posts.recruitment.edit', $payment) }}" class="fw-bold fs-6">
+                                <a href="{{ route('admin.payment_management.edit', $payment) }}" class="fw-bold fs-6">
                                     {{ $payment->checkout_type }}
                                 </a>
                             </td>

@@ -57,7 +57,7 @@
                             <div class="mb-3 col-md-6">
                                 <label for="email" class="form-label">{{trans('admin-auth.value_package')}} (VND) *</label>
                                 <input class="form-control" type="number" id="value_package" name="value_package" value=""
-                                    placeholder=""  style="height: 48px;"/>
+                                    placeholder=""  />
                             </div>
 
                             <div class="mb-3 col-md-6">
