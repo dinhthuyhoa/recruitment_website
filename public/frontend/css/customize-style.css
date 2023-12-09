@@ -61,7 +61,7 @@ html {
 .boxed-btn3:hover {
     background: #fff;
     border: 1px solid #c14c00;
-    color: var(--yellow) !important;
+    /* color: var(--yellow) !important; */
 }
 
 .boxed-btn4 {

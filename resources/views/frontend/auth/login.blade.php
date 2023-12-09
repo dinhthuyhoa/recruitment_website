@@ -65,12 +65,14 @@
 <body>
 
     <div class="limiter">
+
         <div class="container-login100">
+
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="https://media.istockphoto.com/id/1302836754/vector/symbol-of-people-connect-among-themselves-concept-of-teamwork-connection-communication-group.jpg?s=612x612&w=0&k=20&c=ooKtt0YbOmdYva872YZxQ-Upz-XEfaF7fOeQ2y7u7T8=" alt="IMG">
                 </div>
-
+                
                 <form class="login100-form validate-form" action="{{ route('login.submit') }}" method="post">
                     @csrf
                     <span class="login100-form-title">
@@ -94,6 +96,12 @@
                         <div id="errorAlert" class="alert alert-danger">
                             <p>{{trans('auth.message_error')}}</p>
                         </div>
+                    @endif
+                    @if(isset($errorMessagePending))
+                    
+                    <div id="$errorMessagePending" class="alert alert-danger">
+                        <p>{{trans('auth.message_account_pending')}}</p>
+                    </div>
                     @endif
                     <div class="wrap-input100 validate-input" data-validate="Valid username is required: email or phone">
                             <input class="input100" type="text" name="username" placeholder="{{ __('auth.username') }}">
@@ -149,6 +157,9 @@
     </script>
     <script>
         // Hide the alert after 5 seconds
+        setTimeout(function() {
+            $('#errorMessagePending').fadeOut('slow');
+        }, 3000);
         setTimeout(function() {
             $('#errorAlert').fadeOut('slow');
         }, 5000);

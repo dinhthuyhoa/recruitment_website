@@ -162,6 +162,17 @@ class AuthController extends Controller
                 'password' => 'required|string|min:6',
                 'password_verify' => 'required|string|same:password',
             ]);
+            $existingRecruiterPending = User::where(function ($query) use ($request) {
+                $query->where('phone', $request->phone)
+                    ->orWhere('email', $request->email);
+            })->where('role', UserRole::Recruiter)
+                ->where('status', 'Pending')
+                ->first();
+            // dd($existingRecruiterPending);
+            if ($existingRecruiterPending) {
+                $errorMessagePending = 'Chưa hoàn thành quá trình đăng ký. Vui lòng đăng nhập.';
+                return view('frontend.auth.login', compact('errorMessagePending'));
+            }
 
             $existingPhone = User::where('phone', $request->phone)->first();
             $existingEmail = User::where('email', $request->email)->first();
@@ -184,6 +195,8 @@ class AuthController extends Controller
                 $errorMessageMail = 'Email đã tồn tại trong hệ thống!';
                 return view('frontend.auth.register-recruiter', compact('errorMessageMail'));
             }
+
+            
 
             $new_user = User::create([
                 'name' => $request->fullname,

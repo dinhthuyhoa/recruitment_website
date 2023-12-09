@@ -22,6 +22,17 @@ return [
     'message_error' => 'The phone number/ email or password does not exist in the system!',
     'message_phone_email' => 'The phone number/ email or password existed in the system!',
 
+    'confirm_pay' => 'Agree to the subscription package',
+    'pay' => 'Pay with Momo',
+
+    'message_account_pending' => 'The account already exists and the registration process has not been completed. Please log in to continue the process!',
+
+    'i_agree' => 'I agree to',
+    'term' => 'the Terms of Service',
+    'with_portal' => 'of the Job Portal',
+
+    'alert_message_checked' => 'Please confirm your choice of subscription package before making payment!',
+    'alert_message_checked_register' => 'Please confirm and agree to the terms before making payment!'
     // 'message_email_error' => 'The email address does not exist in the system!',
     // 'message_password_error' => 'Account password is incorrect!'
 ];

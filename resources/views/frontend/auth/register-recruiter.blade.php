@@ -99,7 +99,7 @@
                         alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form" action="{{ route('register.submit') }}" method="post">
+                <form class="login100-form validate-form" id="registerForm" action="{{ route('register.submit') }}" method="post">
                     @csrf
                     <span class="login100-form-title">
                         {{ __('auth.register') }}
@@ -163,7 +163,7 @@
                             </span>
                         </div>
 
-                    
+
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="password"
@@ -191,19 +191,21 @@
                         @endif
 
                     </div>
-
+                    <div class="alert alert-danger" id="alertMessage" style="display: none;">
+                        {{trans('auth.alert_message_checked_register')}}
+                    </div>
                     <div class="wrap-input100 validate-input" data-validate="Check Register">
                         <label class="custom-checkbox">
-                            <input type="checkbox" name="recruiter" value="1" required>
-                            <span class="check-register">&nbsp; I agree to
-                                <a href="{{route('terms_of_service')}}">the Terms of Service</a>
-                                 of the Job Portal.</span>
+                            <input class="selected_register" type="checkbox" name="recruiter" value="1" >
+                            <span class="check-register">&nbsp; {{trans('auth.i_agree')}}
+                                <a href="{{route('terms_of_service')}}">{{trans('auth.term')}}</a>
+                                {{trans('auth.with_portal')}}.</span>
                         </label>
 
                     </div>
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
+                        <button class="login100-form-btn" form="registerForm">
                             {{ __('auth.register') }}
                         </button>
                     </div>
@@ -233,6 +235,8 @@
 
 
 
+
+
     <!--===============================================================================================-->
     <script src="{{ asset('frontend/login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
     <!--===============================================================================================-->
@@ -258,7 +262,30 @@
     </script>
     <!--===============================================================================================-->
     <script src="{{ asset('frontend/login/js/main.js') }}"></script>
+    <script>
+    $(document).ready(function () {
+        $("#registerForm").submit(function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
 
+        function validateForm() {
+            var selected_register = $(".selected_register:checked").val();
+            console.log(selected_register);
+            if (selected_register === undefined) { // Sửa đổi ở đây
+                $("#alertMessage").fadeIn();
+
+                setTimeout(function () {
+                    $("#alertMessage").fadeOut();
+                }, 10000);
+
+                return false;
+            }
+            return true;
+        }
+    });
+</script>
 </body>
 
 </html>

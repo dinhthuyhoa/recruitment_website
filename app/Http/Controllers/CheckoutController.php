@@ -135,37 +135,39 @@ class CheckoutController extends Controller
         return $result;
     }
     public function package_checkout_frontend(){
-        $packages = [
-            ['name' => '3 - Month Package', 'price' => 1500000, 'timeout' => 3],
-            ['name' => '6 - Month Package', 'price' => 2500000, 'timeout' => 6],
-            ['name' => '1 - Year Package', 'price' => 4500000, 'timeout' => 12],
-        ];
+        // $packages = [
+        //     ['name' => '3 - Month Package', 'price' => 1500000, 'timeout' => 3],
+        //     ['name' => '6 - Month Package', 'price' => 2500000, 'timeout' => 6],
+        //     ['name' => '1 - Year Package', 'price' => 4500000, 'timeout' => 12],
+        // ];
+        $packages = PackagePayment::where('package_status', '=', 'active')->get();
+        // dd($packages);
         return view('frontend.auth.checkout', compact('packages'));
     }
 
     public function momo_payment(Request $request) {
         
         $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-        
+
         $selectedPackageJson = $request->input('selected_package');
         $selectedPackage = json_decode($selectedPackageJson, true);
-
-        $package_name = $selectedPackage['name'];
-        $package_timeout = $selectedPackage['timeout'];
-
+        // dd($selectedPackage);
+        $package_name = $selectedPackage['title_package'];
+        $package_timeout = $selectedPackage['package_date'];
         // $amount = $selectedPackage['price'];
 
         $partnerCode = "MOMOBKUN20180529";
         $accessKey = "klm05TvNBzhg7h7j";
         $secretKey = "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa";
         
-        $orderInfo = 'Payment for ' . $package_name .'-'. $package_timeout . ' mo';
-        $amount = (string) $selectedPackage['price'];
+        $package_id = $selectedPackage['id'];
+        $orderInfo = $package_name .' - '. $package_timeout . ' mo' . ' - '. $package_id;
+        // dd($orderInfo);
+        $amount = (string) $selectedPackage['value_package'];
         // dd($amount);
         $orderId = time() ."";
         $returnUrl = route('momo.callback');
         $notifyurl = "http://127.0.0.1:8000/";
-        // Lưu ý: link notifyUrl không phải là dạng localhost
         $bankCode = "SML";
         
         $requestId = time() . "";
@@ -221,6 +223,7 @@ class CheckoutController extends Controller
     public function momo_payment_callback(Request $request)
 {
     $returnUrl = $request->all();
+    // dd($returnUrl);
     // $jsonResult = json_decode($request->getContent(), true);
     // Check if the payment was successful
     if ($returnUrl['errorCode'] == 0) {
@@ -230,10 +233,10 @@ class CheckoutController extends Controller
 
         // Assuming Momo provides orderInfo in a format like 'Payment for {package_name}-{package_timeout} mo'
         $timeoutInfo = $this->extractTimeoutInfo($returnUrl['orderInfo']);
-        // dd($timeoutInfo);
+        // dd($timeoutInfo['package_name']);
         $valueCheckout = $returnUrl['amount'];
         // $user = User::find(session('user_id'));
-        // dd($user);
+        // dd($valueCheckout);
         if ($timeoutInfo) {
             $timeout = $timeoutInfo['timeout'];
             $checkoutExpiredTime = $dateTime->addMonths($timeout);
@@ -241,7 +244,7 @@ class CheckoutController extends Controller
             // dd($user);
             $checkout = Checkout::create([
                 'user_id' => $user['id'],
-                'checkout_type' => $returnUrl['orderInfo'],
+                'checkout_type' => $timeoutInfo['package_name'],
                 'checkout_date' => $formattedTime,
                 'checkout_expired_time' => $checkoutExpiredTime,
                 'value_checkout' => $valueCheckout,
@@ -268,7 +271,26 @@ class CheckoutController extends Controller
         return response()->json(['error' => 'Payment failed.']);
     }
 }
-    
+public function extractTimeoutInfo($orderInfo)
+{
+    // Define a regular expression pattern to match "{package_name} - {package_timeout} mo - {package_id}"
+    $pattern = '/(.+) - (\d+) mo - (\d+)/';
+
+    // Use preg_match to extract matches
+    if (preg_match($pattern, $orderInfo, $matches)) {
+        // Assuming the first captured group in the regex is the package_name
+        $packageName = $matches[1];
+        $timeout = $matches[2];
+        $packageId = $matches[3];
+
+        // You can return an associative array with package_name, timeout, and package_id
+        return ['package_name' => $packageName, 'timeout' => $timeout, 'package_id' => $packageId];
+    }
+
+    return null;
+}
+
+
     
     public function vnpay_payment(Request $request) {
         $vnp_Url = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
@@ -386,16 +408,16 @@ class CheckoutController extends Controller
     }
 }
 
-    private function extractTimeoutInfo($orderInfo)
-    {
-        $pattern = '/(\d+) mo/';
-        preg_match($pattern, $orderInfo, $matches);
+    // private function extractTimeoutInfo($orderInfo)
+    // {
+    //     $pattern = '/(\d+) mo/';
+    //     preg_match($pattern, $orderInfo, $matches);
     
-        if (isset($matches[1])) {
-            return ['timeout' => (int)$matches[1]];
-        }
+    //     if (isset($matches[1])) {
+    //         return ['timeout' => (int)$matches[1]];
+    //     }
     
-        return null;
-    }
+    //     return null;
+    // }
 
 }
