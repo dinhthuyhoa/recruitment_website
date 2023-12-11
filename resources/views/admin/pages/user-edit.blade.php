@@ -69,19 +69,22 @@
                                 <input type="text" class="form-control" id="address" name="address"
                                     value="{{ $user->address }}" placeholder="{{trans('admin-auth.address')}}" />
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="birthday" class="form-label">{{trans('admin-auth.birthday')}}</label>
-                                <input class="form-control" type="date" id="birthday" name="birthday"
-                                    placeholder="dd/mm/yyyy" value={{ date('Y-m-d', strtotime($user->birthday)) }} />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="gender" class="form-label">{{trans('admin-auth.gender')}}</label>
-                                <select id="gender" name="gender" class="select2 form-select">
-                                    <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>{{trans('admin-auth.male')}}</option>
-                                    <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>{{trans('admin-auth.female')}}
-                                    </option>
-                                </select>
-                            </div>
+
+                            @if($user->role != 'recruiter')
+                                <div class="mb-3 col-md-6">
+                                    <label for="birthday" class="form-label">{{trans('admin-auth.birthday')}}</label>
+                                    <input class="form-control" type="date" id="birthday" name="birthday"
+                                        placeholder="dd/mm/yyyy" value={{ date('Y-m-d', strtotime($user->birthday)) }} />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="gender" class="form-label">{{trans('admin-auth.gender')}}</label>
+                                    <select id="gender" name="gender" class="select2 form-select">
+                                        <option value="Male" {{ $user->gender == 'Male' ? 'selected' : '' }}>{{trans('admin-auth.male')}}</option>
+                                        <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>{{trans('admin-auth.female')}}
+                                        </option>
+                                    </select>
+                                </div>
+                            @endif
                             <div class="mb-3 col-md-6">
                                 <label for="status" class="form-label">{{trans('admin-auth.status')}}</label>
                                 <select id="status" name="status" class="select2 form-select">
@@ -102,7 +105,7 @@
                 </div>
                 <!-- /Account -->
             </div>
-            @if (Auth::user()->role == \App\Enums\UserRole::Administrator )
+            @if (Auth::user()->role == \App\Enums\UserRole::Administrator && $user->status == 'Active')
                 <div class="card">
                     <h5 class="card-header">{{trans('admin-auth.disable_account')}}</h5>
                     <div class="card-body">

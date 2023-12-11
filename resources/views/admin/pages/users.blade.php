@@ -47,11 +47,13 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('users.edit', $user) }}"><i
                                                 class="bx bx-edit-alt me-1"></i> {{trans('admin-auth.edit')}}</a>
+                                        @if($user->status == 'Active')
                                         <button class="dropdown-item" data-bs-toggle="modal"
                                             data-bs-target="#modalConfirmDeleteUser-{{ $user->id }}"
                                             data-id="{{ $user->id }}">
-                                            <i class="bx bx-trash me-1"></i>
-                                            {{trans('admin-auth.delete')}}</button>
+                                            <i class="fa-solid fa-user-large-slash"></i>
+                                            {{trans('admin-auth.disable_account')}}</button>
+                                        @endif
                                     </div>
                                 </div>
                             </td>
@@ -62,27 +64,25 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.delete_user')}}
+                                        <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.disable_account')}}
                                             <b>{{ $user->name }}</b>
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <form id="formDelUser-{{ $user->id }}"
-                                            action="{{ route('users.destroy', $user) }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <p>{{trans('admin-auth.delete_user_confirmed')}}</p>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button form="formDelUser-{{ $user->id }}" type="submit"
-                                            class="btn btn-danger">{{trans('admin-auth.yes')}}</button>
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                        {{trans('admin-auth.no')}}
-                                        </button>
-                                    </div>
+                                    <form id="formDelUser-{{ $user->id }}" action="{{ route('users.disable', $user) }}" method="post">
+                                        @method('patch')
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="hidden" name="status" value="Pending">
+                                            <input class="form-check-input" type="hidden" name="accountActivation" id="accountActivation" value="on" />
+                                            <p>{{ trans('admin-auth.disable_account_confirm') }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button form="formDelUser-{{ $user->id }}" type="submit" class="btn btn-danger">{{ trans('admin-auth.disable_account_yes') }}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ trans('admin-auth.no') }}</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
