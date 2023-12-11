@@ -70,8 +70,8 @@
         @if (Auth::check() && Auth::user()->role == \App\Enums\UserRole::Administrator)
             <li class="menu-item {{ request()->is('admin/payment-package-management*') ? 'open active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
-                    <!-- <i class="menu-icon tf-icons bx bx-dock-top"></i> -->
-                    <i class="fa-regular fa-credit-card menu-icon tf-icons"></i>
+                    <i class="fa-solid fa-ticket menu-icon tf-icons"></i>
+                    <!-- <i class="fa-regular fa-credit-card menu-icon tf-icons"></i> -->
                     <div data-i18n="Payment Package management">{{trans('admin-auth.payment_package_management')}}</div>
                 </a>
                 <ul class="menu-sub">

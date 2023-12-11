@@ -173,6 +173,7 @@ return [
     'title_package' => 'Title of the Package',
     'value_package' => 'Value of the Package',
     'package_date' => 'Package Duration',
+    'choose_package' => 'Choose package duration',
     'three_mo' => '3 Months',
     'six_mo' => '6 Months',
     'twelve_mo' => '12 Months',

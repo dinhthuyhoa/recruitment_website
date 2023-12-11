@@ -62,7 +62,8 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="position" class="form-label">{{ trans('admin-auth.package_date') }} *</label>
-                                <select class="form-select" id="package_date" name="package_date" required>
+                                <select class="form-select py-0" id="package_date" name="package_date" style="height: 58%;" required>
+                                    <option value="choose">{{ trans('admin-auth.choose_package') }}</option>
                                     <option value="3">{{ trans('admin-auth.three_mo') }}</option>
                                     <option value="6">{{ trans('admin-auth.six_mo') }}</option>
                                     <option value="12">{{ trans('admin-auth.twelve_mo') }}</option>

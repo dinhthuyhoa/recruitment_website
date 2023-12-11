@@ -212,23 +212,5 @@ class AuthController extends Controller
             return redirect()->route('register.checkout')->with('success', 'Đăng ký thành công, chờ admin duyệt tài khoản!');
         }
         
-        // else {
-        //     $login_email = [
-        //         'email' => $request->phone,
-        //         'password' => $request->password,
-        //     ];
-    
-        //     $login_phone = [
-        //         'phone' => $request->phone,
-        //         'password' => $request->password
-        //     ];
-    
-    
-        //     if ((Auth::attempt($login_email) || Auth::attempt($login_phone))) {
-        //         return redirect()->route('profile', Auth::user()->id)->with('success', 'Đăng ký thành công, hãy cập nhật hồ sơ cá nhân nhé!');
-        //     } else {
-        //         return redirect()->route('login')->with('success', 'Đăng ký thành công, hãy đăng nhập để vào hệ thống!');
-        //     }
-        // }
     }
 }

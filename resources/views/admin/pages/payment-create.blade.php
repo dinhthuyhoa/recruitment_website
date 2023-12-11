@@ -33,7 +33,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mb-4">
-            <h5 class="card-header">{{ trans('admin-auth.new_package') }}</h5>
+            <h5 class="card-header">{{ trans('admin-auth.new_payment') }}</h5>
             <!-- Account -->
             <hr class="my-0" />
             <div class="card-body">

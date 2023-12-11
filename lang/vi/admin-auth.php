@@ -174,6 +174,7 @@ return [
     'title_package' => 'Tiêu đề Gói',
     'value_package' => 'Giá trị Gói',
     'package_date' => 'Thời lượng Gói',
+    'choose_package' => 'Chọn thời lượng gói',
     'three_mo' => '3 Tháng',
     'six_mo' => '6 Tháng',
     'twelve_mo' => '12 Tháng',
