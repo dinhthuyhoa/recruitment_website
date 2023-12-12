@@ -41,6 +41,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+        $existingPhone = User::where('phone', $request->phone)->first();
+        $existingEmail = User::where('email', $request->email)->first();
+    
+        // dd($existingEmail);
+        if ($existingPhone && $existingEmail) {
+            // Both phone and email exist
+            $errorMessagePhone = 'Số điện thoại đã tồn tại trong hệ thống!';
+            $errorMessageMail = 'Email đã tồn tại trong hệ thống!';
+            session(['errorMessagePhone' => $errorMessagePhone]);
+            session(['errorMessageMail' => $errorMessageMail]);
+            return view('admin.pages.users-create', compact('errorMessagePhone', 'errorMessageMail'));
+        }
+        
+        if ($existingPhone) {
+            session()->put('errorMessagePhone', 'Số điện thoại đã tồn tại trong hệ thống!');
+            return view('admin.pages.users-create');
+        }
+        
+        
+        if ($existingEmail) {
+            session()->put('errorMessageMail', 'Số điện thoại đã tồn tại trong hệ thống!');
+
+            if (session()->has('errorMessageMail')) {
+                $errorMessageMail = session('errorMessageMail');
+                return view('admin.pages.users-create', compact('errorMessageMail'));
+            }
+
+        }
         $new_user = User::create($request->all());
 
         if ($request->hasFile('avatar')) {

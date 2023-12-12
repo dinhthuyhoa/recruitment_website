@@ -1,4 +1,4 @@
-@extends('admin.master.master');
+@extends('admin.master.master')
 
 {{-- @section('title', __('message.admin.dashboard.title')) --}}
 
@@ -39,13 +39,13 @@
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
                             <div class="mb-3 col-md-6">
-                                <label for="fullname" class="form-label">{{trans('admin-auth.full_name')}}</label>
+                                <label for="fullname" class="form-label">{{trans('admin-auth.full_name')}} *</label>
                                 <input class="form-control" type="text" id="fullname" name="name"
                                     value="{{ $user->name }}" autofocus />
                             </div>
                            <div class="mb-3 col-md-6">
-                                <label class="form-label" for="country">{{trans('admin-auth.role')}}</label>
-                                <select id="country" class="select2 form-select" name="role">
+                                <label class="form-label" for="country">{{trans('admin-auth.role')}} *</label>
+                                <select id="country" class="select2 form-select py-0" style="height: 58%;" name="role">
                                     @foreach (\App\Enums\UserRole::toSelectArray() as $k => $role)
                                         <option value="{{ $k }}" {{ $user->role == $k ? 'selected' : '' }}>
                                             {{ $role }}
@@ -55,12 +55,13 @@
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label for="phone" class="form-label">{{trans('admin-auth.phone')}}</label>
+                                <label for="phone" class="form-label">{{trans('admin-auth.phone')}} *</label>
                                 <input class="form-control" type="text" name="phone" id="phone"
                                     value="{{ $user->phone }}" />
+                                    <small><span id="err-phone" class="text-danger"></span></small>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label for="email" class="form-label">{{trans('admin-auth.email')}}</label>
+                                <label for="email" class="form-label">{{trans('admin-auth.email')}} *</label>
                                 <input class="form-control" readonly type="text" id="email" name="email"
                                     value="{{ $user->email }}" placeholder="{{trans('admin-auth.email')}}..." />
                             </div>
@@ -71,11 +72,13 @@
                             </div>
 
                             @if($user->role != 'recruiter')
-                                <div class="mb-3 col-md-6">
-                                    <label for="birthday" class="form-label">{{trans('admin-auth.birthday')}}</label>
-                                    <input class="form-control" type="date" id="birthday" name="birthday"
-                                        placeholder="dd/mm/yyyy" value={{ date('Y-m-d', strtotime($user->birthday)) }} />
-                                </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="birthday" class="form-label">{{trans('admin-auth.birthday')}}</label>
+                                <input class="form-control" type="date" id="birthday" name="birthday"
+                                    placeholder="dd/mm/yyyy" value="{{ date('Y-m-d', strtotime($user->birthday)) }}"
+                                    max="{{ date('Y-m-d') }}" />
+                            </div>
+
                                 <div class="mb-3 col-md-6">
                                     <label for="gender" class="form-label">{{trans('admin-auth.gender')}}</label>
                                     <select id="gender" name="gender" class="select2 form-select">
@@ -146,4 +149,43 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('js')
+
+<script>
+    $("#frmEditUser").submit(function (event) {
+            if (!checkSubmit() ) {
+                event.preventDefault();
+            }
+        });
+        function checkSubmit() {
+            var name  = $("#fullname").val();
+            var phone = $("#phone").val();
+            var email = $("#email").val();
+
+            var status = $("#status").val();
+            if (!name || !phone || !email ||  !status ) {
+                $("#alertMessage").fadeIn();
+
+                    setTimeout(function () {
+                        $("#alertMessage").fadeOut();
+                    }, 10000);
+
+                return false;
+            }
+
+
+            var numberRegex = /^[0-9+()-]+$/;
+            if (!numberRegex.test(phone)) {
+                $('#err-phone').text('Số điện thoại không hợp lệ. Không được chứa chữ và ký tự đặc biệt!');
+                setTimeout(function () {
+                    $('#err-phone').text('');
+                }, 3000); 
+                return false;
+            }
+
+            return true;
+        }
+</script>
 @endsection

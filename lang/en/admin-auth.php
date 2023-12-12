@@ -119,7 +119,7 @@ return [
     "create_user"=> "Create User",
     "male"=> "Male",
     "female"=> "Female",
-
+    "alert_message_create_user" => "Please fill in the required information fields!",
     // user-edit.blade.php
     "user_details"=> "User Details",
     "disable_account"=> "Disable Account",

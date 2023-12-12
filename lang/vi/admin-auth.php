@@ -127,6 +127,8 @@ return [
     "disable_account_confirm" => "Bạn có chắc chắn muốn vô hiệu hóa tài khoản của bạn không?",
     "disable_account_de" => "Hãy chắc chắn việc vô hiệu hóa tài khoản này. Nó ảnh hưởng đến việc sử dụng tài khoản này trên hệ thống.",
     "disable_account_yes" => "Tôi xác nhận vô hiệu hóa tài khoản",
+    "alert_message_create_user" => "Vui lòng điền các trường thông tin bắt buộc!",
+
 
     "message_image_upload"=>"Vui lòng tải ảnh lên!",
     "button_close"=>"Đóng",
