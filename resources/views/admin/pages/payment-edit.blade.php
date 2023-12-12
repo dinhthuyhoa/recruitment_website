@@ -33,7 +33,11 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card mb-4">
-            <h5 class="card-header">{{ trans('admin-auth.new_package') }}</h5>
+            @if($checkout->checkout_status == 'Paid')
+                <h5 class="card-header">{{ trans('admin-auth.view_checkout') }}</h5>
+            @else
+                <h5 class="card-header">{{ trans('admin-auth.edit_checkout') }}</h5>
+            @endif
             <!-- Account -->
             <hr class="my-0" />
             <div class="card-body">
@@ -46,23 +50,21 @@
                     <div class="row">
                         <div class="mb-3 col-md-12">
                             <label for="user_id" class="form-label">{{ trans('admin-auth.company') }} *</label>
-                            <select class="form-select" id="user_id" name="user_id" required>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}" {{ $checkout->user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="user_id" name="user_id" value="{{ $user->name }}" readonly>
                         </div>
 
                         <div class="mb-3 col-md-12">
                             <label for="package_payment_id" class="form-label">{{ trans('admin-auth.package_payment') }} *</label>
-                            <select class="form-select" id="package_payment_id" name="package_payment_id" required>
-                                @foreach($packages as $package)
-                                    <option value="{{ $package->id }}" {{ $checkout->package_payment_id == $package->id ? 'selected' : '' }}>{{ $package->title_package }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="package_payment_id" name="package_payment_id" value="{{ $package->title_package }}" readonly>
                         </div>
-                        
 
+                        @if($checkout->checkout_status == "Paid")
+                            <div class="mb-3 col-md-12">
+                                <label for="checkout_status" class="form-label">{{ trans('admin-auth.package_payment') }} *</label>
+                                <input type="text" class="form-control" id="checkout_status" name="checkout_status" value="{{ $checkout->checkout_status }}" readonly>
+                            </div>
+
+                        @else
                         <div class="mb-3 col-md-12">
                             <label for="checkout_status" class="form-label">{{ trans('admin-auth.checkout_status') }} *</label>
                             <select class="form-select" id="checkout_status" name="checkout_status" required>
@@ -70,11 +72,15 @@
                                 <option value="Pending" {{ $checkout->checkout_status == "Pending" ? 'selected' : '' }}>{{trans('admin-auth.pending')}}</option>
                             </select>
                         </div>
+                        <div class="mt-2">
+                            <button type="submit" name="submit" value="redirect" form="frmCreatePackage"
+                                class="btn btn-primary me-2">{{trans('admin-auth.save_changes')}}</button>
+                            <button type="reset" class="btn btn-outline-secondary">{{trans('admin-auth.cancle')}}</button>
+                        </div>
+                        @endif
                     </div>
-
-                    <div class="mt-2">
-                        <button type="submit" name="submit" value="redirect" form="frmCreatePackage" class="btn btn-primary me-2">{{ trans('admin-auth.create_post') }}</button>
-                    </div>
+                    
+                    
                 </form>
             </div>
             <!-- /Account -->

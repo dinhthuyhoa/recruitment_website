@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="mt-2">
-                        <button type="submit" name="submit" value="redirect" form="frmCreatePackage" class="btn btn-primary me-2">{{ trans('admin-auth.create_post') }}</button>
+                        <button type="submit" name="submit" value="redirect" form="frmCreatePackage" class="btn btn-primary me-2">{{ trans('admin-auth.create_checkout') }}</button>
                     </div>
                 </form>
             </div>

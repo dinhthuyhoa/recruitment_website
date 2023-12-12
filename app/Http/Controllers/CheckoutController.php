@@ -39,18 +39,18 @@ class CheckoutController extends Controller
         // dd($request);
         $package = PackagePayment::find($request->package_payment_id);
         // dd($package);
-        $dateTime = Carbon::now();
-        $checkoutExpiredTime = $dateTime->addMonths($package->package_date);
-        // dd($checkoutExpiredTime);
+        // $dateTime = now();
+        $checkoutExpiredTime = now()->addMonths($package->package_date);
+        // dd($dateTime);
         $checkout_new = Checkout::create([
             'user_id' => $request->user_id,
             'package_payment_id'=> $request->package_payment_id,
             'checkout_type' => $package->title_package,
             'post_content' => $package->package_content,
-            'checkout_date' => $dateTime,
+            'checkout_date' => now(),
             'checkout_expired_time' => $checkoutExpiredTime,
             'value_checkout' => $package->value_package,
-            'checkout_status' => "Paid",
+            'checkout_status' => $request->checkout_status,
         ]);
         if ($request->submit == 'redirect') {
 
@@ -58,11 +58,12 @@ class CheckoutController extends Controller
 
             if (session()->has('successMessage')) {
                 $successMessage = session('successMessage');
-                $packages = PackagePayment::where('package_status', '=', 'active')->get();
-
-                $users = User::where('role', '=', 'recruiter')->get();
                 $checkout = Checkout::find($checkout_new->id);
-                return view('admin.pages.payment-edit', compact('users', 'packages' ,'checkout', 'successMessage'));
+                $package = PackagePayment::find($checkout['package_payment_id']);
+
+                $user = User::find($checkout['user_id']);
+                // dd($users);
+                return view('admin.pages.payment-edit', compact('user', 'package' ,'checkout', 'successMessage'));
             }
 
         } else {
@@ -72,31 +73,45 @@ class CheckoutController extends Controller
     }
 
     public function admin_payment_management_edit ($id) {
-        $packages = PackagePayment::where('package_status', '=', 'active')->get();
-        $users = User::where('role', '=', 'recruiter')->get();
+        // $packages = PackagePayment::where('package_status', '=', 'active')->get();
         $checkout = Checkout::find($id);
+        // dd($checkout);
+        $package = PackagePayment::find($checkout['package_payment_id']);
+        $user = User::find($checkout['user_id']);
+        // dd($package, $user);
         // $payment = $checkout;
-        return view('admin.pages.payment-edit', compact('users', 'packages' ,'checkout'));
+        return view('admin.pages.payment-edit', compact('user', 'package' ,'checkout'));
     }
 
     public function admin_payment_management_update (Request $request, $id) {
         // dd($request);
-        $package = PackagePayment::find($request->package_payment_id);
+        // $package = PackagePayment::find($request->package_payment_id);
         // dd($package);
-        $dateTime = Carbon::now();
-        $checkoutExpiredTime = $dateTime->addMonths($package->package_date);
+
+        // $dateTime = Carbon::now();
+        // $checkoutExpiredTime = $dateTime->addMonths($package->package_date);
         // dd($checkoutExpiredTime);
         $checkout_new = Checkout::find($id);
         // dd($checkout_new);
+        // $checkout_new->update([
+        //     'user_id' => $request->user_id,
+        //     'package_payment_id'=> $request->package_payment_id,
+        //     'checkout_type' => $package->title_package,
+        //     'post_content' => $package->package_content,
+        //     'checkout_date' => $dateTime,
+        //     'checkout_expired_time' => $checkoutExpiredTime,
+        //     'value_checkout' => $package->value_package,
+        //     'checkout_status' => "Paid",
+        // ]);
         $checkout_new->update([
-            'user_id' => $request->user_id,
-            'package_payment_id'=> $request->package_payment_id,
-            'checkout_type' => $package->title_package,
-            'post_content' => $package->package_content,
-            'checkout_date' => $dateTime,
-            'checkout_expired_time' => $checkoutExpiredTime,
-            'value_checkout' => $package->value_package,
-            'checkout_status' => "Paid",
+            // 'user_id' => $request->user_id,
+            // 'package_payment_id' => $request->package_payment_id,
+            // 'checkout_type' => $package->title_package,
+            // 'post_content' => $package->package_content,
+            // 'checkout_date' => $dateTime,
+            // 'checkout_expired_time' => $checkoutExpiredTime,
+            // 'value_checkout' => $package->value_package,
+            'checkout_status' => $request->checkout_status,
         ]);
         if ($request->submit == 'redirect') {
 
@@ -104,11 +119,11 @@ class CheckoutController extends Controller
 
             if (session()->has('successMessage')) {
                 $successMessage = session('successMessage');
-                $packages = PackagePayment::where('package_status', '=', 'active')->get();
-
-                $users = User::where('role', '=', 'recruiter')->get();
                 $checkout = Checkout::find($checkout_new->id);
-                return view('admin.pages.payment-edit', compact('users', 'packages' ,'checkout', 'successMessage'));
+                $package = PackagePayment::find($checkout['package_payment_id']);
+
+                $user = User::find($checkout['user_id']);
+                return view('admin.pages.payment-edit', compact('user', 'package' ,'checkout', 'successMessage'));
             }
 
         } else {

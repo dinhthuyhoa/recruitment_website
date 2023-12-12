@@ -120,6 +120,7 @@ return [
     "create_user" => "Tạo Người dùng",
     "male" => "Nam",
     "female" => "Nữ",
+    "choose_gender" => "Chọn giới tính",
 
     // user-edit.blade.php
     "user_details" => "Chi tiết Người dùng",
@@ -161,12 +162,15 @@ return [
     "payment_management_list" => "Danh sách thanh toán",
     "new_payment" => "Tạo đơn thanh toán mới",
 
+    "edit_checkout" => "Chỉnh sửa đơn thanh toán",
     "checkout_type" => "Gói thanh toán",
     "checkout_user" => "Người thanh toán",
     "checkout_value" => "Chi phí thanh toán",
     "checkout_date" => "Ngày thanh toán",
     "checkout_expired_time" => "Ngày hết hạn",
     "paid" => "Đã thanh toán",
+    "create_checkout" => "Tạo đơn thanh toán",
+
 
     "payment_package_management" => "Quản lý gói thanh toán",
     "payment_package_list" => "Danh sách gói thanh toán",
@@ -198,4 +202,6 @@ return [
     'disable_package' => 'Vô hiệu hóa gói',
     'disable_package_confirm' => 'Bạn có chắc chắn muốn vô hiệu hóa gói này?',
     'disable_package_yes' => 'Tôi xác nhận vô hiệu hóa gói này',
+
+    'view_checkout' => 'Chi tiết đơn thanh toán',
 ];

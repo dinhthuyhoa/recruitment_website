@@ -106,7 +106,7 @@
                 </li>
             </ul>
         </li>
-        @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator || Auth::user()->role == \App\Enums\UserRole::SubAdmin))
+        @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator ))
             <li class="menu-item {{ request()->is('admin/posts/news*') ? 'open active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle text-white">
                     <i class="menu-icon tf-icons bx bx-news"></i>

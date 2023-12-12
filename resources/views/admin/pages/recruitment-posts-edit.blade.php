@@ -61,8 +61,7 @@
                                     <p class="text-muted mb-0">{{trans('admin-auth.upload_img_post')}}</p>
                                 </div>
                             </div>
-                            @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator
-                                                    || Auth::user()->role == \App\Enums\UserRole::SubAdmin))
+                            @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator))
                                 <div class="mb-3 col-md-6">
                                     <label for="title" class="form-label">{{trans('admin-auth.status')}}</label>
                                     <select name="post_status" id="post_status" class="form-control">

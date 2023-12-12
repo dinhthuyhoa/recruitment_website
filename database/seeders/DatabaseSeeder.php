@@ -50,18 +50,18 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
                 'role' => UserRole::Administrator
             ],
-            [
-                'name' => 'Dinh Thuy Hoa',
-                'email' => 'dinhthuyhoa@gmail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('123456'),
-                'phone' => 'sub-admin',
-                'status' => 'Active',
-                'gender' => 'Female',
-                'birthday' => '2001-08-16',
-                'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
-                'role' => UserRole::SubAdmin
-            ],
+            // [
+            //     'name' => 'Dinh Thuy Hoa',
+            //     'email' => 'dinhthuyhoa@gmail.com',
+            //     'email_verified_at' => now(),
+            //     'password' => Hash::make('123456'),
+            //     'phone' => 'sub-admin',
+            //     'status' => 'Active',
+            //     'gender' => 'Female',
+            //     'birthday' => '2001-08-16',
+            //     'avatar' => 'avatar/' . $faker->image('public/storage/avatar', 400, 300, false),
+            //     'role' => UserRole::SubAdmin
+            // ],
             
             [
                 'name' => 'FPT Corporation',

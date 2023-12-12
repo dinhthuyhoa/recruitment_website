@@ -62,8 +62,7 @@
                         enctype="multipart/form-data" onsubmit="return checkSubmit()">
                         @csrf
                         @if (Auth::check() &&
-                                (Auth::user()->role == \App\Enums\UserRole::Administrator ||
-                                    Auth::user()->role == \App\Enums\UserRole::SubAdmin))
+                                (Auth::user()->role == \App\Enums\UserRole::Administrator))
                             <div class="mb-3 col-md-6">
                                 <label for="title" class="form-label">{{trans('admin-auth.status')}}</label>
                                 <select name="post_status" id="post_status" class="form-control">

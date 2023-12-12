@@ -120,6 +120,8 @@ return [
     "male"=> "Male",
     "female"=> "Female",
     "alert_message_create_user" => "Please fill in the required information fields!",
+    "choose_gender" => "Choose Gender",
+
     // user-edit.blade.php
     "user_details"=> "User Details",
     "disable_account"=> "Disable Account",
@@ -158,12 +160,14 @@ return [
     "payment_management_list" => "Payment list",
     "new_payment" => "New payment",
 
+    "edit_checkout" => "Edit Checkout",
     "checkout_type" => "Payment Package",
     "checkout_user" => "Payer",
     "checkout_value" => "Payment Amount",
     "checkout_date" => "Date of Payment",
     "checkout_expired_time" => "Expiration Date",
     "paid" => "Paid",
+    "create_checkout" => "Create Checkout",
 
     "payment_package_management" => "Payment Package Management",
     "payment_package_list" => "Payment Package List",
@@ -180,6 +184,7 @@ return [
     'package_content' => 'Package Content',
     'create_post' => 'Create Post',
 
+
     'package_user' => "Package Creator",
     'package_status' => 'Package Status',
 
@@ -195,4 +200,5 @@ return [
     'disable_package_confirm' => 'Are you sure you want to disable this package?',
     'disable_package_yes' => 'I confirm disable this package',
 
+    'view_checkout' => 'Payment Details',
 ];

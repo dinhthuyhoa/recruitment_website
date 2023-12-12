@@ -11,8 +11,8 @@
             <table id="tableRecruitmentPostList" class="table table-hover" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>{{trans('admin-auth.checkout_type')}}</th>
                         <th>{{trans('admin-auth.checkout_user')}}</th>
+                        <th>{{trans('admin-auth.checkout_type')}}</th>
                         <th>{{trans('admin-auth.status')}}</th>
                         <th>{{trans('admin-auth.checkout_value')}}</th>
                         <th>{{trans('admin-auth.checkout_date')}}</th>
@@ -23,15 +23,16 @@
                 <tbody class="table-border-bottom-0">
                     @foreach ($payment_list as $payment)
                         <tr>
+                            <td class="fs-6">
+                                {{ $payment->user->name }}
+                            </td>
                             <td>
                                 
                                 <a href="{{ route('admin.payment_management.edit', $payment) }}" class="fw-bold fs-6">
                                     {{ $payment->checkout_type }}
                                 </a>
                             </td>
-                            <td class="fs-6">
-                                {{ $payment->user->name }}
-                            </td>
+                            
                             
                             <td>
                                 @if ($payment->checkout_status == 'Paid')
@@ -56,10 +57,17 @@
                                         data-bs-toggle="dropdown">
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
+                                    @if($payment->checkout_status == 'Pending')
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('admin.posts.recruitment.edit', $payment) }}">
+                                        <a class="dropdown-item" href="{{ route('admin.payment_management.edit', $payment) }}">
                                             <i class="bx bx-edit-alt me-1 fs-6"></i> {{trans('admin-auth.edit')}}</a>
                                     </div>
+                                    @else
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{ route('admin.payment_management.edit', $payment) }}">
+                                            <i class="bx bx-edit-alt me-1 fs-6"></i> {{trans('admin-auth.view_checkout')}}</a>
+                                    </div>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

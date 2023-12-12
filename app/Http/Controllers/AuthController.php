@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         if (
             Auth::check() &&
-            (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter || Auth::user()->role == UserRole::SubAdmin)
+            (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter)
         ) {
             return redirect()->route('admin.dashboard');
         }
@@ -47,7 +47,7 @@ class AuthController extends Controller
 
             if (
                 !(Auth::check() &&
-                    (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter || Auth::user()->role == UserRole::SubAdmin)
+                    (Auth::user()->role == UserRole::Administrator || Auth::user()->role == UserRole::Recruiter)
                 )
             ) {
                 Auth::logout();

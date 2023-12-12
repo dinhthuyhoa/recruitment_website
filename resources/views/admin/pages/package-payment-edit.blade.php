@@ -45,7 +45,7 @@
                         @csrf
                         
                     <!-- Account -->
-                    @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator || Auth::user()->role == \App\Enums\UserRole::SubAdmin))
+                    @if (Auth::check() && (Auth::user()->role == \App\Enums\UserRole::Administrator))
                                     <div class="mb-3 col-md-12">
                                         <label for="title" class="form-label">{{trans('admin-auth.status')}}</label>
                                         <select name="package_status" id="package_status" class="form-control">

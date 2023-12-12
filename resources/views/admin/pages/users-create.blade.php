@@ -93,6 +93,7 @@
                             <div class="mb-3 col-md-6">
                                 <label for="gender" class="form-label">{{trans('admin-auth.gender')}}</label>
                                 <select id="gender" name="gender" class="select2 form-select py-0" style="height: 58%;">
+                                    <option value="">{{trans('admin-auth.choose_gender')}}</option>
                                     <option value="{{trans('admin-auth.male')}}">{{trans('admin-auth.male')}}</option>
                                     <option value="{{trans('admin-auth.female')}}">{{trans('admin-auth.female')}}</option>
                                 </select>
@@ -102,11 +103,11 @@
                                 <label for="password" class="form-label">{{trans('admin-auth.password')}} *</label>
                                 <input type="password" class="form-control" id="password" name="password"
                                     value="" placeholder="{{trans('admin-auth.password')}}"  />
+                                    <small><span id="password-error" class="text-danger"></span></small>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="repassword" class="form-label">{{trans('admin-auth.re_password')}} *</label>
-                                <input class="form-control" type="password" id="repassword" name="repassword"
-                                    onkeyup="checkPasswordMatch();"  />
+                                <input class="form-control" type="password" id="repassword" name="repassword"  />
                                 <small><span id="err-repassword" class="text-danger"></span></small>
                             </div>
                             <div class="mb-3 col-md-6">
@@ -193,7 +194,15 @@
                 }, 3000); 
                 return false;
             }
+            
+            if ($('#password').val().length < 6) {
+                $("#password-error").text('Mật khẩu phải có độ dài lớn hơn hoặc bằng 6 ký tự!');
+                setTimeout(function () {
+                    $("#password-error").text('');
+                }, 3000);
 
+                return false;
+            }
             if ($('#password').val() != $('#repassword').val()) {
                 $('#err-repassword').text('Mật khẩu xác nhận chưa đúng!')
                 setTimeout(function () {
