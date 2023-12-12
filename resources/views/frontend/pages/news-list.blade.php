@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="blog_details">
                                                 <a class="d-inline-block" href="{{ route('posts.news.details', $post->id) }}">
-                                                    <h2>{{ $post->post_title }}</h2>
+                                                    <h2 class="post-title">{{ $post->post_title }}</h2>
                                                 </a>
                                                 <p class="post-description">{{ $post->post_description }}</p>
                                                 <ul class="blog-info-link">
@@ -180,6 +180,25 @@
 @endsection
 
 @section('js')
+<script>
+    function shortenTitle(title, maxLength) {
+        if (title.length > maxLength) {
+            var shortenedPart = title.substring(0, maxLength);
+            return shortenedPart + '...';
+        } else {
+            return title;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var postTitles = document.querySelectorAll(".post-title");
+        postTitles.forEach(function(postTitle) {
+            var originalTitle = postTitle.textContent.trim();
+            var shortenedTitle = shortenTitle(originalTitle, 60);
+            postTitle.textContent = shortenedTitle;
+        });
+    });
+</script>
 <script>
     const paginatedList = document.getElementById("paginated-list");
     const listItems = paginatedList.querySelectorAll(".item_list_jobs");

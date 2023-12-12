@@ -92,7 +92,7 @@
                                                 </div>
                                                 <div class="jobs_conetent">
                                                     <a href="{{ route('posts.recruitment.details', $post->id) }}">
-                                                        <h4 class="job-title-item">{{ $post->post_title }}</h4>
+                                                        <h4 class="job-title-item post-title">{{ $post->post_title }}</h4>
                                                     </a>
                                                     <div>
                                                         <h6> {{ $post->author }}</h6>
@@ -275,6 +275,25 @@
 @endsection
 
 @section('js')
+<script>
+    function shortenTitle(title, maxLength) {
+        if (title.length > maxLength) {
+            var shortenedPart = title.substring(0, maxLength);
+            return shortenedPart + '...';
+        } else {
+            return title;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var postTitles = document.querySelectorAll(".post-title");
+        postTitles.forEach(function(postTitle) {
+            var originalTitle = postTitle.textContent.trim();
+            var shortenedTitle = shortenTitle(originalTitle, 60);
+            postTitle.textContent = shortenedTitle;
+        });
+    });
+</script>
     <script>
         const paginationNumbers = document.getElementById("pagination-numbers");
         const paginatedList = document.getElementById("paginated-list");

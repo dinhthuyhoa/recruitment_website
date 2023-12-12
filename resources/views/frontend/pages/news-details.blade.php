@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="bradcam_text">
-                    <h3>{{ $post->post_title }}</h3>
+                    <h3 class="post-title">{{ $post->post_title }}</h3>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
 <section class="blog_area single-post-area section-padding">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 posts-list">
+            <div class="col-lg-12 posts-list">
                 <div class="single-post">
                     <div class="blog_details p-5">
                     <div class="feature-img d-flex justify-content-center mb-5">
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
                 <div class="blog_right_sidebar">
 
 
@@ -130,7 +130,7 @@
                         </ul>
                     </aside>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -138,6 +138,25 @@
 @endsection
 
 @section('js')
+<script>
+    function shortenTitle(title, maxLength) {
+        if (title.length > maxLength) {
+            var shortenedPart = title.substring(0, maxLength);
+            return shortenedPart + '...';
+        } else {
+            return title;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var postTitles = document.querySelectorAll(".post-title");
+        postTitles.forEach(function(postTitle) {
+            var originalTitle = postTitle.textContent.trim();
+            var shortenedTitle = shortenTitle(originalTitle, 60);
+            postTitle.textContent = shortenedTitle;
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
         $('.btn-reply-comment').on('click', function() {
