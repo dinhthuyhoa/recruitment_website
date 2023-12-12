@@ -107,7 +107,7 @@
                         </div>
                         @if (Auth::check() && Auth::user()->role == $apply->post->user->role)
                             <div class="col-12 col-md-6">
-                                @if ($apply->status == 'pendding')
+                                @if ($apply->status == 'pending')
                                     <form action="{{ route('admin.job_apply.update_status', $apply->id) }}" method="post">
                                         @csrf
                                         <div class="d-flex flex-column" style="gap: 10px">
@@ -120,8 +120,8 @@
                                                         {{ $apply->status == 'approved' ? 'selected' : '' }}>
                                                         {{trans('admin-auth.approved')}}
                                                     </option>
-                                                    <option value="pendding"
-                                                        {{ $apply->status == 'pendding' ? 'selected' : '' }}>
+                                                    <option value="pending"
+                                                        {{ $apply->status == 'pending' ? 'selected' : '' }}>
                                                         {{trans('admin-auth.pending')}}
                                                     </option>
                                                     <option value="failed"
@@ -136,7 +136,7 @@
                                         </div>
                                     </form>
                                 @else
-                                    @if ($apply->status == 'pendding')
+                                    @if ($apply->status == 'pending')
                                         <span class="badge bg-label-warning me-1 fs-5">{{trans('admin-auth.pending')}}</span>
                                     @elseif($apply->status == 'approved')
                                         <span class="badge bg-label-success me-1 fs-5">{{trans('admin-auth.approved')}}</span>

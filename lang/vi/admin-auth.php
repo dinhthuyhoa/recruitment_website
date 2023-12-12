@@ -158,6 +158,10 @@ return [
     "hoc_bong" => "Học bổng",
     "cuoc_thi" => "Cuộc thi",
 
+    "disable_news" => "Vô hiệu hóa bài tin tức",
+    "confirm_disable" => "Xác nhận vô hiệu hóa bài tin tức",
+    "confirm_disable_news" => "Bạn có chắc chắn muốn vô hiệu hóa bài tin tức này?",
+
     "payment_management" => "Quản lý thanh toán",
     "payment_management_list" => "Danh sách thanh toán",
     "new_payment" => "Tạo đơn thanh toán mới",

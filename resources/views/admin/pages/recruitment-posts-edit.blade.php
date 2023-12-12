@@ -68,11 +68,11 @@
                                         <option value="publish" {{ $post->post_status == 'publish' ? 'selected' : '' }}>
                                         {{trans('admin-auth.publish')}}
                                         </option>
-                                        <option value="pendding" {{ $post->post_status == 'pendding' ? 'selected' : '' }}>
+                                        <option value="pending" {{ $post->post_status == 'pending' ? 'selected' : '' }}>
                                         {{trans('admin-auth.pending')}}
                                         </option>
-                                        <option value="draft" {{ $post->post_status == 'draft' ? 'selected' : '' }}>
-                                        {{trans('admin-auth.draft')}}
+                                        <!-- <option value="draft" {{ $post->post_status == 'draft' ? 'selected' : '' }}>
+                                        {{trans('admin-auth.draft')}} -->
                                         </option>
                                     </select>
                                 </div>

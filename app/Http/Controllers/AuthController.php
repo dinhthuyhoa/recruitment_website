@@ -40,7 +40,7 @@ class AuthController extends Controller
         ];
 
         if ((Auth::attempt($login_email, $remember) || Auth::attempt($login_phone, $remember))) {
-            if (Auth::check() && Auth::user()->status == 'Pendding') {
+            if (Auth::check() && Auth::user()->status == 'Pending') {
                 Auth::logout();
                 return back()->with('error', 'Vui lòng chờ Admin phê duyệt tài khoản!');
             }

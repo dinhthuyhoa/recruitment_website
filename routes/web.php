@@ -156,7 +156,9 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/create', [PostController::class, 'admin_news_post_store'])->name('admin.posts.news.store');
             Route::get('/{id}/edit', [PostController::class, 'admin_news_post_edit'])->name('admin.posts.news.edit');
             Route::post('/{id}/edit', [PostController::class, 'admin_news_post_update'])->name('admin.posts.news.update');
-            Route::delete('/{id}/delete', [PostController::class, 'admin_news_post_delete'])->name('admin.posts.news.delete');
+            // Route::delete('/{id}/delete', [PostController::class, 'admin_news_post_delete'])->name('admin.posts.news.delete');
+            Route::patch('/{post}/disable', [PostController::class, 'admin_news_post_disable'])->name('admin.posts.news.disable');
+
         });
     });
 });

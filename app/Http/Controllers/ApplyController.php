@@ -92,7 +92,7 @@ class ApplyController extends Controller
                     'birthday' => $request->birthday,
                     'address' => $request->address,
                     'gender' => $request->gender,
-                    'status' => 'pendding',
+                    'status' => 'pending',
                     'attachment' => $file_name,
                     'post_id' => $request->post_id,
                     'user_id' => $user,
@@ -109,7 +109,7 @@ class ApplyController extends Controller
                 'birthday' => $request->birthday,
                 'address' => $request->address,
                 'gender' => $request->gender,
-                'status' => 'pendding',
+                'status' => 'pending',
                 'post_id' => $request->post_id,
                 'user_id' => $user,
             ]);

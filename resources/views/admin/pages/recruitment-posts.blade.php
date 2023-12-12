@@ -35,12 +35,12 @@
                             </td>
                             <td><i class="fa-regular fa-eye fs-6"></i> {{ $post->post_view }} </td>
                             <td>
-                                @if ($post->post_status == 'pendding')
+                                @if ($post->post_status == 'pending')
                                     <span class="badge bg-label-warning me-1 fs-6">{{trans('admin-auth.pending')}}</span>
                                 @elseif($post->post_status == 'publish')
                                     <span class="badge bg-label-success me-1 fs-6">{{trans('admin-auth.publish')}}</span>
                                 @else
-                                    <span class="badge bg-label-danger me-1 fs-6">{{trans('admin-auth.draft')}}</span>
+                                    <!-- <span class="badge bg-label-danger me-1 fs-6">{{trans('admin-auth.draft')}}</span> -->
                                 @endif
                             </td>
                             <td class=" fs-6">

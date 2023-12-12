@@ -18,7 +18,7 @@ return [
     "recruitment_posts" => "Recruitment Posts",
     "post_list" => "Post List",
     "create_post"=> "Create Posts",
-    "new_post"=> "New Posts",
+    "new_post"=> "News Posts",
     "job_apply"=> "Job Apply",
 
     // navbar.blade.php
@@ -48,7 +48,7 @@ return [
     "no"=> "No",
 
     // recruitment-posts-create.blade.php
-    "new_post"=> "New Post",
+    "new_post"=> "News Post",
     "upload"=> "Upload a photo",
     "reset"=> "Reset",
     "upload_img_post"=> "Upload image for post",
@@ -69,6 +69,10 @@ return [
     "create_post"=> "Create Post",
     "keep_creating"=> "Create and keep creating",
     "cancle"=>"Cancle",
+    "disable_news" => "Disable News",
+    "confirm_disable" => "Confirm Disable News",
+    "confirm_disable_news" => "Are you sure to disable this news?",
+
 
     //  recruitment-posts-edit.blade.php
     "edit_post"=> "Edit Post",
@@ -98,7 +102,7 @@ return [
     "download_here"=> "Download Here",
 
     // news-posts.blade.php
-    "new_post_list"=> "New Post List",
+    "new_post_list"=> "News Post List",
 
     // news-posts-create.blade.php
     "new_news"=> "New News",

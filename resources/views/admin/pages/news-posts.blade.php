@@ -12,6 +12,7 @@
                 <tr>
                     <th>{{trans('admin-auth.title')}}</th>
                     <th>{{trans('admin-auth.author')}}</th>
+                    <th>{{trans('admin-auth.category')}}</th>
                     <th>{{trans('admin-auth.view')}}</th>
                     <th>{{trans('admin-auth.status')}}</th>
                     <th>{{trans('admin-auth.date_created')}}</th>
@@ -24,21 +25,32 @@
                 <tr>
                     <td>
                         <img src="{{ !is_null($post->post_image) ? asset('storage/' . $post->post_image) : '' }}" alt="Avatar" class="rounded-circle me-2" width="50" height="50" />
-                        <a href="{{ route('admin.posts.news.edit', $post->id) }}" class="fw-bold">
+                        <a href="{{ route('admin.posts.news.edit', $post->id) }}" class="fw-bold post-title" >
                             {{ $post->post_title }}
                         </a>
                     </td>
                     <td>
                         {{ $post->user->name }}
                     </td>
+                    <td>
+                        @if ($post->post_meta->value == 'Hoc-bong')
+                            {{trans('admin-auth.hoc_bong')}}
+                        @elseif($post->post_meta->value == 'Cuoc-thi')
+                            {{trans('admin-auth.cuoc_thi')}}
+                        @else
+                            {{trans('admin-auth.su_kien')}}
+                            <!-- <span class="badge bg-label-danger me-1">{{trans('admin-auth.draft')}}</span> -->
+                        @endif
+                        
+                    </td>
                     <td>{{ $post->post_view }}</td>
                     <td>
-                        @if ($post->post_status == 'pendding')
+                        @if ($post->post_status == 'pending')
                         <span class="badge bg-label-warning me-1">{{trans('admin-auth.pending')}}</span>
                         @elseif($post->post_status == 'publish')
                         <span class="badge bg-label-success me-1">{{trans('admin-auth.publish')}}</span>
                         @else
-                        <span class="badge bg-label-danger me-1">{{trans('admin-auth.draft')}}</span>
+                        <!-- <span class="badge bg-label-danger me-1">{{trans('admin-auth.draft')}}</span> -->
                         @endif
                     </td>
                     <td>
@@ -54,32 +66,37 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{ route('admin.posts.news.edit', $post->id) }}"><i class="bx bx-edit-alt me-1"></i> {{trans('admin-auth.edit')}}</a>
-                                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalConfirmDeletePost-{{ $post->id }}" data-id="{{ $post->id }}">
-                                    <i class="bx bx-trash me-1"></i>
-                                    {{trans('admin-auth.delete')}}</button>
+                                @if($post->post_status == 'publish')
+                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalConfirmDisableNews-{{ $post->id }}" data-id="{{ $post->id }}">
+                                    <i class="fa-solid fa-ban me-1 fs-6"></i>
+                                    {{trans('admin-auth.disable_news')}}</button>
+                                @endif
+                                
                             </div>
                         </div>
                     </td>
                 </tr>
                 <!-- Modal confirm delete post -->
-                <div class="modal fade" id="modalConfirmDeletePost-{{ $post->id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" id="modalConfirmDisableNews-{{ $post->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.confirm_delete')}}
-                                    <b>{{ $post->name }}</b>
+                                <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.confirm_disable')}}
+                                    <!-- <b>{{ $post->post_title }}</b> -->
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="formDelPost-{{ $post->id }}" action="{{ route('admin.posts.news.delete', $post) }}" method="post">
-                                    @method('delete')
+                                <form id="formDisNews-{{ $post->id }}" action="{{ route('admin.posts.news.disable', $post) }}" method="post">
+                                    @method('patch')
                                     @csrf
-                                    <p>{{trans('admin-auth.confirm_delete_post')}}</p>
+                                    <input type="hidden" name="post_status" value="pending">
+                                    <input class="form-check-input" type="hidden" name="accountActivation" id="accountActivation" value="on" />
+                                    <p>{{trans('admin-auth.confirm_disable_news')}}</p>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button form="formDelPost-{{ $post->id }}" type="submit" class="btn btn-danger">{{trans('admin-auth.yes')}}</button>
+                                <button form="formDisNews-{{ $post->id }}" type="submit" class="btn btn-danger">{{trans('admin-auth.yes')}}</button>
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                 {{trans('admin-auth.no')}}
                                 </button>
@@ -96,6 +113,25 @@
 @endsection
 
 @section('js')
+<script>
+    function shortenTitle(title, maxLength) {
+        if (title.length > maxLength) {
+            var shortenedPart = title.substring(0, maxLength);
+            return shortenedPart + '...';
+        } else {
+            return title;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var postTitles = document.querySelectorAll(".post-title");
+        postTitles.forEach(function(postTitle) {
+            var originalTitle = postTitle.textContent.trim();
+            var shortenedTitle = shortenTitle(originalTitle, 20);
+            postTitle.textContent = shortenedTitle;
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
         // Setup - add a text input to each footer cell
@@ -115,7 +151,7 @@
                     .columns()
                     .eq(0)
                     .each(function(colIdx) {
-                        if (colIdx != 6) {
+                        if (colIdx != 7) {
                             // Set the header cell to contain the input element
                             var cell = $('.filters th').eq(
                                 $(api.column(colIdx).header()).index()
@@ -169,4 +205,10 @@
         });
     });
 </script>
+
+
+
+
+
+
 @endsection

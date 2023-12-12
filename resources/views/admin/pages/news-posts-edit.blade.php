@@ -1,5 +1,32 @@
 @extends('admin.master.master')
+@section('css')
+    <style>
+        .alert-message {
+            width: 20%;
+            margin-left: 35%;
+            padding: 75%;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #c07f00;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1;
+            margin-top: 40%;
+        }
 
+        #closeAlert, #closeAlertInfo {
+            background-color: white;
+            color: #020c26;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+@endsection
 @section('content')
 @if(session('successMessage'))
     <div id="successModalPost" class="modal" style="display: none;">
@@ -58,22 +85,26 @@
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-                    <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.update', $post->id) }}"
-                        enctype="multipart/form-data" onsubmit="return checkSubmit()">
+                    <form id="frmCreateNewsPost" method="POST" action="{{ route('admin.posts.news.update', $post->id) }}" enctype="multipart/form-data" onsubmit="return checkSubmit()" onreset="hideAlert()">
+
+
                         @csrf
+                        <div id="alert" class="alert-message border rounded-3" style="display: none;">
+                            <span>{{trans('admin-auth.message_unfill_field')}}</span>
+                        </div>
                         @if (Auth::check() &&
                                 (Auth::user()->role == \App\Enums\UserRole::Administrator))
-                            <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-12">
                                 <label for="title" class="form-label">{{trans('admin-auth.status')}}</label>
                                 <select name="post_status" id="post_status" class="form-control">
                                     <option value="publish" {{ $post->post_status == 'publish' ? 'selected' : '' }}>
                                     {{trans('admin-auth.publish')}}
                                     </option>
-                                    <option value="pendding" {{ $post->post_status == 'pendding' ? 'selected' : '' }}>
+                                    <option value="pending" {{ $post->post_status == 'pending' ? 'selected' : '' }}>
                                     {{trans('admin-auth.pending')}}
                                     </option>
-                                    <option value="draft" {{ $post->post_status == 'draft' ? 'selected' : '' }}>
-                                    {{trans('admin-auth.draft')}}
+                                    <!-- <option value="draft" {{ $post->post_status == 'draft' ? 'selected' : '' }}>
+                                    {{trans('admin-auth.draft')}} -->
                                     </option>
                                 </select>
                             </div>
@@ -84,12 +115,12 @@
                             <div class="mb-3 col-md-12">
                                 <label for="title" class="form-label">{{trans('admin-auth.title')}} *</label>
                                 <input class="form-control" type="text" id="title" name="title"
-                                    value="{{ $post->post_title }}" autofocus required />
+                                    value="{{ $post->post_title }}" autofocus  />
                             </div>
 
                             <div class="mb-3 col-md-12">
                                 <label for="event_category" class="form-label">{{trans('admin-auth.category')}} *</label>
-                                <select class="form-select" id="event_category" name="event_category" required>
+                                <select class="form-select" id="event_category" name="event_category" >
                                     <option value="Su-kien" {{ $post->post_category === 'Su-kien' ? 'selected' : '' }}>
                                         {{trans('admin-auth.su_kien')}}
                                     </option>
@@ -153,6 +184,32 @@
     <script>
         Inputmask().mask("input");
     </script>
+    <script>
+
+        function checkSubmit() {
+            var title = document.getElementById('title').value;
+            var eventCategory = document.getElementById('event_category').value;
+            var description = document.getElementById('description').value;
+            var content = document.getElementById('content').value;
+
+            if (title === '' || eventCategory === '' || description === '' || content === '') {
+                $("#alert").fadeIn();
+
+                setTimeout(function () {
+                    $("#alert").fadeOut();
+                }, 3000);
+
+                return false;
+            }
+
+            return true;
+        }
+
+        function hideAlert() {
+            $("#alert").hide();
+        }
+    </script>
+
     <style>
         .modal {
         display: none; /* Hidden by default */

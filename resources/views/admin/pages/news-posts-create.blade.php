@@ -101,8 +101,8 @@
                         <div class="mt-2">
                             <button type="submit" name="submit" value="redirect" form="frmCreateNewsPost"
                                 class="btn btn-primary me-2">{{trans('admin-auth.create_post')}}</button>
-                            <button type="submit" name="submit" value="continue-create" form="frmCreateNewsPost"
-                                class="btn btn-primary me-2">{{trans('admin-auth.keep_creating')}}</button>
+                            <!-- <button type="submit" name="submit" value="continue-create" form="frmCreateNewsPost"
+                                class="btn btn-primary me-2">{{trans('admin-auth.keep_creating')}}</button> -->
                             <button type="reset" class="btn btn-outline-secondary">{{trans('admin-auth.cancle')}}</button>
                         </div>
                     </form>

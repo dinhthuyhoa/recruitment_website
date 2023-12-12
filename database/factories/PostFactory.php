@@ -34,7 +34,7 @@ class PostFactory extends Factory
             'post_description' => VNFaker::sentences(rand(2, 8)),
             'post_image' => 'post/' . $this->faker->image('public/storage/post', 400, 400, false),
             'post_view' => 0,
-            'post_status' => $this->faker->randomElement(['draft', 'pendding', 'publish']),
+            'post_status' => $this->faker->randomElement(['draft', 'pending', 'publish']),
             'post_type' => $this->faker->randomElement(PostCategory::getValues()),
         ];
     }

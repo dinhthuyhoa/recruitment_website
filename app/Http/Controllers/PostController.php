@@ -430,8 +430,9 @@ private function formatSalary($salary)
             'user_id' => Auth::user()->id,
             'post_title' => $request->title,
             'post_content' => $request->content,
-            'post_status' => 'pendding',
+            'post_status' => 'pending',
             'post_date' => Carbon::now(),
+            'post_date_update'=> Carbon::now(),
             'post_type' => PostCategory::Recruitment,
             'post_image' => $file_name
         ]);
@@ -512,7 +513,7 @@ private function formatSalary($salary)
     public function admin_recruitment_post_update(Request $request, $id)
     {
 
-        $post_status = 'pendding';
+        $post_status = 'pending';
         if ($request->post_status)
             $post_status = $request->post_status;
 
@@ -525,7 +526,7 @@ private function formatSalary($salary)
                 'post_status' => $post_status,
                 'post_date_update' => Carbon::now(),
                 'post_type' => PostCategory::Recruitment,
-                'post_date_update' => Carbon::now()
+
             ]
         );
 
@@ -592,6 +593,8 @@ private function formatSalary($salary)
 
         foreach ($post_list as $v) {
             $v->user = User::find($v->user_id);
+            $v->post_meta = PostMeta::find($v->id);
+            // dd($v->post_meta);
         }
 
         return view('admin.pages.news-posts', compact('post_list'));
@@ -606,7 +609,7 @@ private function formatSalary($salary)
         if (Auth::user()->role == UserRole::Administrator) {
             $post_status = 'publish';
         } else {
-            $post_status = 'pendding';
+            $post_status = 'pending';
         }
 
         $file_name = '';
@@ -639,6 +642,7 @@ private function formatSalary($salary)
             'post_content' => $request->content,
             'post_status' => $post_status,
             'post_date' => Carbon::now(),
+            'post_date_update' => Carbon::now(),
             'post_type' => PostCategory::News,
             'post_image' => $file_name
         ]);
@@ -758,5 +762,19 @@ private function formatSalary($salary)
         return redirect()
             ->route('admin.posts.news.list')
             ->with('success', 'Đã xóa bài viết thành công');
+    }
+
+    public function admin_news_post_disable(Request $request, Post $post)
+    {
+        // dd($request);
+
+        $request->validate([
+            'accountActivation' => 'required|accepted', 
+            'post_status' => 'required|in:pending', 
+        ]);
+        // dd($request);
+        $post->update(['post_status' => $request->input('post_status')]);
+        // dd($user);
+        return redirect()->route('admin.posts.news.list')->with('success', 'Post disabled successfully');
     }
 }

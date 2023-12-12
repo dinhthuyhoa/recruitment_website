@@ -33,7 +33,7 @@
                                 {{ $apply->fullname }}
                             </td>
                             <td>
-                                @if ($apply->status == 'pendding')
+                                @if ($apply->status == 'pending')
                                     <span class="badge bg-label-warning me-1  fs-6">{{trans('admin-auth.pending')}}</span>
                                 @elseif($apply->status == 'approved')
                                     <span class="badge bg-label-success me-1 fs-6">{{trans('admin-auth.approved')}}</span>
