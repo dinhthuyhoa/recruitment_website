@@ -125,7 +125,7 @@ return [
     "disable_account"=> "Disable Account",
     "disable_account_confirm"=> "Are you sure you want to disable this account?",
     "disable_account_de"=> "Be sure to disable this account. It affects the use of this account on the system.",
-    "disable_account_yes"=> "I confirm disable account",
+    "disable_account_yes"=> "I confirm disable this account",
 
     "message_image_upload"=>"Please upload your image!",
     "button_close"=>"Close",
@@ -188,4 +188,11 @@ return [
     'package_payment' => 'Package Payment',
     'choose_package_payment' => 'Choose Package Payment',
     'checkout_status' => 'Checkout Status',
+
+    'edit_package' => 'Edit Package',
+
+    'disable_package' => 'Disable Package',
+    'disable_package_confirm' => 'Are you sure you want to disable this package?',
+    'disable_package_yes' => 'I confirm disable this package',
+
 ];

@@ -67,6 +67,7 @@
 
 
                             <td>
+
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                         data-bs-toggle="dropdown">
@@ -75,10 +76,44 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ route('admin.payment_package.edit', $package) }}">
                                             <i class="bx bx-edit-alt me-1 fs-6"></i> {{trans('admin-auth.edit')}}</a>
+                                        @if($package->package_status == 'active')
+                                            <button class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#modalConfirmDisable-{{ $package->id }}"
+                                            data-id="{{ $package->id }}">
+                                            <i class="fa-solid fa-ban me-1 fs-6"></i>
+                                            {{trans('admin-auth.disable_package')}}</button>
+                                        @endif
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        <div class="modal fade" id="modalConfirmDisable-{{ $package->id }}" tabindex="-1"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalCenterTitle">{{trans('admin-auth.disable_package')}}
+                                            <b>{{ $package->title_package }}</b>
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form id="formDisPack-{{ $package->id }}" action="{{ route('package.disable', $package) }}" method="post">
+                                        @method('patch')
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="hidden" name="package_status" value="inactive">
+                                            <input class="form-check-input" type="hidden" name="accountActivation" id="accountActivation" value="on" />
+                                            <p>{{ trans('admin-auth.disable_package_confirm') }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button form="formDisPack-{{ $package->id }}" type="submit" class="btn btn-danger">{{ trans('admin-auth.disable_package_yes') }}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ trans('admin-auth.no') }}</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>

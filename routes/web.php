@@ -127,6 +127,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/create', [PackagePaymentController::class, 'admin_payment_package_store'])->name('admin.payment_package.store');
             Route::get('/{id}/edit', [PackagePaymentController::class, 'admin_payment_package_edit'])->name('admin.payment_package.edit');
             Route::post('/{id}/edit', [PackagePaymentController::class, 'admin_payment_package_update'])->name('admin.payment_package.update');
+            Route::patch('/{package}/disable', [PackagePaymentController::class, 'disable'])->name('package.disable');
+
         });
 
         Route::group(['prefix' => 'payment-management'], function () {

@@ -192,4 +192,10 @@ return [
     'package_payment' => 'Gói thanh toán',
     'choose_package_payment' => 'Chọn gói thanh toán',
     'checkout_status' => 'Trạng thái thanh toán',
+
+    'edit_package' => 'Chỉnh sửa gói',
+    
+    'disable_package' => 'Vô hiệu hóa gói',
+    'disable_package_confirm' => 'Bạn có chắc chắn muốn vô hiệu hóa gói này?',
+    'disable_package_yes' => 'Tôi xác nhận vô hiệu hóa gói này',
 ];

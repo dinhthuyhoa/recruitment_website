@@ -100,4 +100,17 @@ class PackagePaymentController extends Controller
     }
     
 
+    public function disable(Request $request, PackagePayment $package)
+    {
+        // dd($request->input('package_status'));
+
+        $request->validate([
+            'accountActivation' => 'required|accepted', 
+            'package_status' => 'required|in:inactive', 
+        ]);
+        // dd($request);
+        $package->update(['package_status' => $request->input('package_status')]);
+        // dd($user);
+        return redirect()->route('admin.payment_package.list')->with('success', 'Package disabled successfully');
+    }
 }

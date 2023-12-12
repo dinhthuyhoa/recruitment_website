@@ -37,7 +37,7 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 
-            <h5 class="card-header">{{trans('admin-auth.edit_post')}}</h5>
+            <h5 class="card-header">{{trans('admin-auth.edit_package')}}</h5>
                     <hr class="my-0" />
                     <div class="card-body">
                     <form id="frmUpdatePackage" method="POST" action="{{ route('admin.payment_package.update', $package->id) }}"
@@ -121,7 +121,7 @@
     
     <script>
     $(document).ready(function () {
-        $("#frmCreatePackage").submit(function (event) {
+        $("#frmUpdatePackage").submit(function (event) {
             if (!validateForm()) {
                 event.preventDefault();
             }
