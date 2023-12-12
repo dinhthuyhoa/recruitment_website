@@ -385,20 +385,20 @@ private function formatSalary($salary)
     }
     public function admin_recruitment_post_store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'deadline' => 'required|date',
-            'vacancy' => 'required|numeric',
-            'salary' => 'required',
-            'position' => 'required',
-            'experience' => 'required',
-            'job_nature' => 'required',
-            // 'avatar' => 'nullable|image|mimes:jpg,png,gif,jpeg,svg,mp4|max:2048',
-        ]);
+        // $request->validate([
+        //     'title' => 'required',
+        //     'content' => 'required',
+        //     'address' => 'required',
+        //     'email' => 'required|email',
+        //     'phone' => 'required',
+        //     'deadline' => 'required|date',
+        //     'vacancy' => 'required|numeric',
+        //     'salary' => 'required',
+        //     'position' => 'required',
+        //     'experience' => 'required',
+        //     'job_nature' => 'required',
+        //     // 'avatar' => 'nullable|image|mimes:jpg,png,gif,jpeg,svg,mp4|max:2048',
+        // ]);
     
         $file_name = null;
         if ($request->hasFile('avatar')) {
@@ -423,7 +423,7 @@ private function formatSalary($salary)
         }
         else {
             $message_image = "Chưa tải ảnh lên";
-            return view('admin.pages.recruitment-posts-create', compact($message_image));
+            return view('admin.pages.recruitment-posts-create', compact('message_image'));
         }
 
         $post_new = Post::create([

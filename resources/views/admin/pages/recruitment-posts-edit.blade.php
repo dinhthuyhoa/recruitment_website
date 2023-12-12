@@ -1,5 +1,34 @@
 @extends('admin.master.master')
 
+@section('css')
+<style>
+        .alert-message {
+            width: 20%;
+            margin-left: 35%;
+            padding: 75%;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #c07f00;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1;
+            margin-top: 40%;
+        }
+
+        #closeAlert, #closeAlertInfo {
+            background-color: white;
+            color: #020c26;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+@endsection
+
 @section('content')
 
 
@@ -77,48 +106,54 @@
                                     </select>
                                 </div>
                             @endif
-
+                            <div id="alertMessage" class="alert-message border rounded-3" style="display: none;">
+                            <span>{{trans('admin-auth.message_image_upload')}}</span>
+                            <!-- <button id="closeAlert" class="border rounded-3 ms-3">{{trans('admin-auth.button_close')}}</button> -->
+                        </div>
                         </div>
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-
+                        <div id="alertMessageInfo" class="alert-message border rounded-3" style="display: none;">
+                            <span>{{trans('admin-auth.message_unfill_field')}}</span>
+                            <!-- <button id="closeAlertInfo" class="border rounded-3 ms-3">{{trans('admin-auth.button_close')}}</button> -->
+                        </div>
                         <input type="file" id="upload" class="account-file-input" hidden
                             accept="image/png, image/jpeg" name="avatar" />
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="title" class="form-label">{{trans('admin-auth.title')}} *</label>
                                 <input class="form-control" type="text" id="title" name="title"
-                                    value="{{ $post->post_title }}" autofocus required />
+                                    value="{{ $post->post_title }}" autofocus  />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="address" class="form-label">{{trans('admin-auth.location_recruitment')}} *</label>
                                 <input class="form-control" type="text" name="address" id="address"
-                                    value="{{ $post->recruitment_address }}" required />
+                                    value="{{ $post->recruitment_address }}"  />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="email" class="form-label">{{trans('admin-auth.email')}} *</label>
                                 <input class="form-control" type="text" id="email" name="email"
-                                    value="{{ $post->recruitment_email }}" placeholder="Enter email..." required />
+                                    value="{{ $post->recruitment_email }}" placeholder="Enter email..."  />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="phone" class="form-label">{{trans('admin-auth.phone')}} *</label>
                                 <input type="text" class="form-control" id="phone" name="phone"
-                                    value="{{ $post->recruitment_phone }}" placeholder="Phone" required />
+                                    value="{{ $post->recruitment_phone }}" placeholder="Phone"  />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="deadline" class="form-label">{{trans('admin-auth.deadline')}} *</label>
                                 <input class="form-control" type="datetime-local" id="deadline" name="deadline"
-                                    value="{{ date('Y-m-d\TH:i', strtotime($post->recruitment_deadline)) }}" required />
+                                    value="{{ date('Y-m-d\TH:i', strtotime($post->recruitment_deadline)) }}"  />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="vacancy" class="form-label">{{trans('admin-auth.vacancy')}} *</label>
                                 <input class="form-control" type="number" min="1" id="vacancy" name="vacancy"
-                                    placeholder="10" value="{{ $post->recruitment_vacancy }}" required />
+                                    placeholder="10" value="{{ $post->recruitment_vacancy }}"  />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="position" class="form-label">{{ trans('admin-auth.position') }} *</label>
-                                <select class="form-select" id="position" name="position" required>
+                                <select class="form-select" id="position" name="position" >
                                     <option value="intern" {{ $post->recruitment_position  === 'intern' ? 'selected' : '' }}>
                                         {{ trans('admin-auth.intern') }}
                                     </option>
@@ -137,7 +172,7 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="salary" class="form-label">{{ trans('admin-auth.salary') }} (VND) *</label>
-                                <select class="form-select" id="salary" name="salary" required>
+                                <select class="form-select" id="salary" name="salary" >
                                     <option value="1000000-3000000" {{ $post->recruitment_salary === '1000000-3000000' ? 'selected' : '' }}>1,000,000 - 3,000,000</option>
                                     <option value="3500000-5000000" {{ $post->recruitment_salary === '3500000-5000000' ? 'selected' : '' }}>3,500,000 - 5,000,000</option>
                                     <option value="5500000-7000000" {{ $post->recruitment_salary === '5500000-7000000' ? 'selected' : '' }}>5,500,000 - 7,000,000</option>
@@ -153,16 +188,16 @@
                             <div class="mb-3 col-md-6">
                                 <label for="experience" class="form-label">{{trans('admin-auth.experience')}} *</label>
                                 <input class="form-control" type="text" id="experience" name="experience"
-                                    placeholder="1 year" value="{{ $post->recruitment_experience }}" required />
+                                    placeholder="1 year" value="{{ $post->recruitment_experience }}"  />
                             </div>
                             <!-- <div class="mb-3 col-md-6">
                                 <label for="job_nature" class="form-label">{{trans('admin-auth.job_nature')}} *</label>
                                 <input class="form-control" type="text" id="job_nature" name="job_nature"
-                                    placeholder="Full-time" value="{{ $post->recruitment_job_nature }}" required />
+                                    placeholder="Full-time" value="{{ $post->recruitment_job_nature }}"  />
                             </div> -->
                             <div class="mb-3 col-md-6">
                                 <label for="job_nature" class="form-label">{{trans('admin-auth.job_nature')}} *</label>
-                                <select class="form-select" id="job_nature" name="job_nature" required>
+                                <select class="form-select py-0" style="height:58%" id="job_nature" name="job_nature" >
                                     <option value="Full-time" {{ $post->recruitment_job_nature == 'Full-time' ? 'selected' : '' }}>
                                         {{trans('admin-auth.full_time')}}
                                     </option>
@@ -318,4 +353,75 @@
         });
 
     </script>
+    <script>
+
+$(document).ready(function () {
+    $("#frmUpdateCruitmentPost").submit(function (event) {
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    });
+
+    function validateForm() {
+        // var avatarValue = $("#upload").val();
+
+        var title = $("#title").val();
+        var address = $("#address").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var deadline = $("#deadline").val();
+        var vacancy = $("#vacancy").val();
+        var position = $("#position").val();
+        var salary = $("#salary").val();
+        var experience = $("#experience").val();
+        var jobNature = $("#job_nature").val();
+        var content = $("#content").val();
+
+        // if (!avatarValue) {
+        //     $("#alertMessage").fadeIn();
+
+        //     setTimeout(function () {
+        //         $("#alertMessage").fadeOut();
+        //     }, 10000);
+        //     // $("#closeAlert").click(function () {
+        //     //     $("#alertMessage").fadeOut();
+        //     // });
+        //     event.preventDefault();
+        //     return false;
+        // }
+
+        if (title === '' || address === '' || email === '' || phone === '' || deadline === '' || vacancy === '' || position === '' || salary === '' || experience === '' || jobNature === '' || content === '') {
+            $("#alertMessageInfo").fadeIn();
+
+            setTimeout(function () {
+                $("#alertMessageInfo").fadeOut();
+            }, 10000);
+
+            return false;
+        }
+
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(email)) {
+            $("#err-email").text("Định dạng email không hợp lệ.");
+            setTimeout(function () {
+                $('#err-email').text('');
+            }, 3000); 
+            return false;
+        }
+
+        var numberRegex = /^[0-9+()-]+$/;
+        if (!numberRegex.test(phone)) {
+            $('#err-phone').text('Số điện thoại không hợp lệ. Không được chứa chữ và ký tự đặc biệt!');
+            setTimeout(function () {
+                $('#err-phone').text('');
+            }, 3000); 
+            return false;
+        }
+
+        return true;
+    }
+});
+
+
+</script>
 @endsection

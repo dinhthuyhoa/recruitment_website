@@ -61,11 +61,13 @@
                                         <a class="dropdown-item" href="{{ route('posts.recruitment.details', $post) }}"
                                             target="_blank">
                                             <i class="fa-solid fa-eye fs-6"></i> {{trans('admin-auth.preview')}}</a>
-                                        <button class="dropdown-item fs-6" data-bs-toggle="modal"
-                                            data-bs-target="#modalConfirmDeletePost-{{ $post->id }}"
-                                            data-id="{{ $post->id }}">
-                                            <i class="bx bx-trash me-1 fs-6"></i>
-                                            {{trans('admin-auth.delete')}}</button>
+                                        @if ($post->post_status == 'pending')
+                                            <button class="dropdown-item fs-6" data-bs-toggle="modal"
+                                                data-bs-target="#modalConfirmDeletePost-{{ $post->id }}"
+                                                data-id="{{ $post->id }}">
+                                                <i class="bx bx-trash me-1 fs-6"></i>
+                                                {{trans('admin-auth.delete')}}</button>
+                                        @endif
                                     </div>
                                 </div>
                             </td>

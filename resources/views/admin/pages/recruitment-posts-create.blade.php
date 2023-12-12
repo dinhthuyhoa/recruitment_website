@@ -89,16 +89,18 @@
                                 <label for="email" class="form-label">{{trans('admin-auth.email')}} *</label>
                                 <input class="form-control" type="email" id="email" name="email" value=""
                                     placeholder=""  />
+                                    <small><span id="err-email" class="text-danger"></span></small>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="phone" class="form-label">{{trans('admin-auth.phone')}} *</label>
                                 <input type="text" class="form-control" id="phone" name="phone" value=""
                                     placeholder="Phone"  />
+                                    <small><span id="err-phone" class="text-danger"></span></small>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="deadline" class="form-label">{{trans('admin-auth.deadline')}} *</label>
                                 <input class="form-control" type="date" id="deadline" name="deadline"
-                                    placeholder="dd/mm/yyyy" value=""  />
+                                    placeholder="dd/mm/yyyy" value="" min="{{ date('Y-m-d') }}" />
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="vacancy" class="form-label">{{trans('admin-auth.vacancy')}} *</label>
@@ -144,7 +146,7 @@
                             </div> -->
                             <div class="mb-3 col-md-6">
                                 <label for="job_nature" class="form-label">{{trans('admin-auth.job_nature')}} *</label>
-                                <select class="form-select" id="job_nature" name="job_nature" required>
+                                <select class="form-select py-0" style="height:58%" id="job_nature" name="job_nature" required>
                                     <option value="Full-time">{{trans('admin-auth.full_time')}}</option>
                                     <option value="Part-time">{{trans('admin-auth.part_time')}}</option>
                                     <option value="Freelancer">{{trans('admin-auth.freelancer')}}</option>
@@ -164,8 +166,8 @@
                         <div class="mt-2">
                             <button type="submit" name="submit" value="redirect" form="frmCreatePost"
                                 class="btn btn-primary me-2">{{trans('admin-auth.create_post')}}</button>
-                            <button type="submit" name="submit" value="continue-create" form="frmCreatePost"
-                                class="btn btn-primary me-2">{{trans('admin-auth.keep_creating')}}</button>
+                            <!-- <button type="submit" name="submit" value="continue-create" form="frmCreatePost"
+                                class="btn btn-primary me-2">{{trans('admin-auth.keep_creating')}}</button> -->
                             <button type="reset" class="btn btn-outline-secondary">{{trans('admin-auth.cancle')}}</button>
                         </div>
                     </form>
@@ -237,17 +239,31 @@
                     return false;
                 }
 
-                if (!title || !address || !email || !phone || !deadline || !vacancy || !position || !salary || !experience || !jobNature || !content) {
-
+                if (title === '' || address === '' || email === '' || phone === '' || deadline === '' || vacancy === '' || position === '' || salary === '' || experience === '' || jobNature === '' || content === '') {
                     $("#alertMessageInfo").fadeIn();
 
                     setTimeout(function () {
                         $("#alertMessageInfo").fadeOut();
                     }, 10000);
 
-                    // $("#closeAlertInfo").click(function () {
-                    //     $("#alertMessageInfo").fadeOut();
-                    // });
+                    return false;
+                }
+
+                var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                if (!emailPattern.test(email)) {
+                    $("#err-email").text("Định dạng email không hợp lệ.");
+                    setTimeout(function () {
+                        $('#err-email').text('');
+                    }, 3000); 
+                    return false;
+                }
+
+                var numberRegex = /^[0-9+()-]+$/;
+                if (!numberRegex.test(phone)) {
+                    $('#err-phone').text('Số điện thoại không hợp lệ. Không được chứa chữ và ký tự đặc biệt!');
+                    setTimeout(function () {
+                        $('#err-phone').text('');
+                    }, 3000); 
                     return false;
                 }
 
