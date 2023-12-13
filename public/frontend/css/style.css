@@ -467,6 +467,12 @@ h3 {
   background: transparent;
 } */
 
+a:focus {
+  outline: none !important;
+  text-decoration: none !important;
+
+}
+
 /* line 48, ../../Arafath/CL/December/235. Job board/HTML/scss/_btn.scss */
 .boxed-btn3:focus {
   outline: none;

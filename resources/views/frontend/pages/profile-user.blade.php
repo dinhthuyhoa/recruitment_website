@@ -93,17 +93,22 @@
                                                         <div class="form-group row">
                                                             <div class="col-md-6">
                                                                 <label for="startSchool"><b>{{ trans('profile.start_date') }}:</b></label>
-                                                                <input type="date" class="form-control" id="startSchool" name="startSchool" value="{{ $educationInfo ? $educationInfo->start_date : '' }}">
+                                                                <input type="date" class="form-control" id="startSchool" name="startSchool" value="{{ $educationInfo ? $educationInfo->start_date : '' }}" >
+                                                                <div id="error-message-start-date" class="text-danger"></div>
+
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="endSchool"><b>{{ trans('profile.end_date') }}:</b></label>
                                                                 <input type="date" class="form-control" id="endSchool" name="endSchool" value="{{ $educationInfo ? $educationInfo->end_date : '' }}">
+                                                                <div id="error-message-end-date" class="text-danger"></div>
+
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label for="gpa"><b>{{ trans('profile.gpa') }}:</b></label>
                                                             <input type="text" class="form-control" id="gpa" name="gpa" value="{{ $educationInfo ? $educationInfo->gpa : '' }}">
+                                                            <small id="err-gpa" class="text-danger"></small>
                                                         </div>
 
                                                         <div class="form-group">
@@ -152,11 +157,14 @@
                                                             <div class="col-md-6">
                                                                 <label for="startWork"><b>{{ trans('profile.start_date') }}:</b></label>
                                                                 <input type="date" class="form-control" id="startWork" name="startWork" value="{{ $workInfo ? $workInfo->start_date : '' }}">
+                                                                <div id="error-work-start-date" class="text-danger"></div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="endWork"><b>{{ trans('profile.end_date') }}:</b></label>
                                                                 <input type="date" class="form-control" id="endWork" name="endWork" value="{{ $workInfo ? $workInfo->end_date : '' }}">
+                                                                <div id="error-work-end-date" class="text-danger"></div>
                                                             </div>
+                                                            
                                                         </div>
 
                                                         <div class="form-group">
@@ -204,10 +212,12 @@
                                                             <div class="col-md-6">
                                                                 <label for="startVolun"><b>{{ trans('profile.start_date') }}:</b></label>
                                                                 <input type="date" class="form-control" id="startVolun" name="startVolun" value="{{ $volunInfo ? $volunInfo->start_date : '' }}">
+                                                                <div id="error-vol-start-date" class="text-danger"></div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="endVolun"><b>{{ trans('profile.end_date') }}:</b></label>
                                                                 <input type="date" class="form-control" id="endVolun" name="endVolun" value="{{ $volunInfo ? $volunInfo->end_date : '' }}">
+                                                                <div id="error-vol-end-date" class="text-danger"></div>
                                                             </div>
                                                         </div>
 
@@ -491,21 +501,22 @@
                                     <div>
                                         <span class="section-title text-primary mb-3 mb-sm-4">{{ trans('profile.education_modal_title') }}</span>
                                         @if($educationInfo)
-                                        <ul class="list-unstyled mb-1-9">
-                                            @foreach ([
-                                                'school_name' => trans('profile.school_name'),
-                                                'school_location' => trans('profile.school_location'),
-                                                'start_date' => trans('profile.start_date'),
-                                                'end_date' => trans('profile.end_date'),
-                                                'gpa' => trans('profile.gpa'),
-                                                'achievements' => trans('profile.achievements'),
-                                            ] as $field => $label)
-                                                <li class="mb-2 mb-xl-3 display-28">
-                                                    <span class="display-26 text-secondary me-2 font-weight-600">{{ $label }}:</span>
-                                                    {{ $educationInfo->$field ? ($field === 'start_date' || $field === 'end_date' ? date('d/m/Y', strtotime($educationInfo->$field)) : $educationInfo->$field) : trans('profile.updating') }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                                            <ul class="list-unstyled mb-1-9">
+                                                @foreach ([
+                                                    'school_name' => trans('profile.school_name'),
+                                                    'school_location' => trans('profile.school_location'),
+                                                    'start_date' => trans('profile.start_date'),
+                                                    'end_date' => trans('profile.end_date'),
+                                                    'gpa' => trans('profile.gpa'),
+                                                    'achievements' => trans('profile.achievements'),
+                                                ] as $field => $label)
+                                                    <li class="mb-2 mb-xl-3 display-28">
+                                                        <span class="display-26 text-secondary me-2 font-weight-600">{{ $label }}:</span>
+                                                        {{ $educationInfo->$field ? ($field === 'start_date' || $field === 'end_date' ? date('d/m/Y', strtotime($educationInfo->$field)) : $educationInfo->$field) : trans('profile.updating') }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+
                                         @else
                                         <ul class="list-unstyled mb-1-9">
                                             <li class="mb-2 mb-xl-3 display-28">
@@ -910,6 +921,104 @@ section {
 @endsection
 
 @section('js')
+<script>
+    document.getElementById('eduForm').addEventListener('submit', function(event) {
+        var startSchool = document.getElementById('startSchool').value;
+        var endSchool = document.getElementById('endSchool').value;
+        var currentDate = new Date().toISOString().split('T')[0];
+        var errorMessageStartElement = document.getElementById('error-message-start-date');
+        var errorMessageEndElement = document.getElementById('error-message-end-date');
+        
+        errorMessageStartElement.style.display = 'none';
+        errorMessageEndElement.style.display = 'none';
+
+        
+        if (startSchool > currentDate) {
+            errorMessageStartElement.textContent = 'Ngày bắt đầu không thể lớn hơn ngày hiện tại.';
+            errorMessageStartElement.style.display = 'block';
+            event.preventDefault(); 
+            return false;
+        }
+
+        
+        if (endSchool && endSchool <= startSchool) {
+            errorMessageEndElement.textContent = 'Ngày kết thúc phải lớn hơn ngày bắt đầu.';
+            errorMessageEndElement.style.display = 'block';
+            event.preventDefault(); 
+            return false;
+        }
+
+        var gpa = document.getElementById('gpa').value;
+
+        if (parseFloat(gpa) < 0) {
+            document.getElementById('err-gpa').innerText = 'GPA không được âm';
+            event.preventDefault(); 
+        } else {
+            document.getElementById('err-gpa').innerText = ''; 
+        }
+
+        return true;
+    });
+
+    document.getElementById('workForm').addEventListener('submit', function(event) {
+        var startWork = document.getElementById('startWork').value;
+        var endWork = document.getElementById('endWork').value;
+        var currentDate = new Date().toISOString().split('T')[0];
+        var errorVolStartElement = document.getElementById('error-work-start-date');
+        var errorVolEndElement = document.getElementById('error-work-end-date');
+        
+        errorVolStartElement.style.display = 'none';
+        errorVolEndElement.style.display = 'none';
+
+        
+        if (startWork > currentDate) {
+            errorVolStartElement.textContent = 'Ngày bắt đầu không thể lớn hơn ngày hiện tại.';
+            errorVolStartElement.style.display = 'block';
+            event.preventDefault(); 
+            return false;
+        }
+
+        
+        if (endWork && endWork <= startWork) {
+            errorVolEndElement.textContent = 'Ngày kết thúc phải lớn hơn ngày bắt đầu.';
+            errorVolEndElement.style.display = 'block';
+            event.preventDefault(); 
+            return false;
+        }
+
+        return true;
+    });
+
+    document.getElementById('volunForm').addEventListener('submit', function(event) {
+        var startVolun = document.getElementById('startVolun').value;
+        var endVolun = document.getElementById('endVolun').value;
+        var currentDate = new Date().toISOString().split('T')[0];
+        var errorVolStartElement = document.getElementById('error-vol-start-date');
+        var errorVolEndElement = document.getElementById('error-vol-end-date');
+        
+        errorVolStartElement.style.display = 'none';
+        errorVolEndElement.style.display = 'none';
+
+        
+        if (startVolun > currentDate) {
+            errorVolStartElement.textContent = 'Ngày bắt đầu không thể lớn hơn ngày hiện tại.';
+            errorVolStartElement.style.display = 'block';
+            event.preventDefault(); 
+            return false;
+        }
+
+        
+        if (endVolun && endVolun <= startVolun) {
+            errorVolEndElement.textContent = 'Ngày kết thúc phải lớn hơn ngày bắt đầu.';
+            errorVolEndElement.style.display = 'block';
+            event.preventDefault(); 
+            return false;
+        }
+
+        return true;
+    });
+</script>
+
 <script>
     document.getElementById('upload').addEventListener('change', function (e) {
         // Get the selected file

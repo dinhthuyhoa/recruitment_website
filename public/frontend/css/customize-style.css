@@ -59,7 +59,7 @@ html {
 }
 
 .boxed-btn3:hover {
-    background: #fff;
+    /* background: #fff; */
     border: 1px solid #c14c00;
     /* color: var(--yellow) !important; */
 }
