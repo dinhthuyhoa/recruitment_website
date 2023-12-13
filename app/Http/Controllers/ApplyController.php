@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use App\Mail\FailedApplication;
+use App\Mail\PendingApplication;
 use App\Models\Apply;
 use App\Models\Post;
+use App\Models\PostMeta;
+
 use App\Models\Recruiter;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -129,53 +133,55 @@ class ApplyController extends Controller
     public function update_status($id, Request $request)
     {
         $apply = Apply::find($id);
-        $post = Post::find($apply->post_id);
-        $apply_status_old = $apply->status;
+        // $apply_status_old = $apply->status;
 
+        $post = Post::find($apply->post_id);
+        $post_meta = PostMeta::where('post_id', $post->id)->get();
+
+        $recruiter = User::find($post->user_id);
         $apply->update([
             'status' => $request->apply_status
         ]);
 
-        if ($apply_status_old != $request->apply_status && $request->apply_status == 'approved') {
+        // if ($apply_status_old != $request->apply_status) {
             $body = [
-                'result' => 'Đậu ứng tuyển',
+                'status' => $request->apply_status,
                 'candidate_name' => $apply->fullname,
+                'post' => $post,
+                'recruiter' => $recruiter,
                 'message' => $request->message,
             ];
-    
             $to = $apply->email;
-    // dd($body);
-            Mail::to($to)->send(new SendMail($body));
-            // Mail::send('emails.confirmApply', $body, function ($message) use ($to) {
-            //     $message->to($to)
-            //         ->subject('Information on application results');
-            // });
-    
-            return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
-        }
-    
-        if ($apply_status_old != $request->apply_status && $request->apply_status == 'failed') {
-            $body = [
-                'result' => 'Trượt ứng tuyển',
-                'candidate_name' => $apply->fullname,
-                'message' => $request->message,
-                'recruiter' => $post->user ? $post->user : '',
-            ];
-    
-            $to = $apply->email;
-    
-            if ($post->user) {
-                $to .= ',' . $post->user->email;
+
+            switch ($request->apply_status) {
+                case 'approved':
+                    $body['result'] = 'Đậu ứng tuyển';
+                    Mail::to($to)->send(new SendMail($body));
+                    return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
+                    break;
+            
+                case 'failed':
+                    $body['result'] = 'Trượt ứng tuyển';
+                    Mail::to($to)->send(new FailedApplication($body));
+                    return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
+                    break;
+            
+                case 'pending':
+                    $body['result'] = 'Chờ duyệt ứng tuyển';
+                    Mail::to($to)->send(new PendingApplication($body));
+                    return back()->with('success', 'Đã gửi mail chờ duyệt đến ứng viên');
+                    break;
+            
+                // Thêm các trạng thái khác nếu cần
+            
+                default:
+                    return back()->with('success', 'Cập nhật trạng thái thành công');
+                    break;
             }
-    
-            Mail::send('emails.confirmApply', $body, function ($message) use ($to) {
-                $message->to($to)
-                    ->subject('Information on application results');
-            });
-    
-            return back()->with('success', 'Đã gửi mail đến ứng viên và admin');
-        }
+        // }
     
         return back()->with('success', 'Cập nhật trạng thái thành công');
     }
+    
+
 }

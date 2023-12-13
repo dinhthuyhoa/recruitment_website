@@ -96,7 +96,7 @@ return [
     "address"=> "Address",
     "birthday"=> "Birthday",
     "notes"=> "Notes",
-    "message"=> "Message...",
+    "message"=> "Message",
     "attachments"=> "Attachments",
     "view_here"=> "View Here",
     "download_here"=> "Download Here",

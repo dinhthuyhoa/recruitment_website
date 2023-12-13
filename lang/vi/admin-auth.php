@@ -96,7 +96,7 @@ return [
     "address"=> "Địa Chỉ",
     "birthday"=> "Ngày Sinh",
     "notes"=> "Ghi Chú",
-    "message"=> "Nội dung...",
+    "message"=> "Nội dung",
     "attachments"=> "Tệp Đính Kèm",
     "view_here"=> "Xem Tại Đây",
     "download_here"=> "Tải Về Tại Đây",

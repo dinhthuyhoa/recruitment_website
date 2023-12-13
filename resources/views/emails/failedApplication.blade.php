@@ -14,7 +14,7 @@
 
     <p>{!! $body['message'] !!}</p>
 
-    <p>Cổng thông tin tuyển dụng Trường Công nghệ thông tin và Truyền thông chúc mừng bạn đã bước đầu chinh phục được phía nhà tuyển dụng <strong>{{$body['recruiter']['name']}}</strong>.</p>
+    <p>Cổng thông tin tuyển dụng Trường Công nghệ thông tin và Truyền thông và phía nhà tuyển dụng <strong>{{$body['recruiter']['name']}}</strong> chúc bạn sớm tìm được công việc phù hợp hơn.</p>
     <p>Chúc bạn thành công!</p>
 
     <p>Thân chuyển</p>

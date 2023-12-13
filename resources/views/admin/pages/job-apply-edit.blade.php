@@ -112,7 +112,16 @@
                                         @csrf
                                         <div class="d-flex flex-column" style="gap: 10px">
                                             <div class="col">
-                                                <textarea name="message" id="message" class="w-100" rows="10" placeholder="{{trans('admin-auth.message')}}"></textarea>
+                                                <!-- <textarea name="message" id="message" class="w-100" rows="10" placeholder="{{trans('admin-auth.message')}}"></textarea> -->
+                                                <div class="mb-3 col-12">
+                                                <style>
+                                .ck.ck-content {
+                                    min-height: 10em !important;
+                                }
+                            </style>
+                                <label for="content" class="form-label">{{trans('admin-auth.message')}} </label>
+                                <textarea class="form-control" id="content" rows="8" placeholder="{{trans('admin-auth.message')}}" name="message"></textarea>
+                            </div>
                                             </div>
                                             <div class="col">
                                                 <select name="apply_status" id="apply_status" class="form-control">
@@ -160,4 +169,20 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+{{-- CK_Editor --}}
+    <script>
+        ClassicEditor.create(document.querySelector('#content'), {
+                ckfinder: {
+                    uploadUrl: "{{ route('image.upload') . '?_token=' . csrf_token() }}",
+                },
+                mediaEmbed: {
+                    previewsInData: true
+                }
+            }).catch(error => {
+                console.log('123456');
+            });
+    </script>
 @endsection
