@@ -74,10 +74,11 @@
                                                     <div class="d-flex">
                                                         <div class="flex-shrink-0 me-3">
                                                             <div class="avatar avatar-online">
-                                                                <img src="{{ asset('storage/' . Auth::user()->avatar) }}"
-                                                                    alt class="w-px-40 h-auto rounded-circle"
-                                                                    width="40" height="40"
-                                                                    style="margin-right: 10px;" />
+                                                            <img src="{{ asset('avatar-default.png') }}"
+                                                                alt class="w-px-40 h-auto rounded-circle"
+                                                                width="40" height="40"
+                                                                style="margin-right: 10px;" />
+
                                                             </div>
                                                         </div>
                                                         <div class="flex-grow-1">

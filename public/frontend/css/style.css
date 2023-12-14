@@ -7582,9 +7582,9 @@ h6 {
 /*# sourceMappingURL=style.css.map */
 /* comment */
 .comment-list a {
-  /* background-color: #c07f00; */
-  /* border: 1px solid #c07f00; */
-  /* color: #fff !important; */
+  /* background-color: #c07f00;
+  border: 1px solid #c07f00;
+  color: #fff !important; */
 }
 
 .comment-list a:hover, .comment-list a:active, .comment-list a:focus {

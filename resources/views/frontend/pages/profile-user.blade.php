@@ -27,8 +27,14 @@
                 <div class="col-sm-4">
                     <div class="text-center">
                     @if (Auth::check() && Auth::user()->id == $user->id)
+                    @if($user->avatar)
                         <img src="{{ asset('storage/' . $user->avatar) }}" class="avatar img-thumbnail"
                             alt="avatar" style="width:300px; height:300px !important; border-radius: 25%" id="uploadedAvatar">
+                    @else
+                        <img src="{{ asset('avatar-default.png') }}" class="avatar img-thumbnail"
+                            alt="avatar" style="width:300px; height:300px !important; border-radius: 25%" id="uploadedAvatar">
+                    @endif
+
 
                             <h5 class="m-4 text-white">{{ __('profile.upload-a-different-photo') }}</h5>
                             <div class="button-wrapper d-flex justify-content-center align-items-center d-grid g-3">

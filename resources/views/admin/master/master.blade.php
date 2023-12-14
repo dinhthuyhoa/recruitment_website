@@ -5,7 +5,7 @@
 
 <head>
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.ico') }}">
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.png') }}"> -->
 
     @include('admin.master.head')
     @yield('css')

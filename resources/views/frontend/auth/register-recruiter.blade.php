@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.png') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/login/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!--===============================================================================================-->

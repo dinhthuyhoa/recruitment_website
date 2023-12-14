@@ -58,7 +58,7 @@
                         </div>
                         <div class="jobs_right">
                             <div class="apply_now">
-                                @if (Auth::check())
+                                @if (Auth::check() && Auth::user()->role == 'candidate')
                                 <a class="heart_mark" href="javascript:void(0);" onclick="change_favorite({{ $post->id }},{{ Auth::user()->id }}, this)">
                                     @if (Auth::user()->is_post_favorite($post->id))
                                     <i class="fa fa-heart"></i>
@@ -142,7 +142,9 @@
                             </div>
                         </form>
                         @else
-                        <a class="btn d-flex align-items-center justify-content-center" href="{{ route('login', ['url' => url()->full()]) }}">{{trans('comment.login_to_comments')}}</a>
+                        <a class="btn d-flex align-items-center justify-content-center" style="  background-color: #c07f00;
+  border: 1px solid #c07f00;
+  color: #fff !important;" href="{{ route('login', ['url' => url()->full()]) }}">{{trans('comment.login_to_comments')}}</a>
                         @endif
                     </div>
                 </div>
@@ -344,11 +346,11 @@
 
             if ($(this).data('hide-comment') == 'false') {
                 $('.comment-child-of-' + idComment).removeClass('d-none');
-                $(this).html('Hide all ' + countComment + ' comment');
+                $(this).html('Hide all ' + countComment + ' Comment(s)');
                 $(this).data('hide-comment', 'true')
             } else {
                 $('.comment-child-of-' + idComment).addClass('d-none');
-                $(this).html('Show all ' + countComment + ' comment');
+                $(this).html('Show all ' + countComment + ' Comment(s)');
                 $(this).data('hide-comment', 'false')
 
             }

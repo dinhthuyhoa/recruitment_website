@@ -269,7 +269,7 @@ class CheckoutController extends Controller
             if ($user) {
                 $user->update([
                     'status' => 'Active',
-                    'avatar' => 'https://mir-s3-cdn-cf.behance.net/user/276/d87edf482640497.5e306b1f7af1c.jpg',
+                    // 'avatar' => asset('avatar-default.png'),
                 ]);
                 Auth::login($user);
 
@@ -277,8 +277,8 @@ class CheckoutController extends Controller
             }
 
             $successMessage = 'Registration Successful';
-            // return view('frontend.pages.home', compact('successMessage'));
-            return redirect()->route('profile.user', $user['id']);
+            return view('frontend.pages.home', compact('successMessage'));
+            // return redirect()->route('profile.user', $user['id']);
         } else {
             return response()->json(['error' => 'Timeout information not found.']);
         }
@@ -408,7 +408,7 @@ public function extractTimeoutInfo($orderInfo)
         if ($user) {
             $user->update([
                 'status' => 'Active',
-                'avatar' => 'https://mir-s3-cdn-cf.behance.net/user/276/d87edf482640497.5e306b1f7af1c.jpg',
+                'avatar' => asset('avatar-default.png'),
             ]);
             Auth::login($user);
 

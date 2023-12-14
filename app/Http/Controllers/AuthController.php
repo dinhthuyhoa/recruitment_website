@@ -204,7 +204,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
                 'password' => Hash::make($request->password),
-                'avatar' => 'https://previews.123rf.com/images/krustovin/krustovin1801/krustovin180100057/94300911-hombre-con-corbata-icono-plano-de-hombre-de-negocios-hombre-en-traje-de-negocios-avatar-del-hombre.jpg',
+                // 'avatar' => asset('avatar-default.png'),
                 'role' => UserRole::Recruiter,
                 'status' => 'Pending',
             ]);

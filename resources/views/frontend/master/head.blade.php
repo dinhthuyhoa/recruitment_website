@@ -6,7 +6,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <!-- <link rel="manifest" href="site.webmanifest"> -->
-<link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.ico') }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo-flower.png') }}">
 <!-- Place favicon.ico in the root directory -->
 
 <!-- CSS here -->

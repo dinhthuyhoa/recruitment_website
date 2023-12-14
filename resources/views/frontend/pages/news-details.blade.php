@@ -29,7 +29,7 @@
                         <img class="img-fluid" src="{{ asset('storage/' . $post->post_image) }}" alt="">
                     </div>
                         <h2>{{ $post->post_title }}</h2>
-                        <ul class="blog-info-link mt-3 mb-4">
+                        <ul class="blog-info-link mt-3 mb-4 d-flex align-items-center justify-content-start w-25">
                             <li><span><i class="fa fa-user"></i> {{ $post->author }}</span></li>
                             <li><span><i class="fa fa-comments"></i> {{ count($post->comments) }}
                             {{trans('comment.comment')}}</span></li>
