@@ -41,23 +41,25 @@
                             <div class="mb-3 col-md-6">
                                 <label for="fullname" class="form-label">{{trans('admin-auth.full_name')}} *</label>
                                 <input class="form-control" type="text" id="fullname" name="name"
-                                    value="{{ $user->name }}" autofocus />
+                                    value="{{ $user->name }}" autofocus readonly />
                             </div>
                            <div class="mb-3 col-md-6">
                                 <label class="form-label" for="country">{{trans('admin-auth.role')}} *</label>
-                                <select id="country" class="select2 form-select py-0" style="height: 58%;" name="role">
+                                <input class="form-control" type="text" id="country" name="country"
+                                    value="{{ $user->role }}" autofocus readonly />
+                                <!-- <select id="country" class="select2 form-select py-0" style="height: 58%;" name="role">
                                     @foreach (\App\Enums\UserRole::toSelectArray() as $k => $role)
                                         <option value="{{ $k }}" {{ $user->role == $k ? 'selected' : '' }}>
                                             {{ $role }}
                                         </option>
                                     @endforeach
-                                </select>
+                                </select> -->
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="phone" class="form-label">{{trans('admin-auth.phone')}} *</label>
                                 <input class="form-control" type="text" name="phone" id="phone"
-                                    value="{{ $user->phone }}" />
+                                    value="{{ $user->phone }}" readonly />
                                     <small><span id="err-phone" class="text-danger"></span></small>
                             </div>
                             <div class="mb-3 col-md-6">
@@ -90,7 +92,8 @@
                             @endif
                             <div class="mb-3 col-md-6">
                                 <label for="status" class="form-label">{{trans('admin-auth.status')}}</label>
-                                <select id="status" name="status" class="select2 form-select">
+                                @if($user->status == 'Pending')
+                                <select id="status" name="status" class="select2 form-select py-0" style="height: 58%;">
                                     <option value="Active" {{ $user->status == 'Active' ? 'selected' : '' }}>{{trans('admin-auth.active')}}
                                     </option>
                                     <option value="Pending" {{ $user->status == 'Pending' ? 'selected' : '' }}>{{trans('admin-auth.pending')}}</option>
@@ -98,6 +101,10 @@
                                     <!-- <option value="Deactive" {{ $user->status == 'Deactive' ? 'selected' : '' }}>{{trans('admin-auth.inactive')}}
                                     </option> -->
                                 </select>
+                                @else
+                                <input class="form-control" type="text" id="status" name="status"
+                                    value="{{ $user->status }}" autofocus readonly />
+                                @endif
                             </div>
                         </div>
                         <div class="mt-2">

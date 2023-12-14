@@ -185,12 +185,26 @@ class PostController extends Controller
     // =================================== Frontend Recuitment ============================================
     public function recruitment_post_list(Request $request)
     {
-        $all_posts = Post::where([
-            ['post_type', PostCategory::Recruitment],
-            ['post_status', 'publish']
-        ])->get();
+        // dd($request);
+        // $all_posts = Post::where([
+        //     ['post_type', PostCategory::Recruitment],
+        //     ['post_status', 'publish']
+        // ])->get();
 
+        // // dd($all_posts);
+        // foreach ($all_posts as $post) {
+        //     $user[] = User::find($post->user_id);
+        // }
+        $all_posts = Post::join('users', 'posts.user_id', '=', 'users.id')
+        ->where([
+            ['posts.post_type', PostCategory::Recruitment],
+            ['posts.post_status', 'publish'],
+            ['users.status', 'Active'] // Điều kiện để lấy những user có trạng thái Active
+        ])
+        ->select('posts.*') // Chọn tất cả các cột từ bảng posts
+        ->get();
         // dd($all_posts);
+    
         $count_post = count($all_posts);
 
         $tags = Tag::where('tag_category', 'post-recruiment')->orderBy('tag_name')->get();
