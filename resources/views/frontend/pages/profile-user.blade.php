@@ -323,6 +323,7 @@
                             <li class="active fs-3 fw-bold"><a data-toggle="tab" href="#home">{{ __('profile.profile') }}</a></li>
                             @if (Auth::check() && Auth::user()->id == $user->id && Auth::user()->role == 'candidate')
                                 <li class="fs-3 fw-bold"><a data-toggle="tab" href="#post-favorite">{{ __('profile.post-favorite') }}</a></li>
+                                <li class="fs-3 fw-bold"><a data-toggle="tab" href="#apply">{{ __('profile.apply') }}</a></li>
                             @endif
                         </ul>
 
@@ -439,6 +440,88 @@
                                                                 </div>
                                                             </li>
                                                         @endforeach
+
+                                                            @else
+                                                                <h3>Not found post</h3>
+                                                            @endif
+
+                                                        </div>
+
+                                                        @if (count($posts) > 5)
+                                                            <nav class="pagination-container">
+                                                                <button class="pagination-button" id="prev-button"
+                                                                    aria-label="Previous page" title="Previous page">
+                                                                    &lt;
+                                                                </button>
+
+                                                                <div id="pagination-numbers">
+
+                                                                </div>
+
+                                                                <button class="pagination-button" id="next-button"
+                                                                    aria-label="Next page" title="Next page">
+                                                                    &gt;
+                                                                </button>
+                                                            </nav>
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if (Auth::check() && Auth::user()->id == $user->id )
+                                <!--/tab-pane-->
+                                <div class="tab-pane" id="apply">
+                                    <div class=" plus_padding">
+                                        <div class="container" style="width: 100% !important;">
+                                            <div class="row ">
+                                                <div class="col-12">
+                                                    <div class="job_lists m-0">
+                                                        <div class="row mt-4" id="paginated-list" data-current-page="1"
+                                                            aria-live="polite">
+                                                            @if (count($posts) > 0)
+                                                            @foreach($appliedPosts as $appliedPost)
+                                                                <li class="col-lg-12 col-md-12 item_list_jobs">
+                                                                    <div class="single_jobs white-bg d-flex justify-content-between" style="height: 100px;">
+                                                                        <div class="jobs_left d-flex align-items-center col-8">
+                                                                            <div class="thumb">
+                                                                                <img src="{{ asset('storage/' . $appliedPost->post_image) }}" alt="">
+                                                                            </div>
+                                                                            <div class="jobs_conetent">
+                                                                                <a href="{{ route('posts.recruitment.details', $appliedPost->id) }}">
+                                                                                    <h4 class="job-title-item" style="font-size: 18px;">
+                                                                                        {{ $appliedPost->post_title }}
+                                                                                    </h4>
+                                                                                </a>
+                                                                                <div class="date">
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="jobs_right">
+                                                                            <div class="apply_now">
+                                                                                @if (Auth::check())
+                                                                                    <a class="heart_mark"
+                                                                                        href="javascript:void(0);"
+                                                                                        onclick="change_favorite({{ $appliedPost->id }},{{ Auth::user()->id }}, this)">
+                                                                                        @if (Auth::user()->is_post_favorite($appliedPost->id))
+                                                                                            <i class="fa fa-heart"></i>
+                                                                                        @else
+                                                                                            <i class="ti-heart"></i>
+                                                                                        @endif
+                                                                                    </a>
+                                                                                @endif
+                                                                                <a href="{{ route('posts.recruitment.details', $appliedPost->id) }}/#apply_job"
+                                                                                    class="boxed-btn3">Apply Now</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+
 
                                                             @else
                                                                 <h3>Not found post</h3>

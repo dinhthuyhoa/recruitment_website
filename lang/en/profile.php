@@ -51,5 +51,7 @@ return [
     'hobby_modal_title' => 'Hobbies',
     'hobby_name' => 'Hobby Name',
 
-    'updating' => 'The information has not been updated'
+    'updating' => 'The information has not been updated',
+
+    'apply' => 'List of Application',
 ];

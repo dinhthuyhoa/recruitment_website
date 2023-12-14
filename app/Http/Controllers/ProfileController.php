@@ -9,6 +9,7 @@ use App\Models\VolunteerActivity;
 use App\Models\WorkExperience;
 use App\Models\Skill;
 use App\Models\Hobby;
+use App\Models\Apply;
 use App\Models\PostMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -281,7 +282,14 @@ class ProfileController extends Controller
         $user = User::find($id);
         // dd($user);
         $posts = Post::all();
+        $applies = Apply::where('user_id', $user->id)->get();
+        $appliedPosts = [];
 
+        // Lặp qua danh sách các đơn apply để lấy thông tin của bài post
+        foreach ($applies as $apply) {
+            $postId = $apply->post_id;
+            $appliedPosts[] = Post::find($postId);
+        }
         $postMetas = [];
         $posts = $posts->filter(function ($post) use ($user, &$postMetas) {
         
@@ -310,6 +318,7 @@ class ProfileController extends Controller
         });
 
 
+
         $educationInfo = $user ? EducationUser::where('user_id', $user->id)->first() : null;
         // dd($educationInfo);
         $workInfo = $user ? WorkExperience::where('user_id', $user->id)->first() : null;
@@ -317,6 +326,7 @@ class ProfileController extends Controller
         $skillInfo = $user ? Skill::where('user_id', $user->id)->first() : null;
         $hobbyInfo = $user ? Hobby::where('user_id', $user->id)->first() : null;
         return view('frontend.pages.profile-user', [
+            'appliedPosts' => $appliedPosts,
             'user' => $user,
             'posts' => $posts,
             'postMetas' => $postMetas,
@@ -328,5 +338,10 @@ class ProfileController extends Controller
         ]);
     }
 
-    
+    // Trong Model Post
+public function meta()
+{
+    return $this->hasOne(PostMeta::class, 'post_id');
+}
+
 }

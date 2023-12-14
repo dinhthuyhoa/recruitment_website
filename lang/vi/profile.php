@@ -51,5 +51,7 @@ return [
     'hobby_modal_title' => 'Sở Thích',
     'hobby_name' => 'Tên Sở Thích',
 
-    'updating' => 'Chưa cập nhật thông tin'
+    'updating' => 'Chưa cập nhật thông tin',
+
+    'apply' => 'Bài viết ứng tuyển',
 ];

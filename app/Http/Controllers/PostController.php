@@ -199,9 +199,9 @@ class PostController extends Controller
         ->where([
             ['posts.post_type', PostCategory::Recruitment],
             ['posts.post_status', 'publish'],
-            ['users.status', 'Active'] // Điều kiện để lấy những user có trạng thái Active
+            ['users.status', 'Active'] 
         ])
-        ->select('posts.*') // Chọn tất cả các cột từ bảng posts
+        ->select('posts.*') 
         ->get();
         // dd($all_posts);
     
